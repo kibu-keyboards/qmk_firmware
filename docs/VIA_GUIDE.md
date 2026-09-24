@@ -1,5 +1,7 @@
 # P75 JIS — VIA Setup
 
+> Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Translated and clarified the English VIA setup instructions; added Japanese customer guidance. Original authorship and license notices are retained.
+
 This guide applies to the P75 JIS PRE-FIX01 firmware and the [matching VIA definition](../artifacts/kibu_p75_jis_via_pre_fix01.json), VID/PID `36B0` / `3156`. Configuration requires wired USB. Bluetooth and 2.4 GHz are input connections; wireless configuration is not supported.
 
 ## Connect and load the definition
@@ -31,3 +33,5 @@ The firmware retains its original device names. Spaces or other historical namin
 ## 日本語
 
 キーボードをUSB有線モードに切り替え、データ通信対応のUSBケーブルで接続してください。ChromeまたはEdgeで [VIA](https://usevia.app/) を開き、設定の `Show Design tab` を有効にして **Design** から同梱の `kibu_p75_jis_via_pre_fix01.json` を読み込みます。**Configure** に戻り、USBデバイスへのアクセスを許可してP75 JIS（VID `36B0`／PID `3156`）を選択し、JIS配列が表示されることを確認してください。設定はUSB接続のみ対応し、Bluetooth／2.4 GHz経由では行いません。この手順はメーカー提供定義の手動読み込みであり、VIA公式データベースへの登録を意味しません。ソース内の旧 `P75 JIS.JSON` には `MW_CH` が欠けているため使用せず、必ず指定ファイルをご利用ください。デバイス定義は個人設定のバックアップとは異なります。既存のキー割り当てを残す場合は、変更前にVIAで保存してください。認識されない場合は接続モード、ケーブル、アクセス許可、読み込んだ定義を確認し、表示名と再現手順を添えて [KIBUサポート](https://kibushop.com/pages/contact) へご連絡ください。本資料の利用だけを目的としたファームウェアの書き換えは不要です。
+
+変更記録：KIBU（kibu-keyboards、M@kibu.jp）が2026年9月24日に本資料の英訳・編集および日本語案内の追加を行いました。原著者の表記、著作権表示、ライセンス表示は保持しています。

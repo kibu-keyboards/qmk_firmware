@@ -1,5 +1,7 @@
 # Hardware Revision Notes (Historical)
 
+> Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Translated the historical reference text into English and assigned a readable English filename. Original authorship and license notices are retained.
+
 These engineering notes were delivered with the product source. They describe
 historical hardware/firmware combinations and changes; they are not validation
 results for the published 0812 snapshot. For the current release build procedure,

@@ -1,5 +1,7 @@
 # Building the 0812 Baseline
 
+> Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Translated and clarified the English build instructions and reference-output documentation. Original authorship and license notices are retained.
+
 The build target is `p75_jis/p75_jis:via`. QMK, FS026, ChibiOS, ChibiOS-Contrib, and the product bridge implementation are included in this package. Build these fixed files; do not run `git submodule update` to substitute a different dependency revision. The build does not depend on the Web project or a private product object/archive.
 
 ## Pinned inputs

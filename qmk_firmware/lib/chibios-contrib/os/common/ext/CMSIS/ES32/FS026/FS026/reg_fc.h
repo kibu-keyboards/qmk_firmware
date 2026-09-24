@@ -1,3 +1,9 @@
+/*
+ * Modified by KIBU (kibu-keyboards) <M@kibu.jp> on 2026-09-24.
+ * Changes: Translated and clarified existing comments in English.
+ * No executable code was changed by this comment revision.
+ * Original authorship, copyright, and license notices are retained below.
+ */
 /**********************************************************************************
  *
  * @file    reg_fc.h

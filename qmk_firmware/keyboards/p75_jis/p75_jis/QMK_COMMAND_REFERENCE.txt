@@ -1,5 +1,7 @@
 QMK COMMAND REFERENCE (HISTORICAL)
 
+Modified by KIBU (kibu-keyboards) <M@kibu.jp> on 2026-09-24. Changes: Translated the historical reference text into English and assigned a readable English filename. Original authorship and license notices are retained.
+
 This file preserves engineering notes delivered with the product source.
 The commands, example keyboards, and lighting descriptions below are historical
 reference material, not the build procedure for the 0812 release. Use

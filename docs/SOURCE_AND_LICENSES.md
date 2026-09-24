@@ -1,5 +1,7 @@
 # Source Provenance and License Notices
 
+> Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Translated and clarified the English provenance and component-license documentation. Original authorship and license notices are retained.
+
 ## Baseline and scope
 
 This package derives from `qmk_firmware_pre_fix01_exact_source_20260807.zip`, SHA-256 `B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846`, supplied with the August 12, 2026 PRE-FIX01 package.
