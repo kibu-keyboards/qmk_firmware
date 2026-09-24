@@ -1,20 +1,24 @@
-# PRE-FIX01 已知问题
+# PRE-FIX01 Known Issues
 
-本页适用于固定 0812 源码与配套 BIN。以下是源码检查得到的风险，本次未修改相关行为，也未进行故障注入或新的实机复现；历史样机反馈正常不能排除这些风险。源码行号按原文件规范化换行后计数。
+These findings apply to the 0812 source baseline and its reference BIN. They are risks identified from source inspection, not claims that each failure was reproduced on hardware. This release does not change the affected behavior or add fault-injection testing. Reports of normal sample operation do not rule out these conditions. Line references use the original files with normalized line endings; comment translations retain their positions where practicable.
 
-实现入口：[rdr_common.c](../qmk_firmware/lib/rdr_lib/rdr_common.c)、[rdr_common.h](../qmk_firmware/lib/rdr_lib/rdr_common.h)。
+Implementation: [rdr_common.c](../qmk_firmware/lib/rdr_lib/rdr_common.c) and [rdr_common.h](../qmk_firmware/lib/rdr_lib/rdr_common.h).
 
-| 问题 | 源码依据与可能影响 |
+| Finding | Evidence and potential impact |
 | --- | --- |
-| 队列记录与 SPI 读取长度不一致 | H 第 32、345–346 行定义 64 字节帧及 40 个 24 字节槽；C 第 427 行只复制 24 字节，第 699 行从队列槽传入 64 字节长度。可能读到相邻槽，末槽可能超出数组边界；较长报告只有前 24 字节进入队列。FIX1 的清零暂存缓冲修复不在本包。 |
-| SPI 轮询无超时 | C 第 646–675 行的 `es_spi_send_recv_by_dma` 名称含 DMA，但函数主体实际在关中断后轮询 FIFO；等待没有超时。对端异常可能阻塞 MCU。历史说明将前一项称为“64 字节 DMA 读取”，本页按实际函数体描述为 SPI 读取。 |
-| USB 挂起等待无超时 | C 第 1349–1350 行等待 DMA 状态位，没有超时退出；异常状态可能阻塞挂起处理。 |
-| 队列满时丢弃新报告 | C 第 395–396 行在队列满时直接返回；可能丢失按下或释放等报告，是否产生持续按键等用户可见异常仍需针对实机验证。 |
-| USB 唤醒时层与键码处理有限 | C 第 1511、1514 行读取第 0 层键码，并以 `uint8_t` 承接；活动层与大于 8 位的键码处理可能不符合预期。 |
-| 状态解析缺少独立完整性验证 | C 第 766–835、1615 行所示调用和解析没有独立的长度／完整性检查；异常或不完整状态帧的处理尚未验证。 |
+| Queue-record size differs from the SPI read length | Header lines 32 and 345–346 define 64-byte frames and forty 24-byte slots. C line 427 copies only 24 bytes; line 699 passes a queue slot with a 64-byte length. The read can include adjacent slots or extend beyond the final slot; reports longer than 24 bytes are truncated on enqueue. The FIX1 zero-initialized staging-buffer fix is not included. |
+| SPI polling has no timeout | `es_spi_send_recv_by_dma` at C lines 646–675 disables interrupts and polls the FIFO, despite its name. The waits have no timeout; an unresponsive peer can stall the MCU. Historical notes call the preceding finding a “64-byte DMA read”; this document describes the actual SPI implementation. |
+| USB suspend wait has no timeout | C lines 1349–1350 wait for a DMA status bit without a timeout. An abnormal state can block suspend handling. |
+| A full queue drops new reports | C lines 395–396 return immediately when the queue is full. Key-down or key-up reports may be lost; user-visible effects such as a held key require targeted device testing. |
+| USB wake uses limited layer/keycode handling | C lines 1511 and 1514 read a layer-0 keycode into `uint8_t`. Active-layer selection and keycodes wider than eight bits may not be handled as intended. |
+| Status parsing lacks a separate integrity check | The call and parsing paths at C lines 766–835 and 1615 do not perform a separate length/integrity check. Handling of malformed or incomplete status frames has not been validated. |
 
-本基准没有移植后续 Raw HID／旋钮、BLE 名称迁移或 FS026 guard 修复。较新版本的问题或修复记录不能直接认定为本版本实测结果。
+Later Raw HID/encoder fixes, Bluetooth-name migration, and FS026 guard changes have not been backported. Results from a different firmware revision do not establish this baseline's behavior.
 
-VIA 仅在有线 USB 模式配置。手动 JSON 兼容不代表 VIA 官方收录，也不代表自家网页高级功能已通过验收。配套 JSON 已补齐 `MW_CH`，应使用[外部配套文件](../artifacts/kibu_p75_jis_via_pre_fix01.json)，不要用源码内历史 `P75 JIS.JSON` 代替。
+VIA configuration is supported over wired USB only. Manual definition loading does not imply inclusion in VIA's official database or validation of KIBU's advanced Web features. Use the [supplied definition](../artifacts/kibu_p75_jis_via_pre_fix01.json), which includes `MW_CH`, rather than the historical `P75 JIS.JSON` inside the source snapshot.
 
-出现问题可通过[售后入口](https://kibushop.com/pages/contact)提供型号、连接模式、固件／JSON 版本、复现步骤和现象。本资料不要求消费者仅为名称或源码公开而刷机。
+Report issues through [KIBU support](https://kibushop.com/pages/contact), including the model, connection mode, firmware/JSON versions, reproduction steps, and observed behavior. Customers do not need to flash firmware solely because the source has been published or a device name differs.
+
+## 日本語
+
+本ページは0812版PRE-FIX01に残る、ソースコード調査で確認されたリスクを整理したものです。キューの24バイト記録とSPIの64バイト読み出しの不一致、SPIおよびUSBサスペンド処理のタイムアウト不足、キュー満杯時のレポート破棄、USB復帰時のレイヤー／キーコード処理の制約、状態フレームの検証不足が該当します。各現象を実機で再現したという意味ではなく、今回これらの動作は変更していません。基本動作の確認だけで、まれな障害が発生しないことまでは保証できません。VIAの設定にはUSB有線接続と同梱のデバイス定義を使用してください。問題が生じた場合は、接続方式、使用バージョン、再現手順を添えて [KIBUサポート](https://kibushop.com/pages/contact) へご連絡ください。ソース公開や表示名の違いだけを理由に、ファームウェアを書き換える必要はありません。

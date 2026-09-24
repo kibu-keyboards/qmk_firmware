@@ -1,0 +1,95 @@
+QMK COMMAND REFERENCE (HISTORICAL)
+
+This file preserves engineering notes delivered with the product source.
+The commands, example keyboards, and lighting descriptions below are historical
+reference material, not the build procedure for the 0812 release. Use
+../../../../docs/BUILD.md at the repository root for the release build procedure
+and pinned dependencies. Effect numbers here are not a current product API
+contract and do not imply that every effect is enabled on P75 JIS.
+
+Dependency repository links recorded in the original notes:
+    https://github.com/qmk/ChibiOS
+    https://github.com/qmk/ChibiOS-Contrib
+    https://github.com/qmk/googletest
+    https://github.com/qmk/lufa
+    https://github.com/qmk/lvgl.git
+    https://github.com/qmk/pico-sdk.git
+    https://github.com/qmk/printf
+    https://github.com/qmk/v-usb
+
+Historical command examples:
+    qmk setup
+        Set up a QMK firmware checkout; this does not select the pinned release.
+    qmk doctor
+        Check the QMK development environment.
+    qmk compile -kb dotmod/dymium65 -km default
+    qmk compile -kb essemi/dm65 -km via
+        Compile the specified example keyboard and keymap.
+    qmk info -kb dotmod/dymium65 -m
+    qmk info -kb essemi/ -m
+        Inspect matrix information. These are archived examples, not P75 targets.
+
+Keycode aliases recorded in the original notes:
+    #define KC_K29 	KC_BACKSLASH
+    #define KC_K42 	KC_NONUS_HASH
+    #define KC_K45 	KC_NONUS_BACKSLASH
+    #define KC_K56 	KC_INTERNATIONAL_1
+    #define KC_K133	KC_INTERNATIONAL_2
+    #define KC_K14  KC_INTERNATIONAL_3
+    #define KC_K132	KC_INTERNATIONAL_4
+    #define KC_K131	KC_INTERNATIONAL_5
+    #define KC_K151	KC_LANGUAGE_1
+    #define KC_K150	KC_LANGUAGE_2
+
+Historical lighting-effect descriptions:
+    [ "none", 0 ],  // Backlight off
+    [ "solid_color", 1 ],  // Static pink
+    [ "alphas_mods", 2 ],  // Static cyan
+    [ "gradient_up_down", 3 ],  // Single-color meteor trail
+    [ "gradient_left_right", 4 ],  // Single-color wave
+    [ "breathing", 5 ],  // Pink breathing
+    [ "band_sat", 6 ],  // Pink wave on a white background
+    [ "band_val", 7 ],  // Pink wave on a black background
+    [ "band_pinwheel_sat", 8 ],  // Pink winding path on a white background
+    [ "band_pinwheel_val", 9 ],  // Pink winding path on a black background
+    [ "band_spiral_sat", 10 ],  // Pink pinwheel on a white background
+    [ "band_spiral_val", 11 ],  // Pink pinwheel on a black background
+    [ "cycle_all", 12 ],  // Spectrum
+    [ "cycle_left_right", 13 ],  // Wave (default)
+    [ "cycle_up_down", 14 ],  // Meteor trail
+    [ "cycle_out_in", 15 ],  // Arrow-shaped wave
+    [ "cycle_out_in_dual", 16 ],  // Converging pattern
+    [ "rainbow_moving_chevron", 17 ],  // Dual-center convergence
+    [ "cycle_pinwheel", 18 ],  // Rotation
+    [ "cycle_spiral", 19 ],  // Pinwheel
+    [ "dual_beacon", 20 ],  // Geometric rotation
+    [ "rainbow_beacon", 21 ],  // Dual-layer geometric rotation
+    [ "rainbow_pinwheels", 22 ],  // Dual-center geometric pattern
+    [ "flower_blooming", 23 ],  // Blooming flowers
+    [ "raindrops", 24 ],  // Multicolor raindrops
+    [ "jellybean_raindrops", 25 ],  // Bright multicolor raindrops
+    [ "hue_breathing", 26 ],  // Breathing spectrum
+    [ "hue_pendulum", 27 ],  // Side-to-side motion
+    [ "hue_wave", 28 ],  // Slow side-to-side motion
+    [ "pixel_fractal", 29 ],  // Random raindrops
+    [ "pixel_flow", 30 ],  // Wisp effect
+    [ "pixel_rain", 31 ],  // Multicolor raindrops with a wisp-like appearance
+    [ "typing_heatmap", 32 ],  // Key-triggered effect
+    [ "digital_rain", 33 ],  // Meteor shower
+    [ "solid_reactive_simple", 34 ],  // Single-key pink illumination
+    [ "solid_reactive", 35 ],  // Pink background with yellow keypress illumination
+    [ "solid_reactive_wide", 36 ],  // Pink reactive illumination
+    [ "solid_reactive_multiwide", 37 ],  // Pink reactive illumination with faster decay
+    [ "solid_reactive_cross", 38 ],  // Pink reactive cross
+    [ "solid_reactive_multicross", 39 ],  // Pink reactive cross with faster decay
+    [ "solid_reactive_nexus", 40 ],  // Pink reactive cross with gradual expansion
+    [ "solid_reactive_multinexus", 41 ],  // Pink reactive cross with gradual expansion and faster decay
+    [ "splash", 42 ],  // Multicolor ripple
+    [ "multisplash", 43 ],  // Two multicolor ripples
+    [ "solid_splash", 44 ],  // Single-color pink ripple
+    [ "solid_multisplash", 45 ],  // Two single-color pink ripples
+    [ "starlight", 46 ],  // Pink raindrops over a background
+    [ "starlight_dual_hue", 47 ],  // Pink raindrops on a white background
+    [ "starlight_dual_sat", 48 ],  // Random-color raindrops on a yellow/purple background
+    [ "riverflow", 49 ],  // Diagonal right-to-left wave on a purple background
+    [ "condition of rest", 50 ]  // Disabled state

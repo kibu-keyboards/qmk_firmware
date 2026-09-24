@@ -242,18 +242,18 @@ __attribute__((weak)) void via_custom_value_command(uint8_t *data, uint8_t lengt
 #endif // RGBLIGHT_ENABLE
 
 #if defined(RGB_MATRIX_ENABLE)
-    if (*channel_id == id_qmk_rgb_matrix_channel) {         //VIA 修改 背光
+    if (*channel_id == id_qmk_rgb_matrix_channel) {         //Update backlighting through VIA.
         via_qmk_rgb_matrix_command(data, length);
         return;
     }
 #if LOGO_LED_ENABLE
-    else if (*channel_id == id_qmk_rgblight_channel) {   //用户自定义 VIA 修改 LOGO灯 占用 backlight接口
+    else if (*channel_id == id_qmk_rgblight_channel) {   //Route the VIA RGB-light channel to the custom logo-lighting handler.
         User_Via_Qmk_Logo_Command(data, length);
         return;
     }
 #endif
 #if SIDE_LED_ENABLE
-    else if (*channel_id == id_qmk_audio_channel) {   //用户自定义 VIA 修改 SIDE灯 占用 rgblight接口
+    else if (*channel_id == id_qmk_audio_channel) {   //Route the VIA audio channel to the custom side-lighting handler.
         User_Via_Qmk_Side_Command(data, length);
         return;
     }
@@ -679,7 +679,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 
     // Return the same buffer, optionally with values changed
     // (i.e. returning state to the host, or the unhandled state).
-    // 2.4GVIA协议防止灯光卡死
+    // Prevent lighting from stalling during 2.4 GHz VIA communication.
     if (Keyboard_Info.Key_Mode == QMK_USB_MODE) {
         raw_hid_send(data, length);
     }

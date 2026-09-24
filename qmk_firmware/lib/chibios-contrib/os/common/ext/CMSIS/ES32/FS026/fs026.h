@@ -177,7 +177,7 @@ typedef enum IRQn
 #define AHB2_BASE         (0x48000000UL)
 #define CM0IN_BASE        (0xE0000000UL)
 
-/* Cortex簧-M0 internal Peripherals - CM0IN_BASE: 0xE0000000*/
+/* Cortex-M0 internal Peripherals - CM0IN_BASE: 0xE0000000*/
 #define TICK_BASE         (CM0IN_BASE     + 0xE010)
 
 #define SRAM1_BASE        (SRAM_BASE      + 0x0000)   // SRAM1 Memory ( 8K Bytes)

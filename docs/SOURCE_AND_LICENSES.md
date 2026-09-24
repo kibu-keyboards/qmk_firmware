@@ -1,39 +1,39 @@
-# 来源与许可
+# Source Provenance and License Notices
 
-## 发布范围与基准
+## Baseline and scope
 
-本副本来自 `qmk_firmware_pre_fix01_exact_source_20260807.zip`，SHA-256 为 `B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846`，随 2026-08-12 PRE-FIX01 包交付。产品负责人已确认其为量产所用源码；该来源确认与本轮构建、实机或许可核验分别记录。
+This package derives from `qmk_firmware_pre_fix01_exact_source_20260807.zip`, SHA-256 `B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846`, delivered with the August 12, 2026 PRE-FIX01 package. The product owner identified it as the source used for production. That attestation is recorded separately from build reproducibility, device testing, and license verification.
 
-原 ZIP 含 22,260 个文件；排除 9 个失效的 `.git` 指针后，副本保留 22,251 个原文件。原指针另存于整理证据中；这不构造新的生产 Git 历史。源码的程序文本变更仅为 P75 编码器片段补充 QMK 原作者／来源注释，不改变行为。原 ZIP 保持不变；副本不再声称与原 ZIP 每个字节相同。未提供可确证的生产 commit、tag 或完整依赖 revision，不能从失效指针或较新开发树推断。
+The original ZIP contained 22,260 files. Excluding nine unusable `.git` pointer files left 22,251 original files in the publication copy. Those pointer records and the original archive remain in the project evidence. Their removal does not establish a production Git history. The initial preparation added upstream attribution to the P75 encoder excerpts without changing behavior. This English revision additionally translates product comments and documentation and renames two product-reference documents; executable code is unchanged. The publication copy is not represented as byte-identical to the original ZIP. No verified production commit, tag, or complete set of dependency revisions has been supplied or inferred.
 
-本包的 [QMK/FS026 源码](../qmk_firmware/)包括产品代码、平台支持、USB 输入、SPI 协议、BLE／2.4G 模式及报告桥接。独立 91680 无线控制器内部固件未包含、内部状态为 NOT AUDITED；不能把 FS026 侧源码公开解释为整机全部开源，也不能据此断言 QMK 的名单决定。
+The [QMK/FS026 source](../qmk_firmware/) includes product code, platform support, USB input, the SPI protocol, and Bluetooth/2.4 GHz mode and report bridging. Internal firmware for the separate 91680 wireless controller is not included and remains **NOT AUDITED**. Publishing the FS026 source does not establish that the entire product is open source or determine how QMK will classify it.
 
-## 原作者与许可通知
+## Retained authorship and notices
 
-| 组件 | 已有声明与保留方式 |
+| Component | Notices and treatment |
 | --- | --- |
-| QMK | 保留 [GPL v2 许可文本](../qmk_firmware/LICENSE)及各文件版权／许可声明；不同组件以其原文件声明为准。 |
-| P75 产品代码 | 保留 Finalkey、LiWenLiu、Yiancar 和其他现有作者通知。产品增量与 JSON 的权利范围不能仅凭片段来源推定。 |
-| P75 编码器片段 | 对应同包 [QMK encoder_quadrature.c](../qmk_firmware/drivers/encoder/encoder_quadrature.c) 的四段代码；补充 Jack Humbert（2018）和 Nick Brassel（2018–2023）及 GPL-2.0-or-later 来源说明，保留原产品作者。 |
-| ChibiOS | 保留 [原许可说明](../qmk_firmware/lib/chibios/license.txt)、文件头和随附通知。 |
-| ChibiOS-Contrib／FS026 | 保留 [Contrib 原说明](../qmk_firmware/lib/chibios-contrib/README.md)及各文件声明。已核对的 120 个 FS026 路径中，103 个有 Apache 文本／声明，2 个为空占位文件，15 个非空文件的许可覆盖未查明。 |
-| rdr_common | [C 实现](../qmk_firmware/lib/rdr_lib/rdr_common.c)已有 `GPL-2.0-or-later` SPDX；0812 [头文件](../qmk_firmware/lib/rdr_lib/rdr_common.h)没有后续版本的 SPDX，不猜测其作者或补写无依据的许可。 |
+| QMK | Retain the [GPL v2 text](../qmk_firmware/LICENSE) and each file's copyright/license notices. Individual component declarations remain authoritative. |
+| P75 product code | Retain existing Finalkey, LiWenLiu, Yiancar, and other author notices. Rights covering the product-specific changes and JSON cannot be inferred solely from the origin of individual excerpts. |
+| P75 encoder excerpts | Four excerpts correspond to the bundled [encoder_quadrature.c](../qmk_firmware/drivers/encoder/encoder_quadrature.c). Attribution to Jack Humbert (2018), Nick Brassel (2018–2023), and the GPL-2.0-or-later source was added while retaining the product authors. |
+| ChibiOS | Retain the [original license information](../qmk_firmware/lib/chibios/license.txt), file headers, and accompanying notices. |
+| ChibiOS-Contrib / FS026 | Retain the [Contrib documentation](../qmk_firmware/lib/chibios-contrib/README.md) and file-level notices. Of 120 examined FS026 paths, 103 contain Apache text/notices, two are empty placeholders, and license coverage for 15 nonempty files remains unresolved. |
+| rdr_common | The [C implementation](../qmk_firmware/lib/rdr_lib/rdr_common.c) carries `GPL-2.0-or-later` SPDX. The 0812 [header](../qmk_firmware/lib/rdr_lib/rdr_common.h) lacks the SPDX notice seen in later versions; no unsupported author or license declaration has been added. |
 
-这些说明不替代各组件原许可文本，也不将整包统一改署 KIBU。所有原有许可和版权通知继续保留。
+This document does not replace the original license texts or reattribute the package to KIBU. All existing copyright and license notices are retained.
 
-## rdr 恢复／重实现说明
+## rdr recovery and reimplementation
 
-`lib/rdr_lib/rdr_common.c` 是原 `librdrcommon.a` 的恢复／重实现 C 版本，通过源码直接编译。范围包括 QMK 报告转发、无线控制器 SPI 交互、模式和配对命令、电池、电源、USB 挂起／唤醒及持久化等。它不是重新取得的厂家原始 C 文件，也不能以源码存在推定原 archive／object 的完整权利链。
+`lib/rdr_lib/rdr_common.c` is a recovered/reimplemented C replacement for `librdrcommon.a`, compiled directly from source. It covers QMK report forwarding, wireless-controller SPI communication, mode/pairing commands, battery and power handling, USB suspend/wake, and persistence. It is not a newly obtained copy of the manufacturer's original C source. Its availability does not establish the complete rights chain for the original archive/object inputs.
 
-随包 [恢复说明](../qmk_firmware/REIMPLEMENTATION_STATUS.md)、[实现说明](../qmk_firmware/lib/rdr_lib/README.md)和[静态验证记录](../qmk_firmware/VERIFICATION.txt)保留历史形成过程。历史记录记载 164／164 外部符号及源码构建结果，只能按原记录的日期和范围引用；本轮结果见[构建说明](BUILD.md)。
+The bundled [reimplementation record](../qmk_firmware/REIMPLEMENTATION_STATUS.md), [implementation notes](../qmk_firmware/lib/rdr_lib/README.md), and [static verification record](../qmk_firmware/VERIFICATION.txt) preserve that history. The historical 164/164 external-symbol and source-build results apply to the dates and scope of those records. Current build instructions and separately dated results are in [BUILD.md](BUILD.md).
 
-## 仍未核实的具体资料
+## Outstanding evidence gaps
 
-原 archive／object 输入的公开权利依据、产品增量及 JSON 的许可范围、FS026 下列 15 个非空文件的许可覆盖，以及 `hal_pal_lld.h` 仅年份版权行中的作者信息，仍未完整核实。资料不足与已查明的实际违规分别处理；本说明不将未知项标为 VERIFIED，也不猜写作者或许可证。
+The basis for publishing the original archive/object inputs, the license scope of product-specific changes and JSON, license coverage for the 15 nonempty FS026 files below, and the author omitted from the year-only copyright line in `hal_pal_lld.h` have not been fully established. Missing evidence is recorded separately from an identified violation; unresolved items are not labeled VERIFIED, and no author or license has been guessed.
 
-未找到禁止条款不能代替许可依据；这些记录既不是违规认定，也不是完整可分发证明。必要的来源说明、署名修正和实际构建证据分别提供，不把未知项笼统升级为授权已核实。
+Failure to find a prohibition is not evidence of permission. These records are neither a finding of infringement nor proof that every redistribution right has been verified. Provenance notes, attribution corrections, and build evidence are provided for their respective purposes.
 
-下列路径相对 `qmk_firmware/lib/chibios-contrib/`：
+Paths below are relative to `qmk_firmware/lib/chibios-contrib/`:
 
 ```text
 .github/workflows/build.yml

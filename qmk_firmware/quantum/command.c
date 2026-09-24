@@ -62,22 +62,22 @@ command_state_t command_state = ONESHOT;
 
 bool command_proc(uint8_t code) {
     switch (command_state) {
-        case ONESHOT:           //单次命令模式
+        case ONESHOT:           //One-shot command mode
             if (!IS_COMMAND()) return false;
-            return (command_extra(code) || command_common(code));       //处理额外命令 || 处理通用命令
+            return (command_extra(code) || command_common(code));       //Handle extra commands or common commands.
             break;
-        case CONSOLE:           //终端控制台模式
+        case CONSOLE:           //Console mode
             if (IS_COMMAND())
                 return (command_extra(code) || command_common(code));
             else
-                return (command_console_extra(code) || command_console(code));   //处理控制台额外命令 ||  处理鼠标模式命令
+                return (command_console_extra(code) || command_console(code));   //Handle extra console commands or console commands.
             break;
-#if defined(MOUSEKEY_ENABLE)    //鼠标模式
+#if defined(MOUSEKEY_ENABLE)    //Mouse key mode
         case MOUSEKEY:
             mousekey_console(code);
             break;
 #endif
-        default:                //异常情况处理
+        default:                //Handle unexpected states.
             command_state = ONESHOT;
             return false;
     }

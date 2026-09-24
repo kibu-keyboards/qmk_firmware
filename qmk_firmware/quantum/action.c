@@ -882,7 +882,7 @@ void process_action(keyrecord_t *record, action_t action) {
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
- *      按键按下处理函数
+ *      Key press handler
  * FIXME: Needs documentation.
  */
 __attribute__((weak)) void register_code(uint8_t code) {
@@ -922,15 +922,15 @@ __attribute__((weak)) void register_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if (IS_BASIC_KEYCODE(code)) {      //按键为基础按键
-        if (command_proc(code)) return;       //是否为命令按键
-        // if (is_key_pressed(code)) {           // 检查指定的按键是否已经存储在键盘报告中
-        //     del_key(code);                    // 删除该按键
-        //     send_keyboard_report();           // 发送更新后的键盘报告。
+    } else if (IS_BASIC_KEYCODE(code)) {      //Basic keycode
+        if (command_proc(code)) return;       //Handle command keys.
+        // if (is_key_pressed(code)) {           // Check whether the key is already present in the keyboard report.
+        //     del_key(code);                    // Remove the key.
+        //     send_keyboard_report();           // Send the updated keyboard report.
         // } else {
         add_key(code);
         send_keyboard_report();
-    } else if (IS_MODIFIER_KEYCODE(code)) {   //热键
+    } else if (IS_MODIFIER_KEYCODE(code)) {   //Modifier keycode
         add_mods(MOD_BIT(code));
         send_keyboard_report();
 
@@ -947,7 +947,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
- *      按键释放处理函数
+ *      Key release handler
  * FIXME: Needs documentation.
  */
 __attribute__((weak)) void unregister_code(uint8_t code) {
@@ -985,8 +985,8 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
 #endif
 
     } else if (IS_BASIC_KEYCODE(code)) {
-        del_key(code);                      //释放删除按键
-        send_keyboard_report();             //发送按键键码
+        del_key(code);                      //Remove the released key.
+        send_keyboard_report();             //Send the keyboard report.
     } else if (IS_MODIFIER_KEYCODE(code)) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();

@@ -1,50 +1,56 @@
-# 版本与测试记录
+# Version and Test Record
 
-## 固定版本
+## Fixed baseline
 
-产品为 KIBU P75 JIS；本资料采用 2026-08-12 交付的 PRE-FIX01 快照。编译目标是 `p75_jis/p75_jis:via`，原包记载工具链 GNU Arm Embedded `10.3-2021.10`／GCC `10.3.1`。不以较新开发 commit 或工具链产物代替此基准。
+Product: KIBU P75 JIS. This release uses the PRE-FIX01 snapshot delivered on August 12, 2026. The build target is `p75_jis/p75_jis:via`; the recorded toolchain is GNU Arm Embedded `10.3-2021.10` / GCC `10.3.1`. A later development commit or a different toolchain output is not a substitute for this baseline.
 
-| 文件 | SHA-256 |
+| Artifact | SHA-256 |
 | --- | --- |
-| 原始 `qmk_firmware_pre_fix01_exact_source_20260807.zip` | `B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846` |
-| [0812 BIN](../artifacts/kibu_p75_jis_pre_fix01_hardware_validated.bin)，80,860 字节 | `21DE5AAFA6684B72AD797C47C61712F8D40F5762477DCBA483DC7BB53A4332B2` |
-| [配套 VIA JSON](../artifacts/kibu_p75_jis_via_pre_fix01.json) | `2CB4B1F7E9222060C3F55F353128A7278AD6C953ED0B327E95EB1D8089B025BF` |
+| Original `qmk_firmware_pre_fix01_exact_source_20260807.zip` | `B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846` |
+| [Reference BIN](../artifacts/kibu_p75_jis_pre_fix01_hardware_validated.bin), 80,860 bytes | `21DE5AAFA6684B72AD797C47C61712F8D40F5762477DCBA483DC7BB53A4332B2` |
+| [Matching VIA definition](../artifacts/kibu_p75_jis_via_pre_fix01.json) | `2CB4B1F7E9222060C3F55F353128A7278AD6C953ED0B327E95EB1D8089B025BF` |
 
-上述 BIN 是保留的历史交付产物；本轮重新构建的结果、哈希及其与历史 BIN 的关系，以[构建说明](BUILD.md)为准。源码副本补署名并移除失效 Git 指针后不再与原 ZIP 逐文件完全相同，详见[来源说明](SOURCE_AND_LICENSES.md)。
+The BIN is a retained historical artifact. [BUILD.md](BUILD.md) records its relationship to rebuilt output. Attribution, excluded Git pointers, and documentation/comment translations mean the publication copy is not byte-identical to the original ZIP; see [provenance](SOURCE_AND_LICENSES.md). None of these documentation changes is a new firmware feature.
 
-## 身份与对应关系
+## Device identity
 
-- VID／PID：`0x36B0`／`0x3156`；源码产品名 `P75 JIS`、厂家 `RDMCTMZT`，保留原名称。
-- 0812 BIN 的 USB 版本为 `0004`，无序列号；源码 VIA 协议版本为 `12`。
-- 既有样机刷前记录为 USB `0002`、序列号 `20250901`、VIA `12`。这个差异仍保留，不能声称已证明该样机原始 BIN 与本包逐字节相同。
-- 产品负责人已确认 0812 包内仍为量产所用源码，按该来源依据采用；来源确认不等于已获得生产 commit、烧录批次哈希或本轮实机验收。
+- VID/PID: `0x36B0` / `0x3156`; source product name: `P75 JIS`; manufacturer: `RDMCTMZT`. Original identifiers are retained.
+- The 0812 BIN reports USB device version `0004` and no serial number; the source uses VIA protocol version `12`.
+- A previously examined sample, before flashing, reported USB `0002`, serial `20250901`, and VIA `12`. That difference remains on record. The sample's original BIN has not been shown to be byte-identical to the packaged BIN.
+- The product owner's production-source attestation is the basis for selecting the 0812 package. It is not a verified production commit, batch-specific programming hash, or substitute for testing.
 
-## 2026-09-23～24 用户实测与接受
+## User-reported tests and acceptance: September 23–24, 2026
 
-指定固件为上表 80,860 字节 BIN，配套 JSON 与上表哈希相同。测试由用户在现有 P75 JIS 样机上操作并回报，结果按指定版本关联；不是助手自动设备回读或程序 Flash 校验。用户于 2026-09-24 明确接受源码、构建、资料及本轮实测交付。
+The specified firmware and JSON are the files in the table above. The user operated an existing P75 JIS sample and reported the results; the observations are associated with those specified artifacts. They are not automated readback or verification of program Flash. On September 24 the user explicitly accepted the source, build materials, documentation, and this test delivery.
 
-| 项目 | 结果与证据边界 |
+| Check | Result and evidence boundary |
 | --- | --- |
-| USB 基本输入和旋钮 | 用户确认通过；重点 W/M、输入及松键检查，旋钮调音量；没有逐键日志或压力测试 |
-| VIA 改键和断电保存 | 用户确认临时 Q→A、完全断电后保留及恢复步骤通过；没有自动快照 |
-| 宏、灯光及断电保存 | 用户确认通过；早先宏异常系在另一把键盘上测试，已澄清，不作为本样机固件缺陷 |
-| 蓝牙 1/2/3 | 按拔 USB 后各通道输入、松键及关机重连步骤，用户确认通过；是否需要重新配对未单独回报 |
-| USB／蓝牙切换及蓝牙休眠唤醒 | 用户确认切换后正常输入、蓝牙静置休眠后按键恢复输入 |
-| 2.4G 输入、切换、重连及唤醒 | **未测**；接收器丢失，用户决定本轮跳过，不计通过，不宣称三模全通过 |
+| USB input and encoder | User confirmed typing, key release, and encoder volume control, with particular attention to W/M. No per-key trace or stress test was recorded. |
+| VIA remapping and persistence | User confirmed temporary Q-to-A remapping, retention after complete power removal, and restoration. No automated settings snapshot was taken. |
+| Macros, lighting, and persistence | User confirmed operation and retention after power removal. An earlier macro observation was caused by testing a different keyboard and was not established as a defect in this sample. |
+| Bluetooth channels 1/2/3 | User confirmed the stated USB-disconnected input, key-release, and power-cycle reconnection checks. Whether re-pairing was necessary was not reported separately. |
+| USB/Bluetooth switching and Bluetooth wake | User confirmed input after switching and input recovery after Bluetooth idle sleep. |
+| 2.4 GHz input, switching, reconnection, and wake | **Not tested.** The receiver was unavailable and the user chose to omit these checks. They are not counted as passed. |
 
-本次接受不代表本包已公开发布，也不证明所有量产批次的烧录身份。可靠性、故障注入、电池和压力测试不由基础操作通过推定。下列 2026-09-23 构建及文档准备记录保留其历史时间边界，后续实测以上表为准。
+Acceptance of this delivery did not itself establish publication or the firmware installed across every production batch. Basic-operation results do not establish stress, battery, reliability, or fault-injection coverage.
 
-## 2026-09-23 构建及文档准备时的验证覆盖
+## Historical build and preparation evidence: September 23, 2026
 
-| 证据 | 可支持的结论 | 限制 |
+| Evidence | Supported conclusion | Limitation |
 | --- | --- | --- |
-| 随包 2026-08-07 静态验证 | 记录了源码构建、lint、164／164 外部符号及无旧 archive 链接依赖 | 历史结果；该记录明确 Hardware tests: NOT RUN，不是本轮复跑 |
-| 0812 交付说明及后续反馈 | 样机刷写后反馈正常、VIA 可用 | 未找到逐项三模、睡眠、电池、持久化、回退测试记录；不能据此宣称全矩阵通过 |
-| 本轮来源／文件核对 | 固定 ZIP、BIN、JSON，推荐 JSON 仅补 `MW_CH` | 不代替构建、故障注入或实机测试 |
-| 本轮两次干净构建 | 当日日期版仅差 7 字节；补署名并固定历史日期后，80,860 字节 BIN 与原件逐字节一致，SHA-256 仍为 `21DE5AAF…` | 证明该源码与归档 BIN 的构建对应；未证明刷前 USB0002 样机或所有量产批次身份，详见 [BUILD.md](BUILD.md) |
+| Bundled August 7 static verification | Records a source build, lint, 164/164 external symbols, and no link dependency on the old archive. | Historical evidence, not a rerun. The record explicitly states `Hardware tests: NOT RUN`. |
+| August 12 delivery notes and later feedback | Report normal sample operation and working VIA after flashing. | No complete connection-mode, sleep, battery, persistence, or rollback test matrix was found. |
+| Source and artifact comparison | Fixes the ZIP, BIN, and JSON identities; the supplied definition adds the missing `MW_CH`. | Does not replace build, fault-injection, or device testing. |
+| Two clean builds | The current-date build differed by seven bytes; with attribution and the historical date, the 80,860-byte BIN matched the reference exactly. | Establishes correspondence with the archived BIN, not the original USB0002 sample or every production batch. See [BUILD.md](BUILD.md). |
 
-其他开发版本的测试不得挪用。历史 KIBUP75JIS-9 的完整测试对应 `d29767a6`、BIN SHA-256 前缀 `320FD89C` 和 GCC `15.2`，并非此 0812 基准；后续 BLE 迁移样机结果也不属于本版本。
+Tests for other revisions must not be reassigned to this baseline. Historical task KIBUP75JIS-9 covered `d29767a6`, a BIN hash beginning `320FD89C`, and GCC `15.2`; subsequent Bluetooth-migration sample results also concern another version.
 
-本轮文档准备没有刷机、配对、重置、改键或新做实机测试。[已知问题](KNOWN_ISSUES.md)仍保留，源码公开不要求消费者升级现有固件。公开 fork／下载验证是后续发布步骤，本资料不宣称已完成。
+During the September 23 documentation-preparation stage, no new flashing, pairing, reset, remapping, or hardware test was performed. The user initially deferred device tests because an unmodified production sample and original receiver were unavailable. The later September 23–24 user reports above supersede that initial deferral only for their stated coverage. The receiver-dependent 2.4 GHz checks remain untested.
 
-2026-09-23 用户确认目前没有可用的未改刷量产样机／原配接收器，先完成源码与发布资料；本轮实机验证明确延后，不记为通过。
+## Publication and documentation revision
+
+Public-source acquisition, dependency download, build reproduction, CI, and release-asset checks are recorded on the [release page](https://github.com/kibu-keyboards/qmk_firmware/releases/tag/p75-jis-0812-r1). This English documentation revision does not introduce additional device-test results. The [known issues](KNOWN_ISSUES.md) remain, and customers do not need a firmware upgrade merely to use the published materials.
+
+## 日本語
+
+対象はP75 JISの0812版PRE-FIX01で、参照用BINは80,860バイト、VIAプロトコルはバージョン12です。表に示したBINとJSONを指定し、USB入力とノブ、キー割り当ての変更と電源断後の保持、マクロ、ライティング、Bluetoothの3チャネル、USB／Bluetooth切り替え、およびBluetoothスリープ復帰をユーザーが確認しています。2.4 GHzの入力・切り替え・再接続・復帰は、受信機が手元にないため未検証です。これらはユーザーによる操作結果の報告であり、プログラムFlashの読み戻しや全製造ロットの書き込み内容の確認ではありません。過去の書き換え前サンプルと参照BINにはUSBバージョン等の差異があり、同一バイナリーだったとは断定していません。今回の文書・コメント改訂による追加の実機検証はなく、耐久・電池・異常系の試験結果も追加していません。別バージョンの検証結果は本版の結果として扱いません。

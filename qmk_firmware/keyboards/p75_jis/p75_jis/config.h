@@ -69,9 +69,9 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220
 #define RGB_MATRIX_SLEEP
 
-// #define RGB_MATRIX_HUE_STEP 8               // 设置 RGB 矩阵速度步进值
-// #define RGB_MATRIX_SAT_STEP 16              // 设置 RGB 矩阵速度步进值 
-#define RGB_MATRIX_SPD_STEP 29                 // 设置 RGB 矩阵速度步进值
-#define RGB_MATRIX_VAL_STEP 25                 // 设置 RGB 矩阵亮度步进值
-// #define RGB_MATRIX_DEFAULT_VAL 180          // 设置 RGB 矩阵默认亮度值
-// #define RGB_MATRIX_DEFAULT_SPD 180          // 设置 RGB 矩阵默认亮度值
+// #define RGB_MATRIX_HUE_STEP 8               // RGB matrix hue step
+// #define RGB_MATRIX_SAT_STEP 16              // RGB matrix saturation step
+#define RGB_MATRIX_SPD_STEP 29                 // RGB matrix animation-speed step
+#define RGB_MATRIX_VAL_STEP 25                 // RGB matrix brightness step
+// #define RGB_MATRIX_DEFAULT_VAL 180          // RGB matrix default brightness
+// #define RGB_MATRIX_DEFAULT_SPD 180          // RGB matrix default animation speed

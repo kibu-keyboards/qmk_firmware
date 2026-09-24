@@ -34,10 +34,10 @@
 
 
 /******************************************************************************/
-/*                              设备特殊寄存器结构定义                        */
+/*                              Device-specific register structure definitions                        */
 /******************************************************************************/
 
-/*   允许匿名结构和匿名联合    */
+/*   Allow anonymous structures and unions.    */
 /* ////#pragma anon_unions */
 
 /****************** Bit definition for FC_CMD register ************************/

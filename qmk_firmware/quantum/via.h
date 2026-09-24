@@ -104,7 +104,7 @@ enum via_command_id {
     id_signalrgb_get_total_leds             = 0x27,
     id_signalrgb_get_firmware_type          = 0x28,
 
-    // 点阵屏
+    // Dot-matrix display
     id_screenrgb_protocol_version           = 0x29,
     id_screenrgb_stream_leds                = 0x2A,
     id_screenrgb_get_total_leds             = 0x2B,

@@ -17,7 +17,7 @@
 
 #include "../../../lib/rdr_lib/rdr_common.h"
 
-/************************灯光测试变量********************/
+/************************Lighting test variables********************/
 bool Test_Led = false;
 uint8_t Test_Colour = 0U;
 /*********************************************************/
@@ -557,17 +557,17 @@ void eeprom_driver_init(void) {
     memcpy(g_es_flash_eeprom_table, (uint8_t*)(USER_EEPROM_START_ADDRESS1 - ES_MCU_MEM_REMAP_OFFSET), NB_OF_PRIVATE_VAR);
     es_eeprom_init_flag = 1;
 }
-/*****************eeprom块读取********************/
+/*****************EEPROM block read********************/
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
 
     intptr_t offset = (intptr_t)addr;
-    memset(buf, 0x00, len);//将buf地址里面的len长度字节全部初始化为0x00
+    memset(buf, 0x00, len);//Initialize all len bytes at buf to 0x00.
     len = clamp_length(offset, len);
     if (len > 0) {
         memcpy(buf, &g_es_flash_eeprom_table[NB_OF_PRIVATE_VAR + offset], len);
     }
 }
-/*****************eeprom块写入********************/
+/*****************EEPROM block write********************/
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint16_t i;
     intptr_t offset = (intptr_t)addr;
@@ -791,7 +791,7 @@ __attribute__((weak)) void encoder_driver_task(void) {
 #endif
 /*********************************************************/
 
-/************************灯光*****************************/
+/************************Lighting*****************************/
 #define ES_PWM_LED_SIZE         (42)
 #define ES_PWM_LED_BYTE         (24)
 #define ES_PWM_DMA_SIZE         (ES_PWM_LED_SIZE * ES_PWM_LED_BYTE)
@@ -802,27 +802,27 @@ __attribute__((weak)) void encoder_driver_task(void) {
 rgb_led_t rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 uint8_t g_es_pwm_rgb_matrix_array_dma_buf[(RGB_MATRIX_LED_COUNT * ES_PWM_LED_BYTE) + 2] = {0};
 md_dma_channel_config_typedef DMA_list[5] = {0};
-/*****************rgb矩阵驱动初始化********************/
+/*****************RGB matrix driver initialization********************/
 void rgb_matrix_driver_init(void)
 {
-    md_rcu_enable_dma1(RCU);//使能同步机制
+    md_rcu_enable_dma1(RCU);//Enable the DMA clock.
     md_dma_set_configuration(DMA1, ENABLE);
 
     md_rcu_enable_gp16c2t1(RCU);
-    md_timer_set_auto_reload_value_arrv(GP16C2T1, 60);//配置定时器C型GP16C2T1自动重装载
-    md_timer_set_output_compare1_mode_ch1mod(GP16C2T1, MD_TIMER_OUTPUTMODE_PWMMODE1);//配置输出比较模式
-    md_timer_set_capture_compare1_value_ccrv1(GP16C2T1, 0);//设置输入捕获寄存器值
-    md_timer_enable_cc1_output_cc1en(GP16C2T1);//使能捕获计数器 ,md_timer_enable_main_output_goen(GP16C2T1);//使能死区和刹车寄存器
+    md_timer_set_auto_reload_value_arrv(GP16C2T1, 60);//Configure the GP16C2T1 auto-reload value.
+    md_timer_set_output_compare1_mode_ch1mod(GP16C2T1, MD_TIMER_OUTPUTMODE_PWMMODE1);//Configure the output-compare mode.
+    md_timer_set_capture_compare1_value_ccrv1(GP16C2T1, 0);//Set the capture/compare register value.
+    md_timer_enable_cc1_output_cc1en(GP16C2T1);//Enable the capture/compare output. ,md_timer_enable_main_output_goen(GP16C2T1);//Enable the main timer output.
     md_timer_enable_main_output_goen(GP16C2T1);
 
-    md_timer_enable_output_compare1_preload_ch1pen(GP16C2T1);//使能定时器预装载
+    md_timer_enable_output_compare1_preload_ch1pen(GP16C2T1);//Enable timer preload.
 
     md_timer_enable_dma_upd(GP16C2T1);
     md_timer_enable_counter_cnten(GP16C2T1);
 
     gpio_set_pin_output(ES_PWM_DMA_IO);
 
-    /*复用为PWM DMA方式*/
+    /*Configure the alternate function for PWM with DMA.*/
     GPIOA->AFL &= 0xFFFFF0FF;
     GPIOA->AFL |= 0x00000500;
 
@@ -831,7 +831,7 @@ void rgb_matrix_driver_init(void)
 
     md_dma_set_request_peripherals(DMA1, MD_DMA_CHANNEL2, MD_DMA_PRS_GP16C2T1_UP);
 
-    if (rgb_matrix_get_val() <= 0) {                //优化背光速度调节到最低的时候，休眠唤醒灯光不亮问题
+    if (rgb_matrix_get_val() <= 0) {                //Restore backlighting after wake if the stored brightness is zero.
         memset((void *)g_es_pwm_rgb_matrix_array_dma_buf, ES_PWM_WS2812_L_VALUE, (RGB_MATRIX_LED_COUNT * ES_PWM_LED_BYTE) + 2);
     }
 }
@@ -864,14 +864,14 @@ void rgb_matrix_driver_flush_pwm_dma_start(void)
             Led_Off_Start = false;
             wait_ms(3);
         }
-    } else {                            //LED灯光休眠，停止向LED灯供电
+    } else {                            //Disable LED power while lighting is asleep.
         Led_Off_Start = true;
         gpio_write_pin_low(ES_LED_POWER_IO);
     }
 
     md_timer_disable_dma_upd(GP16C2T1);
 
-    /*将buff的最后两个字节赋值为0*/
+    /*Clear the final two bytes of buff.*/
     g_es_pwm_rgb_matrix_array_dma_buf[(RGB_MATRIX_LED_COUNT * ES_PWM_LED_BYTE)] = 0;
     g_es_pwm_rgb_matrix_array_dma_buf[(RGB_MATRIX_LED_COUNT * ES_PWM_LED_BYTE) + 1] = 0;
 
@@ -1011,7 +1011,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 #if LOGO_LED_ENABLE
 static uint8_t LED_Mix_Colour_Tab[256][3] =  {
-    {255, 0,   0  },//红 0
+    {255, 0,   0  },//Red 0
     {255, 1,   0  },//   1
     {255, 3,   0  },//   2
     {255, 4,   0  },//   3
@@ -1035,7 +1035,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {255, 51,  0  },//   21
     {255, 55,  0  },//   22
     {255, 58,  0  },//   23
-    {255, 62,  0  },//橙 24
+    {255, 62,  0  },//Orange 24
     {255, 64,  0  },//   25
     {255, 68,  0  },//   26
     {255, 71,  0  },//   27
@@ -1093,7 +1093,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {255, 250, 0  },//   79
     {255, 254, 0  },//   80
 
-    {255, 255, 0  },//黄 0
+    {255, 255, 0  },//Yellow 0
     {245, 255, 0  },//   1
     {231, 255, 0  },//   2
     {224, 255, 0  },//   3
@@ -1125,7 +1125,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {14,  255, 0  },//   29
     {7,   255, 0  },//   30
 
-    {0,   255, 0  },//绿 0
+    {0,   255, 0  },//Green 0
     {0,   255, 7  },//   1
     {0,   255, 14 },//   2
     {0,   255, 21 },//   3
@@ -1157,7 +1157,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {0,   255, 238},//   29
     {0,   255, 245},//   30
 
-    {0,   255, 255},//青 0
+    {0,   255, 255},//Cyan 0
     {0,   245, 255},//   1
     {0,   231, 255},//   2
     {0,   224, 255},//   3
@@ -1189,7 +1189,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {0,   14,  255},//   29
     {0,   7,   255},//   30
 
-    {0,   0,   255},//蓝 0
+    {0,   0,   255},//Blue 0
     {5,   0,   255},//   1
     {10,  0,   255},//   2
     {15,  0,   255},//   3
@@ -1207,7 +1207,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {75,  0,   255},//   15
     {85,  0,   255},//   16
     {90,  0,   255},//   17
-    {95,  0,   255},//紫 18
+    {95,  0,   255},//Purple 18
     {100, 0,   255},//   19
     {105, 0,   255},//   20
     {110, 0,   255},//   21
@@ -1241,7 +1241,7 @@ static uint8_t LED_Mix_Colour_Tab[256][3] =  {
     {250, 0,   255},//   49
     {255, 0,   255},//   50
 
-    {255, 0,   255},//粉 0
+    {255, 0,   255},//Pink 0
     {255, 0,   245},//   1
     {255, 0,   231},//   2
     {255, 0,   224},//   3
@@ -1290,7 +1290,7 @@ uint8_t Logo_Pwm_G = 0;
 uint8_t Logo_Pwm_B = 0;
 uint8_t Logo_Pwm_Colour = 0;
 /*********************************
-         初始化函数
+         Initialization
 *********************************/
 void Logo_Init(void) {
     for (uint8_t i = 0; i < LOGO_LED_SIZE; i++) {
@@ -1341,7 +1341,7 @@ void Logo_Pwm_Ds_Updata(uint8_t Pwm) {
 }
 
 /*********************************
-         彩色波浪
+         Rainbow wave
 *********************************/
 void Logo_Wave_Rgb_mode_Show(void) {
     if (Logo_Led_Count > LOGO_LED_PLAY_SPEED) {
@@ -1372,7 +1372,7 @@ void Logo_Wave_Rgb_mode_Show(void) {
     }
 }
 /*********************************
-         单色波浪
+         Single-color wave
 *********************************/
 void Logo_Wave_Ds_mode_Show(void) {
     if (Logo_Led_Count > LOGO_LED_PLAY_SPEED) {
@@ -1403,7 +1403,7 @@ void Logo_Wave_Ds_mode_Show(void) {
     }
 }
 /*********************************
-         光谱
+         Spectrum
 *********************************/
 void Logo_Spectrum_mode_Show(void) {
     if (Logo_Led_Count > LOGO_LED_PLAY_SPEED) {
@@ -1428,7 +1428,7 @@ void Logo_Spectrum_mode_Show(void) {
     }
 }
 /*********************************
-         呼吸
+         Breathing
 *********************************/
 void Logo_Breath_mode_Show(void) {
     if (Logo_Led_Count > LOGO_LED_PLAY_SPEED) {
@@ -1453,7 +1453,7 @@ void Logo_Breath_mode_Show(void) {
     }
 }
 /*********************************
-         常量
+         Static color
 *********************************/
 void Logo_Light_mode_Show(void) {
     Logo_Pwm_R = LED_Mix_Colour_Tab[Keyboard_Info.Logo_Colour][0];
@@ -1467,7 +1467,7 @@ void Logo_Light_mode_Show(void) {
     }
 }
 /*********************************
-         关闭
+         Off
 *********************************/
 void Logo_Off_mode_Show(void) {
     for (uint8_t i = 0; i < LOGO_LED_SIZE; i++) {
@@ -1522,7 +1522,7 @@ void User_Via_Qmk_Logo_Set_Value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_qmk_rgb_matrix_brightness: {    //设置亮度 0 ~ 255
+        case id_qmk_rgb_matrix_brightness: {    //Set brightness (0-255).
             if (value_data[0] > RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
                 Keyboard_Info.Logo_Brightness = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
             } else {
@@ -1530,7 +1530,7 @@ void User_Via_Qmk_Logo_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_effect: {        //设置灯光模式
+        case id_qmk_rgb_matrix_effect: {        //Set the lighting effect.
             if (value_data[0] == 0) {
                 Keyboard_Info.Logo_On_Off = LOGO_LED_OFF;
             } else {
@@ -1543,7 +1543,7 @@ void User_Via_Qmk_Logo_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_effect_speed: {  //设置灯光速度
+        case id_qmk_rgb_matrix_effect_speed: {  //Set the animation speed.
             if (value_data[0] > LOGO_MAX_SPEED) {
                 Keyboard_Info.Logo_Speed = LOGO_MAX_SPEED;
             } else {
@@ -1551,7 +1551,7 @@ void User_Via_Qmk_Logo_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_color: {         //设置颜色和饱和度
+        case id_qmk_rgb_matrix_color: {         //Set hue and saturation.
             Keyboard_Info.Logo_Colour = value_data[0];
             Keyboard_Info.Logo_Saturation = (255 - value_data[1]);
             break;
@@ -1600,7 +1600,7 @@ uint8_t Side_Pwm_R = 0;
 uint8_t Side_Pwm_G = 0;
 uint8_t Side_Pwm_B = 0;
 /*********************************
-            初始化函数
+            Initialization
 *********************************/
 void Side_Init(void) {
     for (uint8_t i = 0; i < SIDE_LED_GROUP; i++) {
@@ -1651,7 +1651,7 @@ void Side_Pwm_Ds_Updata(uint8_t Pwm) {
     Side_Pwm_B = (Temp_Pwm >> 8);
 }
 /*********************************
-            彩色波浪
+            Rainbow wave
 *********************************/
 void Side_Wave_Rgb_mode_Show(void) {
     if (Side_Led_Count > SIDE_LED_PLAY_SPEED) {
@@ -1684,7 +1684,7 @@ void Side_Wave_Rgb_mode_Show(void) {
     }
 }
 /*********************************
-            单色波浪
+            Single-color wave
 *********************************/
 void Side_Wave_Ds_mode_Show(void) {
     if (Side_Led_Count > SIDE_LED_PLAY_SPEED) {
@@ -1717,7 +1717,7 @@ void Side_Wave_Ds_mode_Show(void) {
     }
 }
 /*********************************
-            光谱
+            Spectrum
 *********************************/
 void Side_Spectrum_mode_Show(void) {
     if (Side_Led_Count > SIDE_LED_PLAY_SPEED) {
@@ -1744,7 +1744,7 @@ void Side_Spectrum_mode_Show(void) {
     }
 }
 /*********************************
-            呼吸
+            Breathing
 *********************************/
 void Side_Breath_mode_Show(void) {
     if (Side_Led_Count > SIDE_LED_PLAY_SPEED) {
@@ -1771,7 +1771,7 @@ void Side_Breath_mode_Show(void) {
     }
 }
 /*********************************
-            常量
+            Static color
 *********************************/
 void Side_Light_mode_Show(void) {
     Side_Pwm_R = LED_Mix_Colour_Tab[Keyboard_Info.Side_Colour][0];
@@ -1787,7 +1787,7 @@ void Side_Light_mode_Show(void) {
     }
 }
 /*********************************
-            关闭
+            Off
 *********************************/
 void Side_Off_mode_Show(void) {
     for (uint8_t i = 0; i < SIDE_LED_GROUP; i++) {
@@ -1844,7 +1844,7 @@ void User_Via_Qmk_Side_Set_Value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_qmk_rgb_matrix_brightness: {    //设置亮度 0 ~ 255
+        case id_qmk_rgb_matrix_brightness: {    //Set brightness (0-255).
             if (value_data[0] > RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
                 Keyboard_Info.Side_Brightness = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
             } else {
@@ -1852,7 +1852,7 @@ void User_Via_Qmk_Side_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_effect: {        //设置灯光模式
+        case id_qmk_rgb_matrix_effect: {        //Set the lighting effect.
             if (value_data[0] == 0) {
                 Keyboard_Info.Side_On_Off = SIDE_LED_OFF;
             } else {
@@ -1865,7 +1865,7 @@ void User_Via_Qmk_Side_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_effect_speed: {  //设置灯光速度
+        case id_qmk_rgb_matrix_effect_speed: {  //Set the animation speed.
             if (value_data[0] > SIDE_MAX_SPEED) {
                 Keyboard_Info.Side_Speed = SIDE_MAX_SPEED;
             } else {
@@ -1873,7 +1873,7 @@ void User_Via_Qmk_Side_Set_Value(uint8_t *data) {
             }
             break;
         }
-        case id_qmk_rgb_matrix_color: {         //设置颜色和饱和度
+        case id_qmk_rgb_matrix_color: {         //Set hue and saturation.
             Keyboard_Info.Side_Colour = value_data[0];
             Keyboard_Info.Side_Saturation = (255 - value_data[1]);
             break;
@@ -1919,7 +1919,7 @@ const uint8_t Lattice_Index_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
     {160, 161, 162, 163, 164, 165, 166}
 };
 
-// 自定义模式矩阵
+// Custom-effect matrix
 const uint8_t Lattice_User_Index_Tab[LATTICE_LED_GROUP * LATTICE_LED_SIZE] = {
     118, 119, 120, 121, 122, 123, 124,
     125, 126, 127, 128, 129, 130, 131,
@@ -1930,12 +1930,12 @@ const uint8_t Lattice_User_Index_Tab[LATTICE_LED_GROUP * LATTICE_LED_SIZE] = {
     160, 161, 162, 163, 164, 165, 166
 };
 
-// 自定义模式模式灯光位置存储
+// LED position storage for the custom effect
 uint8_t Lattice_User_Mode_Show_Tab[LATTICE_LED_GROUP * LATTICE_LED_SIZE * 3] = {
     0
 };
 
-// 扫描模式矩阵
+// Scan-effect matrix
 #define LED_MAP_SIZE    20
 const uint8_t Lattice_Scan_Mode_Tab[LED_MAP_SIZE][8] = {
     {122, 129, 123, 124, 130, 131, 137, 138},
@@ -1963,7 +1963,7 @@ const uint8_t Lattice_Scan_Mode_Tab[LED_MAP_SIZE][8] = {
     {121, 128, 122, 129, 123, 129, 124, 131}
 };
 
-// 光芒四射
+// Radiating rays
 #define LED_FIRST_CIRCLE_SIZE   42
 #define LED_SECOND_CIRCLE_SIZE  23
 #define LED_SPILIT_FLAG         9
@@ -2004,7 +2004,7 @@ const uint8_t Lattice_First_Circle_Mode_Tab[LED_FIRST_CIRCLE_SIZE][14] = {
     {119,  126,  120,  127,  121,  128,  122,  129,  123,  129,  124,  131,  137,  138},
     {120,  127,  121,  128,  122,  129,  123,  129,  124,  131,  137,  138,  144,  145},        // 29
 
-    // 第一条灯光
+    // First lighting path
     {121,  128,  122,  129,  123,  130,  124,  131,  137,  138,  144,  145,  136,  143},        // 30
     {122,  129,  123,  130,  124,  131,  137,  138,  144,  145,  136,  143,  135,  142},
     {0xFF, 0xFF, 0xFF, 127,  128,  129,  130,  135,  136,  137,  142,  143,  144,  151},
@@ -2047,7 +2047,7 @@ const uint8_t Lattice_Second_Circle_Mode_Tab[LED_SECOND_CIRCLE_SIZE][14] = {
     {158,  165,  157,  164,  156,  163,  155,  162,  154,  161,  153,  160,  146,  147},
     {157,  164,  156,  163,  155,  162,  154,  161,  153,  160,  146,  147,  139,  140},
     
-    // 第二条灯光
+    // Second lighting path
     {156,  163,  155,  162,  154,  161,  153,  160,  146,  147,  139,  140,  141,  148},        // 20
     {0xFF, 155,  162,  154,  151,  153,  160,  146,  147,  139,  140,  141,  148,  149},
     {0xFF, 0xFF, 133,  134,  140,  141,  147,  148,  149,  150,  154,  155,  156,  157},
@@ -2055,10 +2055,10 @@ const uint8_t Lattice_Second_Circle_Mode_Tab[LED_SECOND_CIRCLE_SIZE][14] = {
 };
 
 /*
-    打字机模式字模
+    Typewriter-effect glyphs
 */
 const uint8_t LED_Button_Tab[109][7] = {
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},	 // 0  四个空白键位
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},	 // 0  Four blank key positions
     {0X00,0X00,0X00,0X00,0X00,0X00,0X00},	 // 1
     {0X00,0X00,0X00,0X00,0X00,0X00,0X00},	 // 2
     {0X00,0X00,0X00,0X00,0X00,0X00,0X00},	 // 3
@@ -2110,7 +2110,7 @@ const uint8_t LED_Button_Tab[109][7] = {
     {0x3C,0x04,0x04,0x04,0x04,0x04,0x3C},    // ]
     {0x3C,0x20,0x20,0x20,0x20,0x20,0x3C},    // \|
 
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
 
 	{0x00,0x00,0x08,0x00,0x08,0x08,0x00},    // ;
 	{0x00,0x00,0x00,0x00,0x08,0x08,0x00},    // '
@@ -2132,11 +2132,11 @@ const uint8_t LED_Button_Tab[109][7] = {
 	{0x00,0x57,0x51,0x57,0x51,0x51,0x00},    // F11
 	{0x00,0x6B,0x49,0x6B,0x29,0x69,0x00},    // F12           70
 
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
-    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // 空白
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
+    {0X00,0X00,0X00,0X00,0X00,0X00,0X00},    // Blank
 
     {0x00,0x08,0x1C,0x3E,0x08,0x3E,0x00},    // PGUP
     {0x00,0x0E,0x12,0x22,0x12,0x0E,0x00},    // DELETE
@@ -2154,7 +2154,7 @@ const uint8_t LED_Button_Tab[109][7] = {
 	{0x00,0x08,0x14,0x22,0x36,0x1C,0x00},    // SHIFT_R
 	{0x00,0x00,0x36,0x08,0x30,0x00,0x00},    // ALT_R
 	{0x00,0x07,0x01,0x77,0x51,0x51,0x00},    // FN              
-    {0x00,0x22,0x55,0x00,0x22,0x1C,0x00},    // 笑脸           91
+    {0x00,0x22,0x55,0x00,0x22,0x1C,0x00},    // Smiley face           91
 
     {0x00,0x45,0x29,0x7D,0x11,0x7D,0x11},    // K14            92
     {0x00,0x3E,0x00,0x02,0x04,0x08,0x10},    // K56            93
@@ -2162,22 +2162,22 @@ const uint8_t LED_Button_Tab[109][7] = {
     {0x00,0x04,0x77,0x41,0x77,0x10,0x00},    // K132           95
     {0x00,0x00,0x75,0x53,0x55,0x00,0x00},    // K133           96
 
-    {0x49,0x2A,0x1C,0x77,0x1C,0x2A,0x49},    // 屏幕亮度+       97
-    {0x00,0x2A,0x1C,0x36,0x1C,0x2A,0x00},    // 屏幕亮度-       98
-    {0x08,0x1C,0x3E,0x7F,0x36,0x36,0x36},    // 主页            99
-    {0x7F,0x63,0x55,0x49,0x41,0x7F,0x00},    // 邮箱            100
-    {0x02,0x77,0x02,0x00,0x25,0x72,0x25},    // 计算器          101
-    {0x7F,0x45,0x4D,0x5D,0x4D,0x45,0x7F},    // 播放器          102
-    {0x00,0x11,0x19,0x1D,0x19,0x11,0x00},    // 上一曲          103
-    {0x00,0x51,0x53,0x57,0x53,0x51,0x00},    // 播放/暂停       104
-    {0x00,0x44,0x4C,0x5C,0x4C,0x44,0x00},    // 下一曲          105
-    {0x10,0x18,0x1E,0x1E,0x1E,0x18,0x10},    // 静音            106
-    {0x08,0x2C,0x5F,0x6F,0x5F,0x2C,0x08},    // 音量+           107
-    {0x08,0x0C,0x2F,0x4F,0x2F,0x0C,0x08},    // 音量-           108
-    {0x00,0x3E,0x22,0x3E,0x00,0x2A,0x7F},    // 任务栏          109
+    {0x49,0x2A,0x1C,0x77,0x1C,0x2A,0x49},    // Display brightness up       97
+    {0x00,0x2A,0x1C,0x36,0x1C,0x2A,0x00},    // Display brightness down       98
+    {0x08,0x1C,0x3E,0x7F,0x36,0x36,0x36},    // Home            99
+    {0x7F,0x63,0x55,0x49,0x41,0x7F,0x00},    // Mail            100
+    {0x02,0x77,0x02,0x00,0x25,0x72,0x25},    // Calculator          101
+    {0x7F,0x45,0x4D,0x5D,0x4D,0x45,0x7F},    // Media player          102
+    {0x00,0x11,0x19,0x1D,0x19,0x11,0x00},    // Previous track          103
+    {0x00,0x51,0x53,0x57,0x53,0x51,0x00},    // Play/pause       104
+    {0x00,0x44,0x4C,0x5C,0x4C,0x44,0x00},    // Next track          105
+    {0x10,0x18,0x1E,0x1E,0x1E,0x18,0x10},    // Mute            106
+    {0x08,0x2C,0x5F,0x6F,0x5F,0x2C,0x08},    // Volume up           107
+    {0x08,0x0C,0x2F,0x4F,0x2F,0x0C,0x08},    // Volume down           108
+    {0x00,0x3E,0x22,0x3E,0x00,0x2A,0x7F},    // Taskbar          109
 };
 
-// 爱心模式矩阵
+// Heart-effect matrix
 const uint8_t Lattice_Heart_Index_Tab[5][10] = {
     {0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF         },
     {LT_R2_4_INDEX, LT_R3_4_INDEX, LT_R4_4_INDEX, LT_R5_4_INDEX, LT_R6_4_INDEX, 0xFF,          0xFF,          0xFF,          0xFF,          0xFF         },
@@ -2186,7 +2186,7 @@ const uint8_t Lattice_Heart_Index_Tab[5][10] = {
     {LT_R2_1_INDEX, LT_R2_7_INDEX, LT_R3_1_INDEX, LT_R3_7_INDEX, 0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF         }
 };
 
-// 雨滴模式矩阵    
+// Raindrop-effect matrix
 #define LED_RAIN_SIZE   12
 const uint8_t Lattice_Rain_Mode_Tab[LATTICE_LED_SIZE][LED_RAIN_SIZE] = {
     {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -2198,17 +2198,17 @@ const uint8_t Lattice_Rain_Mode_Tab[LATTICE_LED_SIZE][LED_RAIN_SIZE] = {
     {0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0}
 };
 
-// 雨滴模式灯光位置存储
+// LED position storage for the raindrop effect
 uint8_t Lattice_Rain_Mode_Show_Tab[LATTICE_LED_SIZE][LATTICE_LED_SIZE] = {
     0
 };
 
-// 终端模式灯光位置存储
+// LED position storage for the terminal effect
 uint8_t Lattice_Terminal_Mode_Show_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
     0
 };
 
-// 电池形状矩阵
+// Battery-outline matrix
 const uint8_t Battery_Index_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
     {125,  126,  127,  128,  129,  130,  0xFF},
@@ -2219,7 +2219,7 @@ const uint8_t Battery_Index_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
 };
 
-// 充电电量矩阵
+// Charging-level matrix
 const uint8_t Charging_Index_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
@@ -2232,7 +2232,7 @@ const uint8_t Charging_Index_Tab[LATTICE_LED_GROUP][LATTICE_LED_SIZE] = {
 
 #define LT_POWER_UP_HEART_GROUP  9
 #define LT_POWER_UP_HEART_SIZE   31
-// 开机动画_1
+// Startup animation 1
 const uint8_t Lattice_Power_Up_Heart_Tab[LT_POWER_UP_HEART_GROUP][LT_POWER_UP_HEART_SIZE] = {
     {0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,
 	 0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,
@@ -2282,7 +2282,7 @@ const uint8_t Lattice_Power_Up_Heart_Tab[LT_POWER_UP_HEART_GROUP][LT_POWER_UP_HE
 
 #define LT_POWER_UP_WAVE_GROUP  27
 #define LT_POWER_UP_WAVE_SIZE   14
-// 开机动画_2
+// Startup animation 2
 const uint8_t Lattice_Power_Up_Wave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WAVE_SIZE] = {
     {0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,
 	 0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          LT_R4_1_INDEX},
@@ -2307,7 +2307,7 @@ const uint8_t Lattice_Power_Up_Wave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WAVE
 	
 	 
     {LT_R1_4_INDEX, LT_R1_5_INDEX, LT_R2_5_INDEX, LT_R2_6_INDEX, LT_R3_6_INDEX, LT_R3_7_INDEX, LT_R4_7_INDEX,
-	 LT_R5_6_INDEX, LT_R5_7_INDEX, LT_R6_5_INDEX, LT_R6_6_INDEX, LT_R7_4_INDEX, LT_R7_5_INDEX, LT_R4_1_INDEX},   // 第二条
+	 LT_R5_6_INDEX, LT_R5_7_INDEX, LT_R6_5_INDEX, LT_R6_6_INDEX, LT_R7_4_INDEX, LT_R7_5_INDEX, LT_R4_1_INDEX},   // Second path
 	
     {LT_R1_5_INDEX, LT_R1_6_INDEX, LT_R2_6_INDEX, LT_R2_7_INDEX, LT_R3_7_INDEX, LT_R5_7_INDEX, LT_R6_6_INDEX, 
 	 LT_R6_7_INDEX, LT_R7_5_INDEX, LT_R7_6_INDEX, LT_R3_1_INDEX, LT_R4_1_INDEX, LT_R4_2_INDEX, LT_R5_1_INDEX},
@@ -2329,7 +2329,7 @@ const uint8_t Lattice_Power_Up_Wave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WAVE
 	
 	 
     {LT_R1_4_INDEX, LT_R1_5_INDEX, LT_R2_5_INDEX, LT_R2_6_INDEX, LT_R3_6_INDEX, LT_R3_7_INDEX, LT_R4_7_INDEX,
-	 LT_R5_6_INDEX, LT_R5_7_INDEX, LT_R6_5_INDEX, LT_R6_6_INDEX, LT_R7_4_INDEX, LT_R7_5_INDEX, LT_R4_1_INDEX},   // 第三条
+	 LT_R5_6_INDEX, LT_R5_7_INDEX, LT_R6_5_INDEX, LT_R6_6_INDEX, LT_R7_4_INDEX, LT_R7_5_INDEX, LT_R4_1_INDEX},   // Third path
 	
     {LT_R1_5_INDEX, LT_R1_6_INDEX, LT_R2_6_INDEX, LT_R2_7_INDEX, LT_R3_7_INDEX, LT_R5_7_INDEX, LT_R6_6_INDEX, 
 	 LT_R6_7_INDEX, LT_R7_5_INDEX, LT_R7_6_INDEX, LT_R3_1_INDEX, LT_R4_1_INDEX, LT_R4_2_INDEX, LT_R5_1_INDEX},
@@ -2369,7 +2369,7 @@ const uint8_t Lattice_Power_Up_Wave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WAVE
 	 0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF},
 };
 
-// 开机动画_re2
+// Startup animation re2
 const uint8_t Lattice_Power_Up_ReWave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WAVE_SIZE] = {
     {0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,
 	 0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          0xFF,          LT_R4_7_INDEX},
@@ -2394,7 +2394,7 @@ const uint8_t Lattice_Power_Up_ReWave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WA
 	
 	 
     {LT_R1_4_INDEX, LT_R1_3_INDEX, LT_R2_3_INDEX, LT_R2_2_INDEX, LT_R3_2_INDEX, LT_R3_1_INDEX, LT_R4_1_INDEX,
-	 LT_R5_2_INDEX, LT_R5_1_INDEX, LT_R6_3_INDEX, LT_R6_2_INDEX, LT_R7_4_INDEX, LT_R7_3_INDEX, LT_R4_7_INDEX},	// 第二条
+	 LT_R5_2_INDEX, LT_R5_1_INDEX, LT_R6_3_INDEX, LT_R6_2_INDEX, LT_R7_4_INDEX, LT_R7_3_INDEX, LT_R4_7_INDEX},	// Second path
 	
     {LT_R1_3_INDEX, LT_R1_2_INDEX, LT_R2_2_INDEX, LT_R2_1_INDEX, LT_R3_1_INDEX, LT_R5_1_INDEX, LT_R6_2_INDEX, 
 	 LT_R6_1_INDEX, LT_R7_3_INDEX, LT_R7_2_INDEX, LT_R3_7_INDEX, LT_R4_7_INDEX, LT_R4_6_INDEX, LT_R5_7_INDEX},
@@ -2416,7 +2416,7 @@ const uint8_t Lattice_Power_Up_ReWave_Tab[LT_POWER_UP_WAVE_GROUP][LT_POWER_UP_WA
 	
 	 
     {LT_R1_4_INDEX, LT_R1_3_INDEX, LT_R2_3_INDEX, LT_R2_2_INDEX, LT_R3_2_INDEX, LT_R3_1_INDEX, LT_R4_1_INDEX,
-	 LT_R5_2_INDEX, LT_R5_1_INDEX, LT_R6_3_INDEX, LT_R6_2_INDEX, LT_R7_4_INDEX, LT_R7_3_INDEX, LT_R4_7_INDEX},	// 第三条
+	 LT_R5_2_INDEX, LT_R5_1_INDEX, LT_R6_3_INDEX, LT_R6_2_INDEX, LT_R7_4_INDEX, LT_R7_3_INDEX, LT_R4_7_INDEX},	// Third path
 	
     {LT_R1_3_INDEX, LT_R1_2_INDEX, LT_R2_2_INDEX, LT_R2_1_INDEX, LT_R3_1_INDEX, LT_R5_1_INDEX, LT_R6_2_INDEX, 
 	 LT_R6_1_INDEX, LT_R7_3_INDEX, LT_R7_2_INDEX, LT_R3_7_INDEX, LT_R4_7_INDEX, LT_R4_6_INDEX, LT_R5_7_INDEX},
@@ -2468,11 +2468,11 @@ uint8_t Lattice_Pwm_R = 0;
 uint8_t Lattice_Pwm_G = 0;
 uint8_t Lattice_Pwm_B = 0;
 uint8_t Lattice_Pwm_Colour = 0;
-uint8_t Terminal_Row_Count = 0;         // 终端模式行矩阵
-uint8_t Terminal_Col_Count = 0;         // 终端模式列矩阵
-uint8_t Terminal_Random = 0;            // 终端模式随机换行
+uint8_t Terminal_Row_Count = 0;         // Terminal-effect row index
+uint8_t Terminal_Col_Count = 0;         // Terminal-effect column index
+uint8_t Terminal_Random = 0;            // Terminal-effect random line break
 
-// 光芒四射
+// Radiating rays
 uint8_t Lattice_Circle_Count = 0;
 uint8_t Lattice_Circle_Count_Second = 0;
 uint8_t Lattice_Circle_Second_Flag = 0;
@@ -2480,7 +2480,7 @@ uint8_t Last_Count1 = 0;
 uint8_t Last_Count2 = 0;
 uint8_t Last_Second_Flag = 0;
 
-// 开机动画
+// Startup animation
 uint8_t Lattice_Power_Flag = 1;
 uint8_t LATTICE_Power_Up_Heart_Point = 0;
 uint8_t LATTICE_Power_Up_Wave_Point = 0;
@@ -2495,7 +2495,7 @@ uint8_t Lt_Last_Heart_Count = 0;
 uint8_t Lt_Last_Wave_Count = 0;
 uint8_t Lt_Last_ReWave_Count = 0;
 /*********************************
-         初始化函数
+         Initialization
 *********************************/
 void Lattice_Init(void) {
     for (uint8_t i = 0; i < LATTICE_LED_GROUP; i++) {
@@ -2569,7 +2569,7 @@ void Lattice_Pwm_Ds_Updata(uint8_t Pwm) {
 }
 
 /*********************************
-         爱心常亮
+         Static heart
 *********************************/
 void Lattice_Heart_mode_Show(void) {
     if (Lattice_Heart_Count > 20) {
@@ -2605,7 +2605,7 @@ void Lattice_Heart_mode_Show(void) {
 }
 
 /*********************************
-         扫描模式
+         Scan effect
 *********************************/
 void Lattice_Scan_mode_Show(void) {
     if (Lattice_Led_Count > ((LATTICE_MAX_SPEED - Keyboard_Info.Lattice_Speed) + 1 * 4)) {
@@ -2633,7 +2633,7 @@ void Lattice_Scan_mode_Show(void) {
 }
 
 /*********************************
-         雨滴模式
+         Raindrop effect
 *********************************/
 void Lattice_Rain_mode_Show(void) {
     if (Lattice_Led_Count >= ((LATTICE_MAX_SPEED - Keyboard_Info.Lattice_Speed) + 1 * 4)) {
@@ -2687,21 +2687,21 @@ void Lattice_Rain_mode_Show(void) {
 }
 
 /*********************************
-         打字机模式函数
+         Typewriter-effect function
 *********************************/
 void Lattice_Type_mode_Show(void) {
     Lattice_Pwm_Rgb_Updata(Keyboard_Info.Lattice_Brightness);
 }
 
 /*********************************
-         终端模式函数
+         Terminal-effect function
 *********************************/
 void Lattice_Terminal_mode_Show(void) {
     Lattice_Pwm_Rgb_Updata(Keyboard_Info.Lattice_Brightness);
 }
 
 /*********************************
-         打字机模式触发
+         Typewriter-effect trigger
 *********************************/
 void Lattice_Type_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
     uint8_t Lattice_Button = 0;
@@ -2808,7 +2808,7 @@ void Lattice_Type_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
             for (uint8_t k = 0; k < 7; k++) {
                 uint8_t Index = Lattice_Index_Tab[j][k];
                 
-                // 设置颜色和亮度
+                // Set color and brightness.
                 Lattice_Pwm_R = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][0];
                 Lattice_Pwm_G = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][1];
                 Lattice_Pwm_B = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][2];
@@ -2825,17 +2825,17 @@ void Lattice_Type_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
 }
 
 /*********************************
-         终端模式触发
+         Terminal-effect trigger
 *********************************/
 void Lattice_Terminal_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
-    srand(timer_read32()); // 使用QMK内置计时器初始化随机种子
+    srand(timer_read32()); // Seed the PRNG from QMK's timer.
     if (IsPressed) {
         Terminal_Random = rand() % 10;
         if (Terminal_Random < 2) {
             Terminal_Row_Count++;
             Terminal_Col_Count = 0;
         } else {
-            // 点亮当前行列
+            // Illuminate the current row and column.
             Lattice_Terminal_Mode_Show_Tab[Terminal_Row_Count][Terminal_Col_Count] = 1;
             Terminal_Col_Count++;
             if (Terminal_Col_Count > 6) {
@@ -2856,7 +2856,7 @@ void Lattice_Terminal_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
             Terminal_Row_Count = 6;
         }
 
-        // 设置颜色和亮度
+        // Set color and brightness.
         Lattice_Pwm_R = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][0];
         Lattice_Pwm_G = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][1]; 
         Lattice_Pwm_B = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour_Blue][2];
@@ -2874,7 +2874,7 @@ void Lattice_Terminal_mode_Show_Trigger(uint16_t Led_Index, uint8_t IsPressed) {
 }
 
 /*********************************
-         需要按键的灯光效果
+         Key-triggered lighting effects
 *********************************/
 void Lattice_Key_Led_Trigger_Mode(uint16_t Key_Index, uint8_t IsPressed) {
     if (Lattice_Power_Flag) {
@@ -2892,10 +2892,10 @@ void Lattice_Key_Led_Trigger_Mode(uint16_t Key_Index, uint8_t IsPressed) {
 }
 
 /*********************************
-            光芒四射
+            Radiating rays
 *********************************/
 void Lattice_Circle_mode_Show(void) {
-    // 修改原有计数更新部分
+    // Update the animation counters.
     if (Lattice_Led_Count > ((LATTICE_MAX_SPEED - Keyboard_Info.Lattice_Speed) + 1 * 2)) {
         Lattice_Led_Count = 0;
         Lattice_Circle_Count = (Lattice_Circle_Count + 1) % LED_FIRST_CIRCLE_SIZE;
@@ -2907,36 +2907,36 @@ void Lattice_Circle_mode_Show(void) {
                 Lattice_Circle_Second_Flag = 0;
             }
         } else if (Lattice_Circle_Count == (LED_SPILIT_FLAG + 1)) {
-            Lattice_Circle_Second_Flag = 1; // 激活第二条轨迹
-            Lattice_Circle_Count_Second = 0;   // 从起始位置开始
+            Lattice_Circle_Second_Flag = 1; // Activate the second path.
+            Lattice_Circle_Count_Second = 0;   // Start at the beginning of the path.
         }
     }
 
-    // 熄灭上一帧的两条轨迹 (只熄灭变化的LED)
+    // Clear both paths from the previous frame (only LEDs that changed).
     for (uint8_t j = 0; j < 14; j++) {
         uint8_t led = Lattice_First_Circle_Mode_Tab[Last_Count1][j];
         if (led < RGB_MATRIX_LED_COUNT) rgb_matrix_set_color(led, 0, 0, 0);
     }
-    if (Last_Second_Flag) {  // 第二条轨迹上次已激活才熄灭
+    if (Last_Second_Flag) {  // Clear the second path only if it was active in the previous frame.
         for (uint8_t j = 0; j < 14; j++) {
             uint8_t led = Lattice_Second_Circle_Mode_Tab[Last_Count2][j];
             if (led < RGB_MATRIX_LED_COUNT) rgb_matrix_set_color(led, 0, 0, 0);
         }
     }
 
-    // 设置当前帧颜色 (保持原有逻辑)
+    // Set the current frame's color using the existing logic.
     Lattice_Pwm_R = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour][0];
     Lattice_Pwm_G = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour][1];
     Lattice_Pwm_B = LED_Mix_Colour_Tab[Keyboard_Info.Lattice_Colour][2];
     Lattice_Pwm_Rgb_Updata(Keyboard_Info.Lattice_Brightness);
 
-    // 点亮当前帧的第一条轨迹
+    // Illuminate the first path for the current frame.
     for (uint8_t j = 0; j < 14; j++) {
         uint8_t led = Lattice_First_Circle_Mode_Tab[Lattice_Circle_Count][j];
         if (led < RGB_MATRIX_LED_COUNT) rgb_matrix_set_color(led, Lattice_Pwm_R, Lattice_Pwm_G, Lattice_Pwm_B);
     }
     
-    // 点亮当前帧的第二条轨迹（如果已激活）
+    // Illuminate the second path for the current frame if active.
     if (Lattice_Circle_Second_Flag) {
         for (uint8_t j = 0; j < 14; j++) {
             uint8_t led = Lattice_Second_Circle_Mode_Tab[Lattice_Circle_Count_Second][j];
@@ -2944,19 +2944,19 @@ void Lattice_Circle_mode_Show(void) {
         }
     }
 
-    // 更新"上一帧"状态
+    // Update the previous-frame state.
     Last_Count1 = Lattice_Circle_Count;
     Last_Count2 = Lattice_Circle_Count_Second;
     Last_Second_Flag = Lattice_Circle_Second_Flag;
 }
 
 /*********************************
-            开机动画
+            Startup animation
 *********************************/
 void Lt_Power_Up_Show(void) {
 	if (Lattice_Power_Up_Count > 6) {
         Lattice_Power_Up_Count = 0;
-        // 逻辑判定
+        // Evaluate animation state.
         if (Lt_Heart_Flag || Lt_Heart_Flag_Second) {
 	        Lt_Last_Heart_Count = LATTICE_Power_Up_Heart_Point;
             LATTICE_Power_Up_Heart_Point = (LATTICE_Power_Up_Heart_Point + 1) % LT_POWER_UP_HEART_GROUP;
@@ -2972,7 +2972,7 @@ void Lt_Power_Up_Show(void) {
                     Lt_Heart_Count_Second += 1;
                     // if (Lt_Heart_Count_Second == 4) {
                     //     Lt_Heart_Flag_Second = 0;
-                    //     // 开机动画播放一次后停止
+                    //     // Stop after one startup animation cycle.
                     //     Lattice_Init();
                     //     Lattice_Power_Flag = 0;
                     // }
@@ -2999,7 +2999,7 @@ void Lt_Power_Up_Show(void) {
 
     }
 	
-	// 熄灭上一帧动画
+	// Clear the previous animation frame.
 	if (Lt_Heart_Flag || Lt_Heart_Flag_Second) {
 		for (uint8_t j = 0; j < LT_POWER_UP_HEART_SIZE; j++) {
 			uint8_t Led_Index = Lattice_Power_Up_Heart_Tab[Lt_Last_Heart_Count][j];
@@ -3025,7 +3025,7 @@ void Lt_Power_Up_Show(void) {
 		}
 	}
 	
-	// 爱心
+	// Heart
 	if (Lt_Heart_Flag || Lt_Heart_Flag_Second) {
 		for (uint8_t j = 0; j < LT_POWER_UP_HEART_SIZE; j++) {
 			uint8_t Led_Index = Lattice_Power_Up_Heart_Tab[LATTICE_Power_Up_Heart_Point][j];
@@ -3034,7 +3034,7 @@ void Lt_Power_Up_Show(void) {
 			}
 		}
 	}
-	// 正向波浪
+	// Forward wave
 	if (Lt_Wave_Flag) {
 		for (uint8_t j = 0; j < LT_POWER_UP_WAVE_SIZE; j++) {
 			uint8_t Led_Index = Lattice_Power_Up_Wave_Tab[LATTICE_Power_Up_Wave_Point][j];
@@ -3043,7 +3043,7 @@ void Lt_Power_Up_Show(void) {
 			}
 		}
 	}
-	// 反向波浪
+	// Reverse wave
 	if (Lt_ReWave_Flag) {
 		for (uint8_t j = 0; j < LT_POWER_UP_WAVE_SIZE; j++) {
 			uint8_t Led_Index = Lattice_Power_Up_ReWave_Tab[LATTICE_Power_Up_ReWave_Point][j];
@@ -3055,14 +3055,14 @@ void Lt_Power_Up_Show(void) {
 
     if (Lt_Heart_Count_Second == 4) {
         Lt_Heart_Flag_Second = 0;
-        // 开机动画播放一次后停止
+        // Stop after one startup animation cycle.
         Lattice_Init();
         Lattice_Power_Flag = 0;
     }
 }
 
 /*********************************
-         自定义效果
+         Custom effect
 *********************************/
 void Lattice_User_Define_mode_Show(void) {
     for (uint8_t i = 0; i < (LATTICE_LED_GROUP * LATTICE_LED_SIZE); i++) {
@@ -3076,10 +3076,10 @@ void Lattice_User_Define_mode_Show(void) {
 }
 
 /*********************************
-         充电状态指示
+         Charging status indication
 *********************************/
 void Led_Batt_Number_Show(void) {
-    if (es_stdby_pin_state == 1) {                      //充电
+    if (es_stdby_pin_state == 1) {                      //Charging
         if (Lattice_Led_Count > 50) {
             Lattice_Led_Count = 0;
             if (Lattice_Charge_Point < 5) {
@@ -3123,7 +3123,7 @@ void Led_Batt_Number_Show(void) {
                 }
             }
         }
-    } else if (es_stdby_pin_state == 2) {               //充满
+    } else if (es_stdby_pin_state == 2) {               //Fully charged
         for (uint8_t i = 0; i < LATTICE_LED_GROUP; i++) {
             for (uint8_t j = 0; j < LATTICE_LED_SIZE; j++) {
                 rgb_matrix_set_color(Battery_Index_Tab[i][j], 0x00, 0x08, 0X00);
@@ -3134,15 +3134,15 @@ void Led_Batt_Number_Show(void) {
                 rgb_matrix_set_color(Charging_Index_Tab[i][j], 0x00, 0x08, 0X00);
             }
         }
-    } else {                                            //未充电
+    } else {                                            //Not charging
         uint8_t Colour_R = 0, Colour_G = 0, Colour_B = 0;
         uint8_t Temp_Count = (Keyboard_Info.Batt_Number / 20);
 
-        if (Temp_Count <= 1) {                           //红色
+        if (Temp_Count <= 1) {                           //Red
             Colour_R = 0XFF;    Colour_G = 0X00;    Colour_B = 0X00;
-        } else if (Temp_Count <= 3) {                    //黄色
+        } else if (Temp_Count <= 3) {                    //Yellow
             Colour_R = 0XFF;    Colour_G = 0XFF;    Colour_B = 0X00;
-        } else {                                         //绿色
+        } else {                                         //Green
             Colour_R = 0X00;    Colour_G = 0XFF;    Colour_B = 0X00;
         }
 
@@ -3161,7 +3161,7 @@ void Led_Batt_Number_Show(void) {
 }
 
 /*********************************
-         低电指示
+         Low-battery indication
 *********************************/
 void Led_Power_Low_Show(void) {
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
@@ -3188,7 +3188,7 @@ void Led_Power_Low_Show(void) {
 }
 
 /*********************************
-            关闭
+            Off
 *********************************/
 void Lattice_Off_mode_Show(void) {
     for (uint8_t i = 0; i < LATTICE_LED_GROUP; i++) {
@@ -3244,12 +3244,12 @@ void User_Via_Qmk_Lattice_Get_Value(uint8_t *data) {
         } break;
         case id_qmk_rgb_all_user_define: {
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
-                value_data[2] = Lattice_User_Mode_Show_Tab[i * 3 + 0]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
-                value_data[3] = Lattice_User_Mode_Show_Tab[i * 3 + 1]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
-                value_data[4] = Lattice_User_Mode_Show_Tab[i * 3 + 2]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
+                value_data[2] = Lattice_User_Mode_Show_Tab[i * 3 + 0]; // 0 : Offset 1 : Valid length 2 : Data R
+                value_data[3] = Lattice_User_Mode_Show_Tab[i * 3 + 1]; // 0 : Offset 1 : Valid length 2 : Data R
+                value_data[4] = Lattice_User_Mode_Show_Tab[i * 3 + 2]; // 0 : Offset 1 : Valid length 2 : Data R
             } 
         } break;
-        case id_qmk_rgb_reset_user_define: {             // 设置自定义复位模式
+        case id_qmk_rgb_reset_user_define: {             // Reset the custom effect.
             for (uint8_t i = 0; i < (LATTICE_LED_GROUP * LATTICE_LED_SIZE); i++) {
                 value_data[0] = Lattice_User_Mode_Show_Tab[i * 3 + 0];
                 value_data[1] = Lattice_User_Mode_Show_Tab[i * 3 + 1];
@@ -3258,24 +3258,24 @@ void User_Via_Qmk_Lattice_Get_Value(uint8_t *data) {
             Lattice_Init();
             Keyboard_Info.Lattice_Mode = INIT_LATTICE_MODE;
         } break;
-        case id_qmk_rgb_set_matrix_info: {               // 设定点阵屏矩阵信息
-            value_data[0] = LATTICE_LED_GROUP;           // 点阵屏行数
-            value_data[1] = LATTICE_LED_SIZE;            // 点阵屏列数
-            value_data[2] = LATTICE_LIGHT_MODE_COUNT;    // 点阵屏灯光模式总数
-            value_data[3] = LATTICE_MAX_BRIGHTNESS;      // 点阵屏最大亮度
-            value_data[4] = LATTICE_MAX_SPEED;           // 点阵屏最大速度
-            value_data[5] = INIT_LATTICE_MODE;           // 点阵屏默认模式
-            value_data[6] = INIT_LATTICE_BRIGHTNESS;     // 点阵屏默认亮度
-            value_data[7] = INIT_LATTICE_SPEED;          // 点阵屏默认速度
+        case id_qmk_rgb_set_matrix_info: {               // Set dot-matrix display information.
+            value_data[0] = LATTICE_LED_GROUP;           // Dot-matrix display row count
+            value_data[1] = LATTICE_LED_SIZE;            // Dot-matrix display column count
+            value_data[2] = LATTICE_LIGHT_MODE_COUNT;    // Dot-matrix display effect count
+            value_data[3] = LATTICE_MAX_BRIGHTNESS;      // Dot-matrix display maximum brightness
+            value_data[4] = LATTICE_MAX_SPEED;           // Dot-matrix display maximum speed
+            value_data[5] = INIT_LATTICE_MODE;           // Dot-matrix display default effect
+            value_data[6] = INIT_LATTICE_BRIGHTNESS;     // Dot-matrix display default brightness
+            value_data[7] = INIT_LATTICE_SPEED;          // Dot-matrix display default speed
         } break;
-        case id_qmk_rgb_get_matrix_info: {               // 读取点阵屏矩阵RGB信息
+        case id_qmk_rgb_get_matrix_info: {               // Read dot-matrix display RGB data.
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
                 value_data[2] = Lattice_User_Mode_Show_Tab[i * 3 + 0];
                 value_data[3] = Lattice_User_Mode_Show_Tab[i * 3 + 1];
                 value_data[4] = Lattice_User_Mode_Show_Tab[i * 3 + 2];
             }
         } break;
-        case id_qmk_rgb_set_matrix_color: {              // 在除自定义外的模式设置灯光颜色
+        case id_qmk_rgb_set_matrix_color: {              // Set the color for non-custom effects.
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
                 value_data[2] = rgb_matrix_get_mode();
                 value_data[3] = Lattice_User_Mode_Show_Tab[i * 3 + 0];
@@ -3291,14 +3291,14 @@ void User_Via_Qmk_Lattice_Set_Value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_qmk_rgb_matrix_brightness: {    //设置亮度 0 ~ 255
+        case id_qmk_rgb_matrix_brightness: {    //Set brightness (0-255).
             if (value_data[0] >= LATTICE_MAX_BRIGHTNESS) {
                 Keyboard_Info.Lattice_Brightness = LATTICE_MAX_BRIGHTNESS;
             } else {
                 Keyboard_Info.Lattice_Brightness = value_data[0];
             }
         } break;
-        case id_qmk_rgb_matrix_effect: {        //设置灯光模式
+        case id_qmk_rgb_matrix_effect: {        //Set the lighting effect.
             if (value_data[0] == 0) {
                 Keyboard_Info.Lattice_On_Off = LATTICE_LED_OFF;
             } else {
@@ -3311,31 +3311,31 @@ void User_Via_Qmk_Lattice_Set_Value(uint8_t *data) {
             }
             Lattice_Init();
         } break;
-        case id_qmk_rgb_matrix_effect_speed: {  //设置灯光速度
+        case id_qmk_rgb_matrix_effect_speed: {  //Set the animation speed.
             if (value_data[0] >= LATTICE_MAX_SPEED) {
                 Keyboard_Info.Lattice_Speed = LATTICE_MAX_SPEED;
             } else {
                 Keyboard_Info.Lattice_Speed = value_data[0];
             }
         } break;
-        case id_qmk_rgb_matrix_color: {         //设置颜色和饱和度
+        case id_qmk_rgb_matrix_color: {         //Set hue and saturation.
             Keyboard_Info.Lattice_Colour = value_data[0];
             Keyboard_Info.Lattice_Colour_Blue = value_data[0];
             Keyboard_Info.Lattice_Saturation = (255 - value_data[1]); 
         } break;
-        case id_qmk_rgb_signal_user_define: {     // 设置自定义单点亮模式
+        case id_qmk_rgb_signal_user_define: {     // Set a single LED in the custom effect.
             Lattice_User_Mode_Show_Tab[value_data[0] * 3 + 0] = value_data[1];
             Lattice_User_Mode_Show_Tab[value_data[0] * 3 + 1] = value_data[2];
             Lattice_User_Mode_Show_Tab[value_data[0] * 3 + 2] = value_data[3]; 
         } break;
-        case id_qmk_rgb_all_user_define: {        // 设置自定义全点亮模式
+        case id_qmk_rgb_all_user_define: {        // Set all LEDs in the custom effect.
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
-                Lattice_User_Mode_Show_Tab[i * 3 + 0] = value_data[2]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
-                Lattice_User_Mode_Show_Tab[i * 3 + 1] = value_data[3]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
-                Lattice_User_Mode_Show_Tab[i * 3 + 2] = value_data[4]; // 0 : 偏移地址 1 : 有效长度 2 : Data R
+                Lattice_User_Mode_Show_Tab[i * 3 + 0] = value_data[2]; // 0 : Offset 1 : Valid length 2 : Data R
+                Lattice_User_Mode_Show_Tab[i * 3 + 1] = value_data[3]; // 0 : Offset 1 : Valid length 2 : Data R
+                Lattice_User_Mode_Show_Tab[i * 3 + 2] = value_data[4]; // 0 : Offset 1 : Valid length 2 : Data R
             } 
         } break;
-        case id_qmk_rgb_reset_user_define: {        // 设置自定义复位模式
+        case id_qmk_rgb_reset_user_define: {        // Reset the custom effect.
             for (uint8_t i = 0; i < (LATTICE_LED_GROUP * LATTICE_LED_SIZE); i++) {
                 Lattice_User_Mode_Show_Tab[i * 3 + 0] = value_data[0];
                 Lattice_User_Mode_Show_Tab[i * 3 + 1] = value_data[1];
@@ -3344,24 +3344,24 @@ void User_Via_Qmk_Lattice_Set_Value(uint8_t *data) {
             Lattice_Init();
             Keyboard_Info.Lattice_Mode = INIT_LATTICE_MODE;
         } break;
-        case id_qmk_rgb_set_matrix_info: {               // 设定点阵屏矩阵信息
-            value_data[0] = LATTICE_LED_GROUP;           // 点阵屏行数
-            value_data[1] = LATTICE_LED_SIZE;            // 点阵屏列数
-            value_data[2] = LATTICE_LIGHT_MODE_COUNT;    // 点阵屏灯光模式总数
-            value_data[3] = LATTICE_MAX_BRIGHTNESS;      // 点阵屏最大亮度
-            value_data[4] = LATTICE_MAX_SPEED;           // 点阵屏最大速度
-            value_data[5] = INIT_LATTICE_MODE;           // 点阵屏默认模式
-            value_data[6] = INIT_LATTICE_BRIGHTNESS;     // 点阵屏默认亮度
-            value_data[7] = INIT_LATTICE_SPEED;          // 点阵屏默认速度
+        case id_qmk_rgb_set_matrix_info: {               // Set dot-matrix display information.
+            value_data[0] = LATTICE_LED_GROUP;           // Dot-matrix display row count
+            value_data[1] = LATTICE_LED_SIZE;            // Dot-matrix display column count
+            value_data[2] = LATTICE_LIGHT_MODE_COUNT;    // Dot-matrix display effect count
+            value_data[3] = LATTICE_MAX_BRIGHTNESS;      // Dot-matrix display maximum brightness
+            value_data[4] = LATTICE_MAX_SPEED;           // Dot-matrix display maximum speed
+            value_data[5] = INIT_LATTICE_MODE;           // Dot-matrix display default effect
+            value_data[6] = INIT_LATTICE_BRIGHTNESS;     // Dot-matrix display default brightness
+            value_data[7] = INIT_LATTICE_SPEED;          // Dot-matrix display default speed
         } break;
-        case id_qmk_rgb_get_matrix_info: {              // 读取点阵屏矩阵RGB信息
+        case id_qmk_rgb_get_matrix_info: {              // Read dot-matrix display RGB data.
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
                 Lattice_User_Mode_Show_Tab[i * 3 + 0] = value_data[2];
                 Lattice_User_Mode_Show_Tab[i * 3 + 1] = value_data[3];
                 Lattice_User_Mode_Show_Tab[i * 3 + 2] = value_data[4];
             }
         } break;
-        case id_qmk_rgb_set_matrix_color: {              // 在除自定义外的模式设置灯光颜色
+        case id_qmk_rgb_set_matrix_color: {              // Set the color for non-custom effects.
             for (uint8_t i = 0; i < (value_data[0] / 2); i++) {
                 Keyboard_Info.Lattice_Mode            = value_data[2];
                 Lattice_User_Mode_Show_Tab[i * 3 + 0] = value_data[3];
@@ -3426,12 +3426,12 @@ led_config_t g_led_config = { {
     { 8,  50},             { 28, 50}, { 43, 50}, { 58, 50}, { 73, 50}, { 88, 50}, {103, 50}, {118, 50}, { 133, 50}, { 148, 50}, { 163, 50}, { 178, 50}, { 193, 50}, { 208, 50}, { 224, 50},
     { 0,  60},  { 15, 60}, { 30, 60}, { 45, 60},            { 85, 60},                       {120, 60}, { 135, 60}, { 150, 60}, { 165, 60},             { 193, 60}, { 208, 60}, { 224, 60}, 
 
-    // 侧灯
+    // Side lighting
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
 
-    // 点阵
+    // Dot-matrix display
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
     { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65}, { 225, 65},
@@ -3447,12 +3447,12 @@ led_config_t g_led_config = { {
     1,      1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
     1,  1,  1,  1,      1,          1,  1,  1,  1,      1,  1,  1, 
 
-    // 侧灯
+    // Side lighting
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 
-    // 点阵
+    // Dot-matrix display
     0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,
@@ -3671,7 +3671,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(LED_WIN_L_INDEX, U_PWM, U_PWM, U_PWM);
         }
 
-        if (Key_Fn_Status) {                            //FN 按下模式指示
+        if (Key_Fn_Status) {                            //Indicate the active mode while Fn is held.
             switch (Keyboard_Info.Key_Mode) {
                 case QMK_BLE_MODE: {
                     switch (Keyboard_Info.Ble_Channel) {
@@ -3705,12 +3705,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 /************************ADC******************************/
 const md_adc_initial adc_initStruct =    /**< ADC init structure */
 {
-    MD_ADC_CFG_ALIGN_RIGHT,     //Data alignment（数据对齐）
-    MD_ADC_CFG_RSEL_12BIT,      //Data resolution（数据分辨率）
+    MD_ADC_CFG_ALIGN_RIGHT,     //Data alignment
+    MD_ADC_CFG_RSEL_12BIT,      //Data resolution
     MD_ADC_MODE_NCHS,           //Regular or Injected
     MD_ADC_CFG_CM_SINGLE,       //Single mode
-    MD_ADC_NCHS1_NSL_1CON,      /*sample count  采样通道数量*/
-    MD_ADC_SMPT1_CKDIV_DIV6,    //ADC prescale（ADC预分频）
+    MD_ADC_NCHS1_NSL_1CON,      /*Sample channel count*/
+    MD_ADC_SMPT1_CKDIV_DIV6,    //ADC prescaler
 };
 
 void User_Adc_Init(void) {  //ES_BATT_ADC_IO
@@ -3724,18 +3724,18 @@ void User_Adc_Init(void) {  //ES_BATT_ADC_IO
     gpiox.Pin = MD_GPIO_PIN_4;
     md_gpio_init(GPIOC, &gpiox);
 
-    md_rcu_enable_adc(RCU);//使能ADC同步制动
-    md_adc_calibration(ADC, (md_adc_initial *)(&adc_initStruct));//ADC校准
-    md_adc_set_sampletime_channel_14(ADC, 0x40);            //设置ADC通道
+    md_rcu_enable_adc(RCU);//Enable the ADC clock.
+    md_adc_calibration(ADC, (md_adc_initial *)(&adc_initStruct));//Calibrate the ADC.
+    md_adc_set_sampletime_channel_14(ADC, 0x40);            //Configure the ADC channel.
 
     md_adc_init(ADC, (md_adc_initial *)(&adc_initStruct));
 
     while ((ADC->RIF & 0x1) == 0);
 
-    md_adc_set_normal_sequence_length(ADC, adc_initStruct.Cnt);//采样次数
+    md_adc_set_normal_sequence_length(ADC, adc_initStruct.Cnt);//Sample count
     md_adc_set_normal_sequence_selection_1th(ADC, MD_ADC_NCHS1_NS1_CH14);
 
-    md_adc_set_start_normal(ADC, MD_ADC_CON_NSTART_START_REGULAR);//开始ADC采样
+    md_adc_set_start_normal(ADC, MD_ADC_CON_NSTART_START_REGULAR);//Start ADC sampling.
 }
 
 void User_Adc_Deinit(void) {
@@ -3745,8 +3745,8 @@ void User_Adc_Deinit(void) {
 }
 /*********************************************************/
 
-/************************USB 插件**************************/
-void User_Usb_Init(void) {  //中断频率2ms
+/************************USB attachment handling**************************/
+void User_Usb_Init(void) {  //Interrupt interval: 2 ms
     /*Using USB_SOF to calibrate the internal clock*/
     md_rcu_enable_csu(RCU);
     CSU->CON |= CSU_CON_AUTOEN_MSK;
@@ -3764,7 +3764,7 @@ void es_restart_usb_driver(void) {
 }
 
 void Usb_Disconnect(void) {
-    /*USB 复位*/
+    /*USB reset*/
     ald_usb_int_unregister();
     usb_lld_disconnect_bus(0);
 
@@ -3783,7 +3783,7 @@ void User_Usb_Deinit(void) {
 void notify_usb_device_state_change_user(enum usb_device_state usb_device_state)  {
     if (Keyboard_Info.Key_Mode == QMK_USB_MODE) {
         if(usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
-            Usb_If_Ok = true;//usb枚举完成
+            Usb_If_Ok = true;//USB enumeration complete
             Usb_If_Ok_Led = true;
             Usb_If_Ok_Delay = 0;
         } else {
@@ -3798,8 +3798,8 @@ void notify_usb_device_state_change_user(enum usb_device_state usb_device_state)
 
 /*********************************************************/
 
-/**********************系统函数***************************/
-/*  键盘扫描按键延时 */
+/**********************System functions***************************/
+/*  Keyboard scan delay */
 void matrix_io_delay(void) {
 }
 
@@ -3809,7 +3809,7 @@ void matrix_output_select_delay(void) {
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
 }
 
-/*拨动开关*/
+/*Slide switch*/
 void Key_Switch_Mode_Scan(void) {
     Key_Switch_Scan = 0x00;
     if ((gpio_read_pin(MODE_BLE_IO)) && (!gpio_read_pin(MODE_2P4G_IO))) {
@@ -3885,10 +3885,10 @@ void housekeeping_task_user(void) {
 
     if (Scan_Switch_Ok) {
         Scan_Switch_Ok = false;
-        Key_Switch_Mode_Scan(); // 拨动开关轮询
+        Key_Switch_Mode_Scan(); // Poll the slide switch.
     }
 
-    if(User_EE_CLR_Start_Flag){                 //长按3s重启按键
+    if(User_EE_CLR_Start_Flag){                 //Restart after the reset key is held for 3 seconds.
         User_EE_CLR_Start_Flag = false;
 
         Keyboard_Info.Led_On_Off = INIT_LED_ON_OFF;
@@ -3897,7 +3897,7 @@ void housekeeping_task_user(void) {
         Keyboard_Info.Win_Lock = INIT_WIN_NLOCK;
         Keyboard_Info.Debounce_Delay = DEBOUNCE_DELAY_CLASS;
         Keyboard_Info.User_Sleep_Time = SLEEP_TIME_CLASS;
-        Keyboard_Info.User_DSleep_Time = USER_DSLEEP_TIME; //复位需不需要初始化无线休眠时间根据实际情况
+        Keyboard_Info.User_DSleep_Time = USER_DSLEEP_TIME; //Restore the wireless sleep timeout on reset as required by the product.
     #if LOGO_LED_ENABLE
         Keyboard_Info.Logo_On_Off = INIT_LOGO_ON_OFF;
         Keyboard_Info.Logo_Mode = INIT_LOGO_MODE;
@@ -3928,7 +3928,7 @@ void housekeeping_task_user(void) {
         Lattice_Init();
     #endif
         Reset_Save_Flash = true;
-        /*将当前模式写入flash*/
+        /*Write the current mode to flash.*/
         eeprom_write_block_user((void *)&Keyboard_Info.Key_Mode, 0, sizeof(Keyboard_Info_t));
         Reset_Save_Flash = false;
 
@@ -3959,10 +3959,10 @@ void User_Adc_Batt_Number(void) {
 }
 
 void Init_Keyboard_Infomation(void){
-    /*上电将flash里面的工作模式读取出来*/
+    /*Read the operating mode from flash at power-on.*/
     eeprom_read_block_user((void *)&Keyboard_Info, 0, sizeof(Keyboard_Info_t));
 
-    /*如果 eeprom 里面是空数据直接初始化结构体*/
+    /*Initialize the structure if EEPROM contains no saved data.*/
     if ((Keyboard_Info.Key_Mode == 0XFF) && (Keyboard_Info.Ble_Channel == 0XFF) && (Keyboard_Info.Batt_Number == 0XFF)  && (Keyboard_Info.Nkro == 0XFF) && (Keyboard_Info.Mac_Win_Mode == 0XFF) 
         && (Keyboard_Info.Win_Lock == 0XFF) && (Keyboard_Info.Led_On_Off == 0XFF) && (Keyboard_Info.Debounce_Delay == 0xFF)) {
         Keyboard_Info.Key_Mode = INIT_WORK_MODE;
@@ -4170,7 +4170,7 @@ void Init_Keyboard_Infomation(void){
     }
 }
 
-void Key_Switch_Mode_Power(void) {  /*拨动开关在波动的瞬间会断电，所以在上电的时候需要特殊处理*/
+void Key_Switch_Mode_Power(void) {  /*The slide switch briefly interrupts power, so mode selection requires special handling at power-on.*/
     uint8_t Scan_Delay = 0;
     uint8_t Power_Up_Mode = QMK_USB_MODE;
     uint8_t Power_UP_BLE = 0;
@@ -4219,20 +4219,20 @@ void board_init(void) {
 
     eeprom_driver_init();       //EEPROM
 
-    rgb_matrix_driver_init();   //PWM DMA 初始化
+    rgb_matrix_driver_init();   //Initialize PWM and DMA.
 
     Init_Gpio_Infomation();     //GPIO
 
-    Init_Keyboard_Infomation(); //初始化键盘基本信息
+    Init_Keyboard_Infomation(); //Initialize keyboard configuration.
 
-    Key_Switch_Mode_Power();    //拨动开关强制切换模式
+    Key_Switch_Mode_Power();    //Apply the mode selected by the slide switch.
 
-    Init_Batt_Infomation();     //初始化电池电量
+    Init_Batt_Infomation();     //Initialize battery-level monitoring.
 
-    User_Systime_Init();        //time定时器
+    User_Systime_Init();        //System timer
 
     if (Keyboard_Info.Key_Mode == QMK_USB_MODE) {
-        User_Usb_Init();        //USB 插件
+        User_Usb_Init();        //USB attachment handling
         Led_Rf_Pair_Flg = false;
     } else {
         Usb_Disconnect();
@@ -4270,7 +4270,7 @@ void keyboard_post_init_user(void) {
     User_Keyboard_Post_Init();
 }
 
-void es_change_qmk_nkro_mode_enable(void) {  /*六键 、全键无冲*/
+void es_change_qmk_nkro_mode_enable(void) {  /*6-key and N-key rollover*/
     if(!keymap_config.nkro) {
         clear_keyboard(); // clear first buffer to prevent stuck keys
         keymap_config.nkro = true;
@@ -4290,11 +4290,11 @@ void es_change_qmk_nkro_mode_disable(void) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只要有按键按下就会调用此函数*/
-    Usb_Change_Mode_Delay = 0;                                      /*只要有按键就不会进入休眠*/
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*Called for keyboard key events.*/
+    Usb_Change_Mode_Delay = 0;                                      /*Prevent sleep while processing key activity.*/
     Usb_Change_Mode_Wakeup = false;
 
-    /* Mac下変換/かな同为KC_LNG1，必须先按矩阵位置置位，再刷新点阵图案 */
+    /* On Mac, Henkan and Kana both map to KC_LNG1; set the matrix-position flag before updating the dot-matrix glyph. */
     if (keycode == KC_LNG1) {
         if (record->event.pressed) {
             User_Change_Flag = ((record->event.key.col == CHANGE_COL) && (record->event.key.row == CHANGE_ROL));
@@ -4322,10 +4322,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
             if (record->event.pressed) {
                 Key_2p4g_Status = true;
                 Usb_Disconnect();
-                if (Keyboard_Info.Key_Mode != QMK_2P4G_MODE) {      /*如果当前模式不是2.4G模式则切换为2.4G*/
+                if (Keyboard_Info.Key_Mode != QMK_2P4G_MODE) {      /*Switch to 2.4 GHz mode if it is not already active.*/
                     Keyboard_Info.Key_Mode = QMK_2P4G_MODE;
                     User_Clear_Board_2ms();
-                    Spi_Send_Commad(USER_SWITCH_2P4G_MODE);         /*发送SPI命令*/
+                    Spi_Send_Commad(USER_SWITCH_2P4G_MODE);         /*Send the SPI command.*/
                     Save_Flash_Set();
                     Led_Rf_Pair_Flg = true;
 
@@ -4345,7 +4345,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 if (Keyboard_Info.Ble_Channel != QMK_BLE_CHANNEL_1) {
                     Keyboard_Info.Ble_Channel = QMK_BLE_CHANNEL_1;
                     User_Clear_Board_2ms();
-                    Spi_Send_Commad(USER_SWITCH_BLE_1_MODE);        /*发送SPI命令*/
+                    Spi_Send_Commad(USER_SWITCH_BLE_1_MODE);        /*Send the SPI command.*/
                     Save_Flash_Set();
                     Led_Rf_Pair_Flg = true;
                 }
@@ -4364,7 +4364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 if (Keyboard_Info.Ble_Channel != QMK_BLE_CHANNEL_2) {
                     Keyboard_Info.Ble_Channel = QMK_BLE_CHANNEL_2;
                     User_Clear_Board_2ms();
-                    Spi_Send_Commad(USER_SWITCH_BLE_2_MODE);        /*发送SPI命令*/
+                    Spi_Send_Commad(USER_SWITCH_BLE_2_MODE);        /*Send the SPI command.*/
                     Save_Flash_Set();
                     Led_Rf_Pair_Flg = true;
                 }
@@ -4383,7 +4383,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 if (Keyboard_Info.Ble_Channel != QMK_BLE_CHANNEL_3) {
                     Keyboard_Info.Ble_Channel = QMK_BLE_CHANNEL_3;
                     User_Clear_Board_2ms();
-                    Spi_Send_Commad(USER_SWITCH_BLE_3_MODE);        /*发送SPI命令*/
+                    Spi_Send_Commad(USER_SWITCH_BLE_3_MODE);        /*Send the SPI command.*/
                     Save_Flash_Set();
                     Led_Rf_Pair_Flg = true;
                 }
@@ -4396,14 +4396,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
             if (record->event.pressed) {
                 if (Keyboard_Info.Key_Mode != QMK_USB_MODE) {
                     Keyboard_Info.Key_Mode = QMK_USB_MODE;
-                    Spi_Send_Commad(USER_SWITCH_USB_MODE);          /*发送SPI命令*/
+                    Spi_Send_Commad(USER_SWITCH_USB_MODE);          /*Send the SPI command.*/
                     es_restart_usb_driver();
                     Save_Flash_Set();
                     Led_Rf_Pair_Flg = false;
                 }
             }
         } return true;
-        case QMK_BATT_NUM: {                                        //电池状态显示
+        case QMK_BATT_NUM: {                                        //Battery status display
             if (record->event.pressed) {
                 User_Key_Batt_Num_Show = true;
                 Lattice_Init();
@@ -4414,7 +4414,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 User_Key_Batt_Count = 0;
             }
         } return true;
-        case QMK_WIN_LOCK: {                                        //锁WIN
+        case QMK_WIN_LOCK: {                                        //Windows key lock
             if (!record->event.pressed) {
                 if (Keyboard_Info.Mac_Win_Mode == INIT_MAC_MODE) {
                     if (Keyboard_Info.Win_Lock == INIT_WIN_LOCK) {
@@ -4432,7 +4432,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 }
             }
         } return true;
-        case QMK_DEBOUNCE: {                                        //按键消抖功能
+        case QMK_DEBOUNCE: {                                        //Key debounce control
             if (record->event.pressed) {
                 Debounce_Function_Status = true;
             } else {
@@ -4440,7 +4440,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
             }
             User_Key_3s_Count = 0;
         } return true; 
-        case QMK_TIME_SET: {                                        //一级休眠
+        case QMK_TIME_SET: {                                        //Sleep
             if (!record->event.pressed) {
                 if (Keyboard_Info.User_Sleep_Time == SLEEP_TIME_ONE) {
                     Keyboard_Info.User_Sleep_Time = SLEEP_TIME_TWO;
@@ -4459,15 +4459,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case QMK_DTIME_SET: {                                       //二级休眠
+        case QMK_DTIME_SET: {                                       //Deep sleep
             if (!record->event.pressed) {
-                Keyboard_Info.User_DSleep_Time += 15;               //调节多少根据客户的需求来
+                Keyboard_Info.User_DSleep_Time += 15;               //Choose the adjustment step according to product requirements.
                 Spi_Send_Commad(USER_DSLEEP_TIME_WRITE);
                 User_DSleep_Time_Send = false;
                 Save_Flash_Set();
             }
         } return true;
-        case QMK_TEST_COLOUR: {                                     //键盘灯光颜色测试
+        case QMK_TEST_COLOUR: {                                     //Keyboard lighting color test
             if (!record->event.pressed) {
                 if (Test_Led == false) {
                     Test_Led = true;
@@ -4475,7 +4475,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 }
             }
         } return true;
-        case KC_SPC: {                                              //测试灯光颜色切换
+        case KC_SPC: {                                              //Cycle colors for the lighting test.
             if (!record->event.pressed) {
                 if (Test_Led) {
                     Test_Colour++;
@@ -4500,40 +4500,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 record->event.pressed = false;
             }
         } return true;
-        case RGB_VAI: {                                             //亮度加
+        case RGB_VAI: {                                             //Increase brightness
             if (!record->event.pressed) {
                 if (rgb_matrix_get_val() >= (RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP)) {
                     Led_Point_Count = 3;
                 }
             }
         } return true;
-        case RGB_VAD: {                                             //亮度减
+        case RGB_VAD: {                                             //Decrease brightness
             if (!record->event.pressed) {
                 if (rgb_matrix_get_val() <= RGB_MATRIX_VAL_STEP) {
                     Led_Point_Count = 3;
                 }
             }
         } return true;
-        case RGB_SPI: {                                             //速度加
+        case RGB_SPI: {                                             //Increase animation speed
             if (!record->event.pressed) {
                 if (rgb_matrix_get_speed() >= (255 - RGB_MATRIX_SPD_STEP)) {
                     Led_Point_Count = 3;
                 }
             }
         } return true;
-        case RGB_SPD: {                                             //速度减
+        case RGB_SPD: {                                             //Decrease animation speed
             if (!record->event.pressed) {
                 if (rgb_matrix_get_speed() <= RGB_MATRIX_SPD_STEP) {
                     Led_Point_Count = 3;
                 }
             }
         } return true;
-        case RGB_RTOG: {                                            //开关闭背光
+        case RGB_RTOG: {                                            //Toggle backlighting.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Led_On_Off) {
                     Keyboard_Info.Led_On_Off = INIT_LED_ON;
-                    if (rgb_matrix_get_val() <= 0) {                // 获取当前指示灯亮度
-                        rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_MAXIMUM_BRIGHTNESS);//设置RGB灯的色相（hue）、饱和度(sat)、亮度
+                    if (rgb_matrix_get_val() <= 0) {                // Read the current lighting brightness.
+                        rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_MAXIMUM_BRIGHTNESS);//Set RGB hue, saturation, and brightness.
                     }
                 } else {
                     Keyboard_Info.Led_On_Off = INIT_LED_OFF;
@@ -4558,7 +4558,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Key_Fn_Status = false;
             }
         } return true;
-        case QMK_MAC_WIN_CH: {                                     //MAC/WIN系统切换
+        case QMK_MAC_WIN_CH: {                                     //Switch between Mac and Windows modes.
             if (record->event.pressed) {
                 Key_Sys_Mode_Status = true;
             } else {
@@ -4566,7 +4566,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Win_Mac_Key_3s_Count = 0;
             }
         } return true;
-        case U_EE_CLR: {                                             //复位
+        case U_EE_CLR: {                                             //Reset
             if (record->event.pressed) {
                 User_QMK_EE_CLR_Flag = true;
             }else{
@@ -4575,7 +4575,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
             }
         } return true;
     #if LOGO_LED_ENABLE
-        case LOGO_TOG: {                                            //logo 灯光开关
+        case LOGO_TOG: {                                            //Toggle logo lighting.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off) {
                     Keyboard_Info.Logo_On_Off = LOGO_LED_ON;
@@ -4589,7 +4589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_MOD: {                                            //logo 模式切换
+        case LOGO_MOD: {                                            //Cycle logo lighting effects.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off) {
                     return true;
@@ -4605,7 +4605,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_RMOD: {                                           //logo 模式切换
+        case LOGO_RMOD: {                                           //Cycle logo lighting effects.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off) {
                     return true;
@@ -4620,7 +4620,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_HUI: {                                            //logo 颜色增加
+        case LOGO_HUI: {                                            //Increase logo hue.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE) || (Keyboard_Info.Logo_Mode == LOGO_WAVE_RGB_MODE) || (Keyboard_Info.Logo_Mode == LOGO_SPECTRUM_MODE)) {
                     return true;
@@ -4634,7 +4634,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_HUD: {                                            //logo 颜色减小
+        case LOGO_HUD: {                                            //Decrease logo hue.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE) || (Keyboard_Info.Logo_Mode == LOGO_WAVE_RGB_MODE) || (Keyboard_Info.Logo_Mode == LOGO_SPECTRUM_MODE)) {
                     return true;
@@ -4648,7 +4648,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_VAI: {                                            //logo 亮度增加
+        case LOGO_VAI: {                                            //Increase logo brightness.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE)) {
                     return true;
@@ -4663,7 +4663,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_VAD: {                                            //logo 亮度减小
+        case LOGO_VAD: {                                            //Decrease logo brightness.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE)) {
                     return true;
@@ -4678,7 +4678,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_SPI: {                                            //logo 速度增加
+        case LOGO_SPI: {                                            //Increase logo animation speed.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE)) {
                     return true;
@@ -4693,7 +4693,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LOGO_SPD: {                                            //logo 速度减小
+        case LOGO_SPD: {                                            //Decrease logo animation speed.
             if (!record->event.pressed) {
                 if (Keyboard_Info.Logo_On_Off || (Keyboard_Info.Logo_Mode == LOGO_OFF_MODE)) {
                     return true;
@@ -4711,7 +4711,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
     #endif
     
     #if LATTICE_LED_ENABLE
-        case LATTICE_MOD: {                                            //矩阵 模式切换
+        case LATTICE_MOD: {                                            //Cycle dot-matrix effects.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
@@ -4728,7 +4728,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LATTICE_HUI: {                                            //矩阵 颜色增加
+        case LATTICE_HUI: {                                            //Increase dot-matrix hue.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
@@ -4750,7 +4750,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LATTICE_VAI: {                                            //矩阵 亮度增加
+        case LATTICE_VAI: {                                            //Increase dot-matrix brightness.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
@@ -4768,7 +4768,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LATTICE_VAD: {                                            //矩阵 亮度减小
+        case LATTICE_VAD: {                                            //Decrease dot-matrix brightness.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
@@ -4786,7 +4786,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LATTICE_SPI: {                                            //矩阵 速度增加
+        case LATTICE_SPI: {                                            //Increase dot-matrix animation speed.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
@@ -4804,7 +4804,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
                 Save_Flash_Set();
             }
         } return true;
-        case LATTICE_SPD: {                                            //矩阵 速度减小
+        case LATTICE_SPD: {                                            //Decrease dot-matrix animation speed.
             if (!record->event.pressed) {
                 if (Lattice_Power_Flag) {
                     Lattice_Power_Flag = 0;
