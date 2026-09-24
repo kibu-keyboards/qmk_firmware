@@ -1,48 +1,8 @@
 {
-  "revision": "English publication text and Japanese customer guidance, 2026-09-24",
-  "base_commit": "86d858eeb2e70022147716526d799f5ca628baa5",
-  "firmware_executable_tokens_changed": false,
-  "source_comment_files": [
-    "qmk_firmware/keyboards/p75_jis/p75_jis/config.h",
-    "qmk_firmware/keyboards/p75_jis/p75_jis/p75_jis.c",
-    "qmk_firmware/lib/chibios-contrib/os/common/ext/CMSIS/ES32/FS026/FS026/reg_fc.h",
-    "qmk_firmware/lib/chibios-contrib/os/common/ext/CMSIS/ES32/FS026/fs026.h",
-    "qmk_firmware/lib/rdr_lib/rdr_common.h",
-    "qmk_firmware/quantum/action.c",
-    "qmk_firmware/quantum/command.c",
-    "qmk_firmware/quantum/debounce.h",
-    "qmk_firmware/quantum/via.c",
-    "qmk_firmware/quantum/via.h"
-  ],
-  "translated_publication_docs": [
-    "README.md",
-    "docs/BUILD.md",
-    "docs/GIT_IMPORT.md",
-    "docs/KNOWN_ISSUES.md",
-    "docs/RELEASE_NOTES.md",
-    "docs/SOURCE_AND_LICENSES.md",
-    "docs/VERSION_AND_TESTS.md",
-    "docs/VIA_GUIDE.md"
-  ],
-  "renamed_historical_documents": {
-    "removed_paths": [
-      "qmk_firmware/keyboards/p75_jis/p75_jis/QMK\u2593\u2518\u256b\u2248\u2524\u2264\u255a\u00bd.txt",
-      "qmk_firmware/keyboards/p75_jis/p75_jis/\u2568\u2590\u2555\u2500\u2566\u2561\u251c\u2248.md"
-    ],
-    "current_paths": [
-      "qmk_firmware/keyboards/p75_jis/p75_jis/HARDWARE_REVISION_NOTES.md",
-      "qmk_firmware/keyboards/p75_jis/p75_jis/QMK_COMMAND_REFERENCE.txt"
-    ]
-  },
-  "customer_japanese_sections": [
-    "README.md",
-    "docs/KNOWN_ISSUES.md",
-    "docs/RELEASE_NOTES.md",
-    "docs/VERSION_AND_TESTS.md",
-    "docs/VIA_GUIDE.md"
-  ],
-  "upstream_multilingual_resources": "retained unchanged",
-  "historical_metadata": "original-source-files.csv, dependencies.json, and dated build records describe original inputs; release-manifest.csv describes this revision",
+  "revision": "Public documentation revision 2",
+  "source_baseline": "P75 JIS 0812 PRE-FIX01",
+  "firmware_changed": false,
   "reference_bin_sha256": "21DE5AAFA6684B72AD797C47C61712F8D40F5762477DCBA483DC7BB53A4332B2",
-  "via_definition_sha256": "2CB4B1F7E9222060C3F55F353128A7278AD6C953ED0B327E95EB1D8089B025BF"
+  "via_definition_sha256": "2CB4B1F7E9222060C3F55F353128A7278AD6C953ED0B327E95EB1D8089B025BF",
+  "file_manifest": "metadata/release-manifest.csv"
 }

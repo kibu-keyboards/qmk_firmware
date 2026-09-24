@@ -1,6 +1,6 @@
 # P75 JIS — VIA Setup
 
-This guide applies to the P75 JIS PRE-FIX01 firmware and the [matching VIA definition](../artifacts/kibu_p75_jis_via_pre_fix01.json), VID/PID `36B0` / `3156`. Configuration requires wired USB. Bluetooth and 2.4 GHz are input connections; wireless configuration is not supported by this guide.
+This guide applies to the P75 JIS PRE-FIX01 firmware and the [matching VIA definition](../artifacts/kibu_p75_jis_via_pre_fix01.json), VID/PID `36B0` / `3156`. Configuration requires wired USB. Bluetooth and 2.4 GHz are input connections; wireless configuration is not supported.
 
 ## Connect and load the definition
 
@@ -26,7 +26,7 @@ A device definition describes the keyboard's layout and capabilities; it is not 
 
 Check wired mode, the data cable, browser device permission, and the loaded definition. Record the device name shown by the browser and the steps that fail, then contact [KIBU support](https://kibushop.com/pages/contact) or [m@kibushop.com](mailto:m@kibushop.com).
 
-The firmware retains its original device names. Spaces or other historical naming details are not, by themselves, a reason to update firmware. No preliminary flashing is required solely to use this guide or obtain the source. See [version and test coverage](VERSION_AND_TESTS.md) and [known issues](KNOWN_ISSUES.md).
+The firmware retains its original device names. Spaces or other historical naming details are not, by themselves, a reason to update firmware. No preliminary flashing is required solely to use this guide or obtain the source. See [version reference](VERSION_AND_TESTS.md) and [known issues](KNOWN_ISSUES.md).
 
 ## 日本語
 
