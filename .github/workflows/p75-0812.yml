@@ -1,8 +1,10 @@
+# Modified by KIBU (kibu-keyboards) <M@kibu.jp> on 2026-09-24.
+# Change: Follow the renamed p75-jis branch for push builds; the release tag is unchanged.
 name: P75 JIS 0812 reproducible build
 
 on:
   push:
-    branches: [p75-jis-0812]
+    branches: [p75-jis]
     tags: [p75-jis-0812-r1]
   workflow_dispatch:
 

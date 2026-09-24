@@ -2,7 +2,9 @@
 
 > Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Translated and clarified the English source-provenance and exact-checkout instructions. Original authorship and license notices are retained.
 
-The release tag is `p75-jis-0812-r1` on the `p75-jis-0812` snapshot branch. The branch records the supplied source snapshot; it does not reconstruct production Git history. The existing `master` and `kibu` branches retain their upstream history. See [source and licenses](SOURCE_AND_LICENSES.md) for the baseline and component provenance.
+> Modified by KIBU (kibu-keyboards) (M@kibu.jp) on 2026-09-24. Changes: Updated branch references after renaming the P75 JIS maintenance branch and removing the unused kibu branch. The release tag and download links are unchanged.
+
+The release tag `p75-jis-0812-r1` remains the fixed reference for the published release. Ongoing P75 JIS maintenance uses the `p75-jis` branch, renamed from `p75-jis-0812`. This branch starts from the supplied source snapshot; it does not reconstruct production Git history. The `master` branch retains the upstream history. See [source and licenses](SOURCE_AND_LICENSES.md) for the baseline and component provenance.
 
 Source is under `qmk_firmware/`; build entry points are under `tools/`. Dependencies are ordinary files included in the release. The historical `qmk_firmware/.gitmodules` is retained for provenance: **do not run `git submodule update` to replace the fixed dependencies.** No private dependency repository is required.
 
