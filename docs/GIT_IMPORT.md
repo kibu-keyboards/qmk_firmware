@@ -19,6 +19,6 @@ printf '* -text -eol -filter -ident\n' > .git/info/attributes
 git checkout --detach p75-jis-0812-r1
 ```
 
-此命令不下载子模块。CI同样在全新checkout中设置精确字节规则后重新取出索引文件。`metadata/release-manifest.csv`记录除自身以外所有发布文件的大小和SHA-256，清单自身由Git提交及ZIP哈希固定。
+此命令不下载子模块。CI在全新checkout中设置精确字节规则，再用 `git archive HEAD` 生成临时ZIP并解压覆盖该全新工作区，避免索引缓存跳过已有文件、保留首次检出时的换行转换。`metadata/release-manifest.csv`记录除自身以外所有发布文件的大小和SHA-256，清单自身由Git提交及ZIP哈希固定。
 
 来源、许可、已知问题和实机覆盖分别见同目录对应说明；Git导入不改变这些结论。

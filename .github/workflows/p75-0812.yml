@@ -28,8 +28,10 @@ jobs:
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Force .git/info | Out-Null
           Set-Content -LiteralPath .git/info/attributes -Value '* -text -eol -filter -ident' -Encoding ascii
-          git checkout-index --all --force
-          if ($LASTEXITCODE -ne 0) { throw 'Failed to restore exact Git blob bytes.' }
+          $exactSourceZip = Join-Path $env:RUNNER_TEMP ("p75-exact-source-{0}.zip" -f [Guid]::NewGuid().ToString('N'))
+          git archive --format=zip --output=$exactSourceZip HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Failed to archive exact Git blob bytes.' }
+          Expand-Archive -LiteralPath $exactSourceZip -DestinationPath $PWD.Path -Force
 
       - name: Set up Windows Python 3.12
         id: python
