@@ -1,0 +1,118 @@
+{
+  "manifest_algorithm": "SHA256 of sorted UTF-8 path + TAB + uppercase file SHA256 + LF",
+  "source_zip_sha256": "B5432FB8B39ADFD91D3196C08056C09BC3D90542B151631B6AFB9C87A8119846",
+  "dependencies": [
+    {
+      "path": "lib/arm_atsam",
+      "files": 110,
+      "bytes": 3612501,
+      "content_manifest_sha256": "A9B99F54850153D48364C9B584B8258C03B7EC92FD551B89278C9CE7D5CCBE0B",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/chibios",
+      "files": 6062,
+      "bytes": 108897511,
+      "content_manifest_sha256": "27EC1F733EC525426048463D1FF11FF275D5D2CE55E6D0CFA9F0A069B02E2F8A",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/chibios-contrib",
+      "files": 9683,
+      "bytes": 510656041,
+      "content_manifest_sha256": "43D576F16DC37B31CC6341EADB2CF3393B869CCD7D9613EAAC36053B6374F181",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/chibios-contrib.7z",
+      "files": 1,
+      "bytes": 26051893,
+      "content_manifest_sha256": "CD56EA032DD968A70FF40C54342C42EAA88D6CDE87D6E7DC2EF1237AC5A99476",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/chibios-contrib_old.zip",
+      "files": 1,
+      "bytes": 7236954,
+      "content_manifest_sha256": "5701116546926ECE472C11C8F814F18BF641F02F19B24BF87E65AF92F7D245CB",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/fnv",
+      "files": 13,
+      "bytes": 196744,
+      "content_manifest_sha256": "6EB414DB26CF264EFC29DB7C74C6A9D2DEC4684D41020C5A4BE84720B54714D0",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/googletest",
+      "files": 259,
+      "bytes": 4047374,
+      "content_manifest_sha256": "6BE6C2A37D834F41EBA60418EB8D656B5643AEDB20EF48A65770BB166953C347",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/lib8tion",
+      "files": 7,
+      "bytes": 80645,
+      "content_manifest_sha256": "B546232D674C9E69691DF89E9CC29C7D4BF34C5CCB77125C51798E9C16EA4BFD",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/lufa",
+      "files": 1327,
+      "bytes": 18541467,
+      "content_manifest_sha256": "BFE47B12ED85A02E90B75A330C41EE92F24C08DF318AB8909C8E67E2184C0272",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/lvgl",
+      "files": 1082,
+      "bytes": 97115327,
+      "content_manifest_sha256": "F670AE73959D01F65B0796F5D3A92A697CA5F5CDB62EFC41D6AD75AD81768444",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/pico-sdk",
+      "files": 557,
+      "bytes": 7853399,
+      "content_manifest_sha256": "CBAA88CAE12F5461A37452D9D09914A3800FA0EA261F5CC1FD7B949D4171CFA4",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/printf",
+      "files": 16,
+      "bytes": 854632,
+      "content_manifest_sha256": "1446F5BBDADA6944CA3ED361565ED3B41708199BD0F4CDCCC1F72CCDB72CBBF1",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/python",
+      "files": 415,
+      "bytes": 2103956,
+      "content_manifest_sha256": "BBC0138402C38B63EE4C0AF783C11F8DBBE5F2C74BBEB2A48185209CDD819BC4",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/rdr_lib",
+      "files": 3,
+      "bytes": 91606,
+      "content_manifest_sha256": "283C95FA19C42E274BE4CB899506912E4CB81325AE722D5E324E18CA2C613352",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/usbhost",
+      "files": 181,
+      "bytes": 1506952,
+      "content_manifest_sha256": "96A2AA1F119B2633AB8BED088D0F6C07A1099BFC340CCE5C924717A3858A449D",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    },
+    {
+      "path": "lib/vusb",
+      "files": 99,
+      "bytes": 1434275,
+      "content_manifest_sha256": "02E569A094B9CDBDF7C38E6A2A2858A120299DB2F9DF442704F4A61F169B6DA6",
+      "identity": "0812 ZIP member bytes; no inferred git revision"
+    }
+  ]
+}

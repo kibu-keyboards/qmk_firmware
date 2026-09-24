@@ -1,0 +1,50 @@
+{
+  "version": "GNU Arm Embedded 10.3-2021.10 / GCC 10.3.1 20210824",
+  "archive": "gcc-arm-none-eabi-10.3-2021.10-win32.zip",
+  "archive_bytes": 200578763,
+  "archive_sha256": "D287439B3090843F3F4E29C7C41F81D958A5323AECEFCF705C203BFD8AE3F2E7",
+  "download": "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-win32.zip",
+  "http_head": 200,
+  "checked_files": [
+    {
+      "path": "bin/arm-none-eabi-gcc.exe",
+      "sha256": "76AEF3A90269C5DD0B2940F5CDF9B387E8BA114A3213C335FF4535665D4B29AC",
+      "matches_archive": true
+    },
+    {
+      "path": "bin/arm-none-eabi-ld.exe",
+      "sha256": "391AF65026359A43C9E2EB86998AD947197694B4A0C0C1D08858795897B6A009",
+      "matches_archive": true
+    },
+    {
+      "path": "bin/arm-none-eabi-objcopy.exe",
+      "sha256": "ADDA73D45B5E5BE804E654F25EA417712C3B78665770C404D6F876052B8C0580",
+      "matches_archive": true
+    },
+    {
+      "path": "bin/arm-none-eabi-nm.exe",
+      "sha256": "2CAC13A8F69615CDB45C61835F79ABC478A26D687DF0A35BCBFF9D16D0E4FABC",
+      "matches_archive": true
+    },
+    {
+      "path": "lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a",
+      "sha256": "DDDF2F41B2BAA107308C4C08A427DF67F73499BDF63DDEFBEBE3F643894DC375",
+      "matches_archive": true
+    },
+    {
+      "path": "arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a",
+      "sha256": "C80931867206AB03C3499BD8580F8F4BD1ED6CD9B8B5BA747961AA67E96585AF",
+      "matches_archive": true
+    },
+    {
+      "path": "arm-none-eabi/lib/thumb/v6-m/nofp/libg_nano.a",
+      "sha256": "1618C569FC6BEBDD122A9636E1DCA7CE93828F22F3C7233D11F57A05C4801713",
+      "matches_archive": true
+    },
+    {
+      "path": "arm-none-eabi/lib/thumb/v6-m/nofp/libm.a",
+      "sha256": "E37AB5CB079124CD540F78B439AD1B6346CB88CED7D10549E210FBF412D93CD9",
+      "matches_archive": true
+    }
+  ]
+}

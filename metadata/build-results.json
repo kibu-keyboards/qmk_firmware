@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-23",
+  "target": "p75_jis/p75_jis:via",
+  "compiler": "GNU Arm Embedded 10.3-2021.10 / GCC 10.3.1 20210824",
+  "unmodified_source_current_date": {
+    "original_size": 80860,
+    "rebuilt_size": 80860,
+    "original_sha256": "21DE5AAFA6684B72AD797C47C61712F8D40F5762477DCBA483DC7BB53A4332B2",
+    "rebuilt_sha256": "898C292DD72B86AE6CC08C2700392D72A66929F278B45ED364731E0D8E4E913D",
+    "different_byte_count": 7,
+    "differences": [
+      {
+        "offset": 51110,
+        "original": 8,
+        "rebuilt": 9
+      },
+      {
+        "offset": 51114,
+        "original": 36,
+        "rebuilt": 35
+      },
+      {
+        "offset": 51120,
+        "original": 7,
+        "rebuilt": 35
+      },
+      {
+        "offset": 51144,
+        "original": 8,
+        "rebuilt": 9
+      },
+      {
+        "offset": 51150,
+        "original": 247,
+        "rebuilt": 246
+      },
+      {
+        "offset": 51158,
+        "original": 7,
+        "rebuilt": 35
+      },
+      {
+        "offset": 51164,
+        "original": 248,
+        "rebuilt": 220
+      }
+    ]
+  },
+  "attributed_source_historical_date": {
+    "clean_build": true,
+    "qmk_build_date_metadata": "2026-08-07-00:00:00",
+    "original_time_of_day_known": false,
+    "bytes": 80860,
+    "sha256": "21DE5AAFA6684B72AD797C47C61712F8D40F5762477DCBA483DC7BB53A4332B2",
+    "byte_for_byte_identical_to_0812_bin": true,
+    "source_program_change": "encoder attribution comment only"
+  },
+  "hardware_tests_this_run": "NOT RUN; user asked to finish source and materials without sample/receiver",
+  "original_source_zip_unchanged": true
+}

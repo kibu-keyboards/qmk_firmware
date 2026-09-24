@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+runner="$(cd "$(dirname "$0")/.." && pwd)/run-qmk.py"
+if [[ "${1:-}" == list-keyboards ]]; then
+    "$QMK_PYTHON" "$runner" "$@" | tr '\\' '/'
+else
+    exec "$QMK_PYTHON" "$runner" "$@"
+fi

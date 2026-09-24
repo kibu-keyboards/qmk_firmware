@@ -1,0 +1,93 @@
+
+网站：
+	https://github.com/qmk/ChibiOS
+	https://github.com/qmk/ChibiOS-Contrib
+	https://github.com/qmk/googletest
+	https://github.com/qmk/lufa
+	https://github.com/qmk/lvgl.git
+	https://github.com/qmk/pico-sdk.git
+	https://github.com/qmk/printf
+	https://github.com/qmk/v-usb
+	
+	
+	qmk setup：安装最新QMK固件
+	
+	qmk doctor：查询QMK 当前版本信息
+	
+	qmk compile -kb dotmod/dymium65 -km default 编译键盘代码
+	qmk compile -kb essemi/dm65 -km via
+	
+	qmk info -kb dotmod/dymium65 -m 查看按键矩阵信息
+	qmk info -kb essemi/ -m
+	
+	
+	
+	#define KC_K29 	KC_BACKSLASH
+	#define KC_K42 	KC_NONUS_HASH
+	#define KC_K45 	KC_NONUS_BACKSLASH
+	#define KC_K56 	KC_INTERNATIONAL_1
+	#define KC_K133	KC_INTERNATIONAL_2
+	#define KC_K14  KC_INTERNATIONAL_3
+	#define KC_K132	KC_INTERNATIONAL_4
+	#define KC_K131	KC_INTERNATIONAL_5
+	#define KC_K151	KC_LANGUAGE_1
+	#define KC_K150	KC_LANGUAGE_2
+	
+	[ "none", 0 ],						//关闭背光
+	[ "solid_color", 1 ],				//单色常量粉色
+	[ "alphas_mods", 2 ],				//单色常量青色
+	[ "gradient_up_down", 3 ],			//单色常量流星赶月
+	[ "gradient_left_right", 4 ],		//单色常量波浪
+	[ "breathing", 5 ],					//单色呼吸粉色
+	[ "band_sat", 6 ],					//带底色波浪，底色白色，颜色粉色
+	[ "band_val", 7 ],					//带底色波浪，底色黑色，颜色粉色
+	[ "band_pinwheel_sat", 8 ],			//带底色峰回路转，底色白色，颜色粉色
+	[ "band_pinwheel_val", 9 ],			//带底色峰回路转，底色黑色，颜色粉色
+	[ "band_spiral_sat", 10 ],			//带底色大风车，底色白色，颜色粉色
+	[ "band_spiral_val", 11 ],			//带底色大风车，底色黑色，颜色粉色
+	[ "cycle_all", 12 ],				//光谱
+	[ "cycle_left_right", 13 ],			//波浪 默认
+	[ "cycle_up_down", 14 ],			//流星赶月
+	[ "cycle_out_in", 15 ],				//箭头波浪
+	[ "cycle_out_in_dual", 16 ],		//聚拢
+	[ "rainbow_moving_chevron", 17 ],	//双中心聚拢
+	[ "cycle_pinwheel", 18 ],			//旋转
+	[ "cycle_spiral", 19 ],				//大风车
+	[ "dual_beacon", 20 ],				//几何旋转
+	[ "rainbow_beacon", 21 ],			//双层几何旋转
+	[ "rainbow_pinwheels", 22 ],		//双中心几何函数
+	[ "flower_blooming", 23 ],			//百花争艳
+	[ "raindrops", 24 ],				//彩色下雨
+	[ "jellybean_raindrops", 25 ],		//亮色彩色下雨
+	[ "hue_breathing", 26 ],			//呼吸光谱
+	[ "hue_pendulum", 27 ],				//左右摇摆
+	[ "hue_wave", 28 ],					//左右摇摆慢
+	[ "pixel_fractal", 29 ],			//随机下雨
+	[ "pixel_flow", 30 ],				//鬼火
+	[ "pixel_rain", 31 ],				//彩色下雨，类似鬼火
+	[ "typing_heatmap", 32 ],			//按键触发
+	[ "digital_rain", 33 ],				//流星雨
+	[ "solid_reactive_simple", 34 ],	//单点亮粉色
+	[ "solid_reactive", 35 ],			//单点亮底色粉色，按下黄色
+	[ "solid_reactive_wide", 36 ],		//按键触发粉色
+	[ "solid_reactive_multiwide", 37 ],	//按键触发粉色，灯光消失的速度快一点
+	[ "solid_reactive_cross", 38 ],		//按键触发十字粉色
+	[ "solid_reactive_multicross", 39 ],//按键触发十字粉色，灯光消失的速度快一点
+	[ "solid_reactive_nexus", 40 ],		//按键触发十字粉色，缓慢延申
+	[ "solid_reactive_multinexus", 41 ],//按键触发十字粉色，缓慢延申，灯光消失的速度快一点
+	[ "splash", 42 ],					//泛起涟漪彩色
+	[ "multisplash", 43 ],				//泛起涟漪彩色，两次
+	[ "solid_splash", 44 ],				//泛起涟漪单色，粉色
+	[ "solid_multisplash", 45 ],		//泛起涟漪单色，粉色，两次
+	[ "starlight", 46 ],				//带底色的下雨，粉色
+	[ "starlight_dual_hue", 47 ],		//带底色的下雨，底色白色，雨粉色
+	[ "starlight_dual_sat", 48 ],		//带底色的下雨，底色黄紫色，雨随机色
+	[ "riverflow", 49 ],				//带底色从右至左斜角波浪，底色紫色
+	[ "condition of rest", 50 ]			//禁止状态
+
+
+
+
+	
+	
+	

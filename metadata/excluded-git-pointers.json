@@ -1,0 +1,56 @@
+[
+  {
+    "path": "lib/vusb/.git",
+    "bytes": 36,
+    "sha256": "2D37ECA9521B42915384938BCF398F61921DF48D45C7D3EF8CA15C59432A66F9",
+    "original_text": "gitdir: ../../.git/modules/lib/vusb\n"
+  },
+  {
+    "path": "lib/printf/.git",
+    "bytes": 38,
+    "sha256": "C8A330DE18EC1C0E250F29C569D250A326FB52A2E5FE9DF6AC6D0EF28123657C",
+    "original_text": "gitdir: ../../.git/modules/lib/printf\n"
+  },
+  {
+    "path": "lib/pico-sdk/.git",
+    "bytes": 40,
+    "sha256": "10D418F054685E3C258EF41EAE7BCB388E5B9458A798639665EC3A3AF37B4E13",
+    "original_text": "gitdir: ../../.git/modules/lib/pico-sdk\n"
+  },
+  {
+    "path": "lib/lvgl/.git",
+    "bytes": 36,
+    "sha256": "3AAB76ECB0A67F03FC78664D68B9F9B8FCC5D03A602974A7DD762339736A238F",
+    "original_text": "gitdir: ../../.git/modules/lib/lvgl\n"
+  },
+  {
+    "path": "lib/lufa/.git",
+    "bytes": 36,
+    "sha256": "CDBFC0488B5B1B264533D71A72C09303E3A87BF2E995DCD243BF5A646C72D344",
+    "original_text": "gitdir: ../../.git/modules/lib/lufa\n"
+  },
+  {
+    "path": "lib/googletest/.git",
+    "bytes": 42,
+    "sha256": "959F07FF0F4B59BA661A590D51DC96F1625646812463910B19DE442A1DAC0B52",
+    "original_text": "gitdir: ../../.git/modules/lib/googletest\n"
+  },
+  {
+    "path": "lib/chibios-contrib/.git",
+    "bytes": 47,
+    "sha256": "E14BEC6B2571056671A45921A15E7CA7579E1DEBF5E6FE34E5F260B9AC4AA836",
+    "original_text": "gitdir: ../../.git/modules/lib/chibios-contrib\n"
+  },
+  {
+    "path": "lib/chibios-contrib/ext/mcux-sdk/.git",
+    "bytes": 40,
+    "sha256": "5E66D6B1CF6299FD92A6FCC2039D47FDF65FFB57F6DFB9DF23A8261CAEB5DC13",
+    "original_text": "gitdir: ../../.git/modules/ext/mcux-sdk\n"
+  },
+  {
+    "path": "lib/chibios/.git",
+    "bytes": 39,
+    "sha256": "CC3D9E1FBA046AD93CC435B2251DBE1868219CDAA5B82BBF1B35E991B31B1052",
+    "original_text": "gitdir: ../../.git/modules/lib/chibios\n"
+  }
+]

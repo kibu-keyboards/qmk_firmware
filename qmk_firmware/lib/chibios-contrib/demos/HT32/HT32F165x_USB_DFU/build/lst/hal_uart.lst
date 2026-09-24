@@ -1,0 +1,146 @@
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\cc9qlL3h.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hal_uart.c"
+  14              		.section	.gnu.lto_.profile.83ad450d,"e",%progbits
+  15 0000 28B52FFD 		.ascii	"(\265/\375 \0061\000\000\002\000\000\000\000\000"
+  15      20063100 
+  15      00020000 
+  15      000000
+  16              		.text
+  17              		.section	.gnu.lto_.icf.83ad450d,"e",%progbits
+  18 0000 28B52FFD 		.ascii	"(\265/\375 \016E\000\000\020\002\000\001\000\034\300"
+  18      200E4500 
+  18      00100200 
+  18      01001CC0 
+  19 0010 02       		.ascii	"\002"
+  20              		.text
+  21              		.section	.gnu.lto_.ipa_sra.83ad450d,"e",%progbits
+  22 0000 28B52FFD 		.ascii	"(\265/\375 \016E\000\000\020\002\000\001\000\034\300"
+  22      200E4500 
+  22      00100200 
+  22      01001CC0 
+  23 0010 02       		.ascii	"\002"
+  24              		.text
+  25              		.section	.gnu.lto_.inline.83ad450d,"e",%progbits
+  26 0000 28B52FFD 		.ascii	"(\265/\375 \016E\000\000\020\002\000\001\000\034\300"
+  26      200E4500 
+  26      00100200 
+  26      01001CC0 
+  27 0010 02       		.ascii	"\002"
+  28              		.text
+  29              		.section	.gnu.lto_.jmpfuncs.83ad450d,"e",%progbits
+  30 0000 28B52FFD 		.ascii	"(\265/\375 \016E\000\000\020\002\000\001\000\034\300"
+  30      200E4500 
+  30      00100200 
+  30      01001CC0 
+  31 0010 02       		.ascii	"\002"
+  32              		.text
+  33              		.section	.gnu.lto_.pureconst.83ad450d,"e",%progbits
+  34 0000 28B52FFD 		.ascii	"(\265/\375 \005)\000\000\001\000\000\000\000"
+  34      20052900 
+  34      00010000 
+  34      0000
+  35              		.text
+  36              		.section	.gnu.lto_.ipa_modref.83ad450d,"e",%progbits
+  37 0000 28B52FFD 		.ascii	"(\265/\375 \016E\000\000\020\002\000\001\000\034\300"
+  37      200E4500 
+  37      00100200 
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\cc9qlL3h.s 			page 2
+
+
+  37      01001CC0 
+  38 0010 02       		.ascii	"\002"
+  39              		.text
+  40              		.section	.gnu.lto_.lto.83ad450d,"e",%progbits
+  41 0000 0C000000 		.ascii	"\014\000\000\000\001\000\001\000"
+  41      01000100 
+  42              		.text
+  43              		.section	.gnu.lto_.symbol_nodes.83ad450d,"e",%progbits
+  44 0000 28B52FFD 		.ascii	"(\265/\375 \0061\000\000\002\000\000\000\000\000"
+  44      20063100 
+  44      00020000 
+  44      000000
+  45              		.text
+  46              		.section	.gnu.lto_.refs.83ad450d,"e",%progbits
+  47 0000 28B52FFD 		.ascii	"(\265/\375 \005)\000\000\001\000\000\000\000"
+  47      20052900 
+  47      00010000 
+  47      0000
+  48              		.text
+  49              		.section	.gnu.lto_.decls.83ad450d,"e",%progbits
+  50 0000 28B52FFD 		.ascii	"(\265/\375 \035\351\000\000\000\000\000\000\001\000"
+  50      201DE900 
+  50      00000000 
+  50      000100
+  51 000f 00000C00 		.ascii	"\000\000\014\000\000\000\377\377\377\377\001\000\000"
+  51      0000FFFF 
+  51      FFFF0100 
+  51      00
+  52 001c 00D30000 		.ascii	"\000\323\000\000\000\000\000\000\000\000"
+  52      00000000 
+  52      0000
+  53              		.text
+  54              		.section	.gnu.lto_.symtab.83ad450d,"e",%progbits
+  55              		.text
+  56              		.section	.gnu.lto_.ext_symtab.83ad450d,"e",%progbits
+  57 0000 01       		.ascii	"\001"
+  58              		.text
+  59              		.section	.gnu.lto_.opts,"e",%progbits
+  60 0000 272D666E 		.ascii	"'-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-prote"
+  60      6F2D6F70 
+  60      656E6D70 
+  60      2720272D 
+  60      666E6F2D 
+  61 0033 6374696F 		.ascii	"ction=none' '-mcpu=cortex-m3' '-mthumb' '-mfloat-ab"
+  61      6E3D6E6F 
+  61      6E652720 
+  61      272D6D63 
+  61      70753D63 
+  62 0066 693D736F 		.ascii	"i=soft' '-mlibarch=armv7-m' '-march=armv7-m' '-Os' "
+  62      66742720 
+  62      272D6D6C 
+  62      69626172 
+  62      63683D61 
+  63 0099 272D666F 		.ascii	"'-fomit-frame-pointer' '-falign-functions=16' '-ffu"
+  63      6D69742D 
+  63      6672616D 
+  63      652D706F 
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\cc9qlL3h.s 			page 3
+
+
+  63      696E7465 
+  64 00cc 6E637469 		.ascii	"nction-sections' '-fdata-sections' '-fno-common' '-"
+  64      6F6E2D73 
+  64      65637469 
+  64      6F6E7327 
+  64      20272D66 
+  65 00ff 666C746F 		.ascii	"flto' '-Xassembler' '-alms=./build/lst/hal_uart.lst"
+  65      2720272D 
+  65      58617373 
+  65      656D626C 
+  65      65722720 
+  66 0132 2700     		.ascii	"'\000"
+  67              		.text
+  68              		.comm	__gnu_lto_slim,1,1
+  69              		.ident	"GCC: (GNU) 12.2.0"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\cc9qlL3h.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hal_uart.c
+                            *COM*:00000001 __gnu_lto_slim
+
+NO UNDEFINED SYMBOLS

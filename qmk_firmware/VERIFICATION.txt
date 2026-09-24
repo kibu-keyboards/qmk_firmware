@@ -1,0 +1,41 @@
+P75 JIS RDR source replacement verification - 2026-08-07
+==========================================================
+
+Source completeness
+-------------------
+Original exported symbols:             164
+Reimplemented object exported symbols: 164
+Missing symbols:                         0
+Functions:                              57
+Data symbols:                          107
+Data-symbol size mismatches:             0
+
+Final link
+----------
+Undefined ELF symbols:                   0
+Retained former symbols:               160
+Unused former symbols removed by GC:     4
+Forbidden binary references in MAP:      0
+
+The four source definitions removed from the final image because they are not
+referenced are:
+  es_mcu_reset
+  Led_Batt_Index_Tab
+  User_Clear_Board
+  User_Keyboard_Init
+
+All four remain defined in the compiled rdr_common source object.
+
+Commands checked
+----------------
+  make p75_jis/p75_jis:via BUILD_DIR=.build_release_verify -j1
+  qmk lint -kb p75_jis/p75_jis
+
+Result
+------
+  Source-only build: PASS
+  QMK lint:          PASS
+  Hardware tests:    NOT RUN
+
+This report establishes static source, compile, and link completeness. It does
+not establish RF, timing, sleep/wake, battery, or bootloader parity on hardware.

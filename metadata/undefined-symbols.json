@@ -1,0 +1,14 @@
+[
+  {
+    "build": "original",
+    "exit_code": 0,
+    "undefined_symbols": [],
+    "stderr": ""
+  },
+  {
+    "build": "release",
+    "exit_code": 0,
+    "undefined_symbols": [],
+    "stderr": ""
+  }
+]

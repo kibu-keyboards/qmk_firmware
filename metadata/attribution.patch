@@ -1,0 +1,15 @@
+--- a/keyboards/p75_jis/p75_jis/p75_jis.c
++++ b/keyboards/p75_jis/p75_jis/p75_jis.c
+@@ -627,6 +627,12 @@
+ /*********************************************************/
+ 
+ /************************ENCODER**************************/
++/* Quadrature encoder portions derived from QMK drivers/encoder/encoder_quadrature.c.
++ * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
++ * Copyright 2018-2023 Nick Brassel (@tzarc)
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ * Attribution added by KIBU on 2026-09-23; no behavior change.
++ */
+ #ifdef ENCODER_ENABLE
+ 
+ #if !defined(ENCODER_RESOLUTIONS) && !defined(ENCODER_RESOLUTION)

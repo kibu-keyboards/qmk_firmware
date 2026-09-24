@@ -1,0 +1,1318 @@
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hal.c"
+  14              		.file 1 "d:\\qmk_msys\\mingw64\\arm-none-eabi\\include\\machine\\_default_types.h"
+  15              		.file 2 "d:\\qmk_msys\\mingw64\\arm-none-eabi\\include\\sys\\_stdint.h"
+  16              		.file 3 "D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/common/ext/CMSIS/ES32/FS026/md/md_timer.h"
+  17              		.file 4 "D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/include/hal_st.h"
+  18              		.file 5 "D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/boards/FS026/board.h"
+  19              		.file 6 "D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/include/hal_usb.h"
+  20              		.file 7 "D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/ports/ES32/LLD/GPIOv1/hal_pal_lld.h"
+  21              		.file 8 "D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/ports/ES32/FS026/hal_lld.h"
+  22              		.file 9 "D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/src/hal.c"
+  23              		.file 10 "D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/osal/rt-nil/osal.h"
+  24              		.section	.gnu.debuglto_.debug_info,"e",%progbits
+  25              	.Ldebug_info0:
+  26              		.hidden	hal.c.9aec6cdc
+  27              		.weak	hal.c.9aec6cdc
+  28              	hal.c.9aec6cdc:
+  29 0000 54010000 		.4byte	0x154
+  30 0004 0500     		.2byte	0x5
+  31 0006 01       		.byte	0x1
+  32 0007 04       		.byte	0x4
+  33 0008 00000000 		.4byte	.Ldebug_abbrev0
+  34 000c 09       		.uleb128 0x9
+  35 000d 43000000 		.4byte	.LASF24
+  36 0011 1D       		.byte	0x1d
+  37 0012 FC000000 		.4byte	.LASF25
+  38 0016 ED010000 		.4byte	.LASF26
+  39 001a 00000000 		.4byte	.Ldebug_line0
+  40 001e 0A       		.uleb128 0xa
+  41 001f 04       		.byte	0x4
+  42 0020 05       		.byte	0x5
+  43 0021 696E7400 		.ascii	"int\000"
+  44 0025 01       		.uleb128 0x1
+  45 0026 04       		.byte	0x4
+  46 0027 07       		.byte	0x7
+  47 0028 27000000 		.4byte	.LASF0
+  48 002c 01       		.uleb128 0x1
+  49 002d 08       		.byte	0x8
+  50 002e 05       		.byte	0x5
+  51 002f 00000000 		.4byte	.LASF1
+  52 0033 01       		.uleb128 0x1
+  53 0034 08       		.byte	0x8
+  54 0035 04       		.byte	0x4
+  55 0036 3B020000 		.4byte	.LASF2
+  56 003a 01       		.uleb128 0x1
+  57 003b 01       		.byte	0x1
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 2
+
+
+  58 003c 06       		.byte	0x6
+  59 003d E1010000 		.4byte	.LASF3
+  60 0041 05       		.uleb128 0x5
+  61 0042 53010000 		.4byte	.LASF10
+  62 0046 01       		.byte	0x1
+  63 0047 2B       		.byte	0x2b
+  64 0048 18       		.byte	0x18
+  65 0049 4D000000 		.4byte	0x4d
+  66 004d 01       		.uleb128 0x1
+  67 004e 01       		.byte	0x1
+  68 004f 08       		.byte	0x8
+  69 0050 78010000 		.4byte	.LASF4
+  70 0054 01       		.uleb128 0x1
+  71 0055 02       		.byte	0x2
+  72 0056 05       		.byte	0x5
+  73 0057 9C010000 		.4byte	.LASF5
+  74 005b 01       		.uleb128 0x1
+  75 005c 02       		.byte	0x2
+  76 005d 07       		.byte	0x7
+  77 005e 5D010000 		.4byte	.LASF6
+  78 0062 01       		.uleb128 0x1
+  79 0063 04       		.byte	0x4
+  80 0064 05       		.byte	0x5
+  81 0065 8B010000 		.4byte	.LASF7
+  82 0069 01       		.uleb128 0x1
+  83 006a 04       		.byte	0x4
+  84 006b 07       		.byte	0x7
+  85 006c 2A010000 		.4byte	.LASF8
+  86 0070 01       		.uleb128 0x1
+  87 0071 08       		.byte	0x8
+  88 0072 07       		.byte	0x7
+  89 0073 3C010000 		.4byte	.LASF9
+  90 0077 05       		.uleb128 0x5
+  91 0078 70010000 		.4byte	.LASF11
+  92 007c 02       		.byte	0x2
+  93 007d 18       		.byte	0x18
+  94 007e 13       		.byte	0x13
+  95 007f 41000000 		.4byte	0x41
+  96 0083 03       		.uleb128 0x3
+  97 0084 77000000 		.4byte	0x77
+  98 0088 01       		.uleb128 0x1
+  99 0089 01       		.byte	0x1
+ 100 008a 08       		.byte	0x8
+ 101 008b 86010000 		.4byte	.LASF12
+ 102 008f 01       		.uleb128 0x1
+ 103 0090 01       		.byte	0x1
+ 104 0091 02       		.byte	0x2
+ 105 0092 A6010000 		.4byte	.LASF13
+ 106 0096 06       		.uleb128 0x6
+ 107 0097 83000000 		.4byte	0x83
+ 108 009b A6000000 		.4byte	0xa6
+ 109 009f 07       		.uleb128 0x7
+ 110 00a0 25000000 		.4byte	0x25
+ 111 00a4 07       		.byte	0x7
+ 112 00a5 00       		.byte	0
+ 113 00a6 03       		.uleb128 0x3
+ 114 00a7 96000000 		.4byte	0x96
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 3
+
+
+ 115 00ab 02       		.uleb128 0x2
+ 116 00ac 0E000000 		.4byte	.LASF14
+ 117 00b0 3B       		.byte	0x3b
+ 118 00b1 A6000000 		.4byte	0xa6
+ 119 00b5 08       		.byte	0x8
+ 120 00b6 00       		.byte	0
+ 121 00b7 00       		.byte	0
+ 122 00b8 00       		.byte	0
+ 123 00b9 00       		.byte	0
+ 124 00ba 04       		.byte	0x4
+ 125 00bb 04       		.byte	0x4
+ 126 00bc 04       		.byte	0x4
+ 127 00bd 04       		.byte	0x4
+ 128 00be 02       		.uleb128 0x2
+ 129 00bf 23020000 		.4byte	.LASF15
+ 130 00c3 47       		.byte	0x47
+ 131 00c4 A6000000 		.4byte	0xa6
+ 132 00c8 08       		.byte	0x8
+ 133 00c9 00       		.byte	0
+ 134 00ca 00       		.byte	0
+ 135 00cb 08       		.byte	0x8
+ 136 00cc 00       		.byte	0
+ 137 00cd 00       		.byte	0
+ 138 00ce 00       		.byte	0
+ 139 00cf 08       		.byte	0x8
+ 140 00d0 00       		.byte	0
+ 141 00d1 02       		.uleb128 0x2
+ 142 00d2 34000000 		.4byte	.LASF16
+ 143 00d6 53       		.byte	0x53
+ 144 00d7 A6000000 		.4byte	0xa6
+ 145 00db 08       		.byte	0x8
+ 146 00dc 00       		.byte	0
+ 147 00dd 00       		.byte	0
+ 148 00de 08       		.byte	0x8
+ 149 00df 00       		.byte	0
+ 150 00e0 00       		.byte	0
+ 151 00e1 00       		.byte	0
+ 152 00e2 08       		.byte	0x8
+ 153 00e3 00       		.byte	0
+ 154 00e4 02       		.uleb128 0x2
+ 155 00e5 AC010000 		.4byte	.LASF17
+ 156 00e9 5F       		.byte	0x5f
+ 157 00ea A6000000 		.4byte	0xa6
+ 158 00ee 08       		.byte	0x8
+ 159 00ef 00       		.byte	0
+ 160 00f0 02       		.byte	0x2
+ 161 00f1 04       		.byte	0x4
+ 162 00f2 06       		.byte	0x6
+ 163 00f3 08       		.byte	0x8
+ 164 00f4 0A       		.byte	0xa
+ 165 00f5 0C       		.byte	0xc
+ 166 00f6 0E       		.byte	0xe
+ 167 00f7 06       		.uleb128 0x6
+ 168 00f8 83000000 		.4byte	0x83
+ 169 00fc 07010000 		.4byte	0x107
+ 170 0100 07       		.uleb128 0x7
+ 171 0101 25000000 		.4byte	0x25
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 4
+
+
+ 172 0105 06       		.byte	0x6
+ 173 0106 00       		.byte	0
+ 174 0107 03       		.uleb128 0x3
+ 175 0108 F7000000 		.4byte	0xf7
+ 176 010c 02       		.uleb128 0x2
+ 177 010d C8010000 		.4byte	.LASF18
+ 178 0111 6B       		.byte	0x6b
+ 179 0112 07010000 		.4byte	0x107
+ 180 0116 07       		.byte	0x7
+ 181 0117 00       		.byte	0
+ 182 0118 01       		.byte	0x1
+ 183 0119 02       		.byte	0x2
+ 184 011a 03       		.byte	0x3
+ 185 011b 04       		.byte	0x4
+ 186 011c 05       		.byte	0x5
+ 187 011d 06       		.byte	0x6
+ 188 011e 04       		.uleb128 0x4
+ 189 011f F5000000 		.4byte	.LASF19
+ 190 0123 04       		.byte	0x4
+ 191 0124 46       		.byte	0x46
+ 192 0125 08       		.byte	0x8
+ 193 0126 04       		.uleb128 0x4
+ 194 0127 D7010000 		.4byte	.LASF20
+ 195 012b 05       		.byte	0x5
+ 196 012c 33       		.byte	0x33
+ 197 012d 08       		.byte	0x8
+ 198 012e 08       		.uleb128 0x8
+ 199 012f 1F000000 		.4byte	.LASF21
+ 200 0133 06       		.byte	0x6
+ 201 0134 5D02     		.2byte	0x25d
+ 202 0136 08       		.uleb128 0x8
+ 203 0137 47020000 		.4byte	.LASF22
+ 204 013b 07       		.byte	0x7
+ 205 013c A801     		.2byte	0x1a8
+ 206 013e 04       		.uleb128 0x4
+ 207 013f BB010000 		.4byte	.LASF23
+ 208 0143 08       		.byte	0x8
+ 209 0144 48       		.byte	0x48
+ 210 0145 06       		.byte	0x6
+ 211 0146 0B       		.uleb128 0xb
+ 212 0147 94010000 		.4byte	.LASF27
+ 213 014b 09       		.byte	0x9
+ 214 014c 38       		.byte	0x38
+ 215 014d 06       		.byte	0x6
+ 216 014e 0C       		.uleb128 0xc
+ 217 014f 32020000 		.4byte	.LASF28
+ 218 0153 0A       		.byte	0xa
+ 219 0154 1302     		.2byte	0x213
+ 220 0156 14       		.byte	0x14
+ 221 0157 00       		.byte	0
+ 222              		.section	.gnu.debuglto_.debug_abbrev,"e",%progbits
+ 223              	.Ldebug_abbrev0:
+ 224 0000 01       		.uleb128 0x1
+ 225 0001 24       		.uleb128 0x24
+ 226 0002 00       		.byte	0
+ 227 0003 0B       		.uleb128 0xb
+ 228 0004 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 5
+
+
+ 229 0005 3E       		.uleb128 0x3e
+ 230 0006 0B       		.uleb128 0xb
+ 231 0007 03       		.uleb128 0x3
+ 232 0008 0E       		.uleb128 0xe
+ 233 0009 00       		.byte	0
+ 234 000a 00       		.byte	0
+ 235 000b 02       		.uleb128 0x2
+ 236 000c 34       		.uleb128 0x34
+ 237 000d 00       		.byte	0
+ 238 000e 03       		.uleb128 0x3
+ 239 000f 0E       		.uleb128 0xe
+ 240 0010 3A       		.uleb128 0x3a
+ 241 0011 21       		.uleb128 0x21
+ 242 0012 03       		.sleb128 3
+ 243 0013 3B       		.uleb128 0x3b
+ 244 0014 0B       		.uleb128 0xb
+ 245 0015 39       		.uleb128 0x39
+ 246 0016 21       		.uleb128 0x21
+ 247 0017 16       		.sleb128 22
+ 248 0018 49       		.uleb128 0x49
+ 249 0019 13       		.uleb128 0x13
+ 250 001a 1C       		.uleb128 0x1c
+ 251 001b 0A       		.uleb128 0xa
+ 252 001c 00       		.byte	0
+ 253 001d 00       		.byte	0
+ 254 001e 03       		.uleb128 0x3
+ 255 001f 26       		.uleb128 0x26
+ 256 0020 00       		.byte	0
+ 257 0021 49       		.uleb128 0x49
+ 258 0022 13       		.uleb128 0x13
+ 259 0023 00       		.byte	0
+ 260 0024 00       		.byte	0
+ 261 0025 04       		.uleb128 0x4
+ 262 0026 2E       		.uleb128 0x2e
+ 263 0027 00       		.byte	0
+ 264 0028 3F       		.uleb128 0x3f
+ 265 0029 19       		.uleb128 0x19
+ 266 002a 03       		.uleb128 0x3
+ 267 002b 0E       		.uleb128 0xe
+ 268 002c 3A       		.uleb128 0x3a
+ 269 002d 0B       		.uleb128 0xb
+ 270 002e 3B       		.uleb128 0x3b
+ 271 002f 0B       		.uleb128 0xb
+ 272 0030 39       		.uleb128 0x39
+ 273 0031 0B       		.uleb128 0xb
+ 274 0032 27       		.uleb128 0x27
+ 275 0033 19       		.uleb128 0x19
+ 276 0034 3C       		.uleb128 0x3c
+ 277 0035 19       		.uleb128 0x19
+ 278 0036 00       		.byte	0
+ 279 0037 00       		.byte	0
+ 280 0038 05       		.uleb128 0x5
+ 281 0039 16       		.uleb128 0x16
+ 282 003a 00       		.byte	0
+ 283 003b 03       		.uleb128 0x3
+ 284 003c 0E       		.uleb128 0xe
+ 285 003d 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 6
+
+
+ 286 003e 0B       		.uleb128 0xb
+ 287 003f 3B       		.uleb128 0x3b
+ 288 0040 0B       		.uleb128 0xb
+ 289 0041 39       		.uleb128 0x39
+ 290 0042 0B       		.uleb128 0xb
+ 291 0043 49       		.uleb128 0x49
+ 292 0044 13       		.uleb128 0x13
+ 293 0045 00       		.byte	0
+ 294 0046 00       		.byte	0
+ 295 0047 06       		.uleb128 0x6
+ 296 0048 01       		.uleb128 0x1
+ 297 0049 01       		.byte	0x1
+ 298 004a 49       		.uleb128 0x49
+ 299 004b 13       		.uleb128 0x13
+ 300 004c 01       		.uleb128 0x1
+ 301 004d 13       		.uleb128 0x13
+ 302 004e 00       		.byte	0
+ 303 004f 00       		.byte	0
+ 304 0050 07       		.uleb128 0x7
+ 305 0051 21       		.uleb128 0x21
+ 306 0052 00       		.byte	0
+ 307 0053 49       		.uleb128 0x49
+ 308 0054 13       		.uleb128 0x13
+ 309 0055 2F       		.uleb128 0x2f
+ 310 0056 0B       		.uleb128 0xb
+ 311 0057 00       		.byte	0
+ 312 0058 00       		.byte	0
+ 313 0059 08       		.uleb128 0x8
+ 314 005a 2E       		.uleb128 0x2e
+ 315 005b 00       		.byte	0
+ 316 005c 3F       		.uleb128 0x3f
+ 317 005d 19       		.uleb128 0x19
+ 318 005e 03       		.uleb128 0x3
+ 319 005f 0E       		.uleb128 0xe
+ 320 0060 3A       		.uleb128 0x3a
+ 321 0061 0B       		.uleb128 0xb
+ 322 0062 3B       		.uleb128 0x3b
+ 323 0063 05       		.uleb128 0x5
+ 324 0064 39       		.uleb128 0x39
+ 325 0065 21       		.uleb128 0x21
+ 326 0066 08       		.sleb128 8
+ 327 0067 27       		.uleb128 0x27
+ 328 0068 19       		.uleb128 0x19
+ 329 0069 3C       		.uleb128 0x3c
+ 330 006a 19       		.uleb128 0x19
+ 331 006b 00       		.byte	0
+ 332 006c 00       		.byte	0
+ 333 006d 09       		.uleb128 0x9
+ 334 006e 11       		.uleb128 0x11
+ 335 006f 01       		.byte	0x1
+ 336 0070 25       		.uleb128 0x25
+ 337 0071 0E       		.uleb128 0xe
+ 338 0072 13       		.uleb128 0x13
+ 339 0073 0B       		.uleb128 0xb
+ 340 0074 03       		.uleb128 0x3
+ 341 0075 0E       		.uleb128 0xe
+ 342 0076 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 7
+
+
+ 343 0077 0E       		.uleb128 0xe
+ 344 0078 10       		.uleb128 0x10
+ 345 0079 17       		.uleb128 0x17
+ 346 007a 00       		.byte	0
+ 347 007b 00       		.byte	0
+ 348 007c 0A       		.uleb128 0xa
+ 349 007d 24       		.uleb128 0x24
+ 350 007e 00       		.byte	0
+ 351 007f 0B       		.uleb128 0xb
+ 352 0080 0B       		.uleb128 0xb
+ 353 0081 3E       		.uleb128 0x3e
+ 354 0082 0B       		.uleb128 0xb
+ 355 0083 03       		.uleb128 0x3
+ 356 0084 08       		.uleb128 0x8
+ 357 0085 00       		.byte	0
+ 358 0086 00       		.byte	0
+ 359 0087 0B       		.uleb128 0xb
+ 360 0088 2E       		.uleb128 0x2e
+ 361 0089 00       		.byte	0
+ 362 008a 3F       		.uleb128 0x3f
+ 363 008b 19       		.uleb128 0x19
+ 364 008c 03       		.uleb128 0x3
+ 365 008d 0E       		.uleb128 0xe
+ 366 008e 3A       		.uleb128 0x3a
+ 367 008f 0B       		.uleb128 0xb
+ 368 0090 3B       		.uleb128 0x3b
+ 369 0091 0B       		.uleb128 0xb
+ 370 0092 39       		.uleb128 0x39
+ 371 0093 0B       		.uleb128 0xb
+ 372 0094 27       		.uleb128 0x27
+ 373 0095 19       		.uleb128 0x19
+ 374 0096 00       		.byte	0
+ 375 0097 00       		.byte	0
+ 376 0098 0C       		.uleb128 0xc
+ 377 0099 2E       		.uleb128 0x2e
+ 378 009a 00       		.byte	0
+ 379 009b 03       		.uleb128 0x3
+ 380 009c 0E       		.uleb128 0xe
+ 381 009d 3A       		.uleb128 0x3a
+ 382 009e 0B       		.uleb128 0xb
+ 383 009f 3B       		.uleb128 0x3b
+ 384 00a0 05       		.uleb128 0x5
+ 385 00a1 39       		.uleb128 0x39
+ 386 00a2 0B       		.uleb128 0xb
+ 387 00a3 27       		.uleb128 0x27
+ 388 00a4 19       		.uleb128 0x19
+ 389 00a5 00       		.byte	0
+ 390 00a6 00       		.byte	0
+ 391 00a7 00       		.byte	0
+ 392              		.section	.gnu.debuglto_.debug_line,"e",%progbits
+ 393              	.Ldebug_line0:
+ 394 0000 83000000 		.4byte	.LELT0-.LSLT0
+ 395              	.LSLT0:
+ 396 0004 0500     		.2byte	0x5
+ 397 0006 04       		.byte	0x4
+ 398 0007 00       		.byte	0
+ 399 0008 7B000000 		.4byte	.LELTP0-.LASLTP0
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 8
+
+
+ 400              	.LASLTP0:
+ 401 000c 01       		.byte	0x1
+ 402 000d 01       		.byte	0x1
+ 403 000e 01       		.byte	0x1
+ 404 000f F6       		.byte	0xf6
+ 405 0010 F2       		.byte	0xf2
+ 406 0011 0D       		.byte	0xd
+ 407 0012 00       		.byte	0
+ 408 0013 01       		.byte	0x1
+ 409 0014 01       		.byte	0x1
+ 410 0015 01       		.byte	0x1
+ 411 0016 01       		.byte	0x1
+ 412 0017 00       		.byte	0
+ 413 0018 00       		.byte	0
+ 414 0019 00       		.byte	0
+ 415 001a 01       		.byte	0x1
+ 416 001b 00       		.byte	0
+ 417 001c 00       		.byte	0
+ 418 001d 01       		.byte	0x1
+ 419 001e 01       		.byte	0x1
+ 420 001f 01       		.uleb128 0x1
+ 421 0020 1F       		.uleb128 0x1f
+ 422 0021 0A       		.uleb128 0xa
+ 423 0022 C6010000 		.4byte	.LASF29
+ 424 0026 00000000 		.4byte	.LASF30
+ 425 002a 75010000 		.4byte	.LASF31
+ 426 002e 51000000 		.4byte	.LASF32
+ 427 0032 D1000000 		.4byte	.LASF33
+ 428 0036 53020000 		.4byte	.LASF34
+ 429 003a 45010000 		.4byte	.LASF35
+ 430 003e 05020000 		.4byte	.LASF36
+ 431 0042 13010000 		.4byte	.LASF37
+ 432 0046 7F020000 		.4byte	.LASF38
+ 433 004a 02       		.byte	0x2
+ 434 004b 01       		.uleb128 0x1
+ 435 004c 1F       		.uleb128 0x1f
+ 436 004d 02       		.uleb128 0x2
+ 437 004e 0B       		.uleb128 0xb
+ 438 004f 0B       		.uleb128 0xb
+ 439 0050 98000000 		.4byte	.LASF39
+ 440 0054 00       		.byte	0
+ 441 0055 B5010000 		.4byte	.LASF40
+ 442 0059 08       		.byte	0x8
+ 443 005a 47000000 		.4byte	.LASF41
+ 444 005e 09       		.byte	0x9
+ 445 005f C6000000 		.4byte	.LASF42
+ 446 0063 01       		.byte	0x1
+ 447 0064 FC010000 		.4byte	.LASF43
+ 448 0068 05       		.byte	0x5
+ 449 0069 45020000 		.4byte	.LASF44
+ 450 006d 02       		.byte	0x2
+ 451 006e 3B020000 		.4byte	.LASF45
+ 452 0072 05       		.byte	0x5
+ 453 0073 2D020000 		.4byte	.LASF46
+ 454 0077 04       		.byte	0x4
+ 455 0078 8E000000 		.4byte	.LASF47
+ 456 007c 03       		.byte	0x3
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 9
+
+
+ 457 007d 4D020000 		.4byte	.LASF48
+ 458 0081 07       		.byte	0x7
+ 459 0082 AE010000 		.4byte	.LASF49
+ 460 0086 06       		.byte	0x6
+ 461              	.LELTP0:
+ 462              	.LELT0:
+ 463              		.section	.gnu.debuglto_.debug_str,"eMS",%progbits,1
+ 464              	.LASF1:
+ 465 0000 6C6F6E67 		.ascii	"long long int\000"
+ 465      206C6F6E 
+ 465      6720696E 
+ 465      7400
+ 466              	.LASF14:
+ 467 000e 4F464653 		.ascii	"OFFSET_TAB_CHMRx\000"
+ 467      45545F54 
+ 467      41425F43 
+ 467      484D5278 
+ 467      00
+ 468              	.LASF21:
+ 469 001f 75736249 		.ascii	"usbInit\000"
+ 469      6E697400 
+ 470              	.LASF0:
+ 471 0027 756E7369 		.ascii	"unsigned int\000"
+ 471      676E6564 
+ 471      20696E74 
+ 471      00
+ 472              	.LASF16:
+ 473 0034 53484946 		.ascii	"SHIFT_TAB_ICxx\000"
+ 473      545F5441 
+ 473      425F4943 
+ 473      787800
+ 474              	.LASF24:
+ 475 0043 474E5520 		.ascii	"GNU C17 12.2.0 -mcpu=cortex-m0 -mthumb -mfloat-abi="
+ 475      43313720 
+ 475      31322E32 
+ 475      2E30202D 
+ 475      6D637075 
+ 476 0076 736F6674 		.ascii	"soft -march=armv6s-m -ggdb -Os -fomit-frame-pointer"
+ 476      202D6D61 
+ 476      7263683D 
+ 476      61726D76 
+ 476      36732D6D 
+ 477 00a9 202D6661 		.ascii	" -falign-functions=16 -ffunction-sections -fdata-se"
+ 477      6C69676E 
+ 477      2D66756E 
+ 477      6374696F 
+ 477      6E733D31 
+ 478 00dc 6374696F 		.ascii	"ctions -fno-common -flto\000"
+ 478      6E73202D 
+ 478      666E6F2D 
+ 478      636F6D6D 
+ 478      6F6E202D 
+ 479              	.LASF19:
+ 480 00f5 7374496E 		.ascii	"stInit\000"
+ 480      697400
+ 481              	.LASF25:
+ 482 00fc 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/src/hal.c\000"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 10
+
+
+ 482      30615F6C 
+ 482      69756879 
+ 482      5C74656D 
+ 482      70313236 
+ 483              	.LASF8:
+ 484 012a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 484      20756E73 
+ 484      69676E65 
+ 484      6420696E 
+ 484      7400
+ 485              	.LASF9:
+ 486 013c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 486      206C6F6E 
+ 486      6720756E 
+ 486      7369676E 
+ 486      65642069 
+ 487              	.LASF10:
+ 488 0153 5F5F7569 		.ascii	"__uint8_t\000"
+ 488      6E74385F 
+ 488      7400
+ 489              	.LASF6:
+ 490 015d 73686F72 		.ascii	"short unsigned int\000"
+ 490      7420756E 
+ 490      7369676E 
+ 490      65642069 
+ 490      6E7400
+ 491              	.LASF11:
+ 492 0170 75696E74 		.ascii	"uint8_t\000"
+ 492      385F7400 
+ 493              	.LASF4:
+ 494 0178 756E7369 		.ascii	"unsigned char\000"
+ 494      676E6564 
+ 494      20636861 
+ 494      7200
+ 495              	.LASF12:
+ 496 0186 63686172 		.ascii	"char\000"
+ 496      00
+ 497              	.LASF7:
+ 498 018b 6C6F6E67 		.ascii	"long int\000"
+ 498      20696E74 
+ 498      00
+ 499              	.LASF27:
+ 500 0194 68616C49 		.ascii	"halInit\000"
+ 500      6E697400 
+ 501              	.LASF5:
+ 502 019c 73686F72 		.ascii	"short int\000"
+ 502      7420696E 
+ 502      7400
+ 503              	.LASF13:
+ 504 01a6 5F426F6F 		.ascii	"_Bool\000"
+ 504      6C00
+ 505              	.LASF17:
+ 506 01ac 53484946 		.ascii	"SHIFT_TAB_CCxP\000"
+ 506      545F5441 
+ 506      425F4343 
+ 506      785000
+ 507              	.LASF23:
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 11
+
+
+ 508 01bb 68616C5F 		.ascii	"hal_lld_init\000"
+ 508      6C6C645F 
+ 508      696E6974 
+ 508      00
+ 509              	.LASF18:
+ 510 01c8 53484946 		.ascii	"SHIFT_TAB_OISx\000"
+ 510      545F5441 
+ 510      425F4F49 
+ 510      537800
+ 511              	.LASF20:
+ 512 01d7 626F6172 		.ascii	"boardInit\000"
+ 512      64496E69 
+ 512      7400
+ 513              	.LASF3:
+ 514 01e1 7369676E 		.ascii	"signed char\000"
+ 514      65642063 
+ 514      68617200 
+ 515              	.LASF26:
+ 516 01ed 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib\\demos\\ES3"
+ 516      30615F6C 
+ 516      69756879 
+ 516      5C74656D 
+ 516      70313236 
+ 517 021b 325C4653 		.ascii	"2\\FS026\000"
+ 517      30323600 
+ 518              	.LASF15:
+ 519 0223 53484946 		.ascii	"SHIFT_TAB_OCxx\000"
+ 519      545F5441 
+ 519      425F4F43 
+ 519      787800
+ 520              	.LASF28:
+ 521 0232 6F73616C 		.ascii	"osalInit\000"
+ 521      496E6974 
+ 521      00
+ 522              	.LASF2:
+ 523 023b 6C6F6E67 		.ascii	"long double\000"
+ 523      20646F75 
+ 523      626C6500 
+ 524              	.LASF22:
+ 525 0247 5F70616C 		.ascii	"_pal_lld_init\000"
+ 525      5F6C6C64 
+ 525      5F696E69 
+ 525      7400
+ 526              		.section	.gnu.debuglto_.debug_line_str,"eMS",%progbits,1
+ 527              	.LASF30:
+ 528 0000 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/common/e"
+ 528      30615F6C 
+ 528      69756879 
+ 528      5C74656D 
+ 528      70313236 
+ 529 0030 78742F43 		.ascii	"xt/CMSIS/ES32/FS026/md\000"
+ 529      4D534953 
+ 529      2F455333 
+ 529      322F4653 
+ 529      3032362F 
+ 530              	.LASF41:
+ 531 0047 5F737464 		.ascii	"_stdint.h\000"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 12
+
+
+ 531      696E742E 
+ 531      6800
+ 532              	.LASF32:
+ 533 0051 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/port"
+ 533      30615F6C 
+ 533      69756879 
+ 533      5C74656D 
+ 533      70313236 
+ 534 0081 732F4553 		.ascii	"s/ES32/FS026\000"
+ 534      33322F46 
+ 534      53303236 
+ 534      00
+ 535              	.LASF47:
+ 536 008e 68616C5F 		.ascii	"hal_lld.h\000"
+ 536      6C6C642E 
+ 536      6800
+ 537              	.LASF39:
+ 538 0098 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/src/hal.c\000"
+ 538      30615F6C 
+ 538      69756879 
+ 538      5C74656D 
+ 538      70313236 
+ 539              	.LASF42:
+ 540 00c6 6D645F74 		.ascii	"md_timer.h\000"
+ 540      696D6572 
+ 540      2E6800
+ 541              	.LASF33:
+ 542 00d1 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/port"
+ 542      30615F6C 
+ 542      69756879 
+ 542      5C74656D 
+ 542      70313236 
+ 543 0101 732F4553 		.ascii	"s/ES32/LLD/GPIOv1\000"
+ 543      33322F4C 
+ 543      4C442F47 
+ 543      50494F76 
+ 543      3100
+ 544              	.LASF37:
+ 545 0113 643A5C71 		.ascii	"d:\\qmk_msys\\mingw64\\arm-none-eabi\\include\\mach"
+ 545      6D6B5F6D 
+ 545      7379735C 
+ 545      6D696E67 
+ 545      7736345C 
+ 546 0141 696E6500 		.ascii	"ine\000"
+ 547              	.LASF35:
+ 548 0145 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/osal/rt-nil\000"
+ 548      30615F6C 
+ 548      69756879 
+ 548      5C74656D 
+ 548      70313236 
+ 549              	.LASF31:
+ 550 0175 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib/os/hal/boar"
+ 550      30615F6C 
+ 550      69756879 
+ 550      5C74656D 
+ 550      70313236 
+ 551 01a5 64732F46 		.ascii	"ds/FS026\000"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 13
+
+
+ 551      53303236 
+ 551      00
+ 552              	.LASF49:
+ 553 01ae 6F73616C 		.ascii	"osal.h\000"
+ 553      2E6800
+ 554              	.LASF40:
+ 555 01b5 5F646566 		.ascii	"_default_types.h\000"
+ 555      61756C74 
+ 555      5F747970 
+ 555      65732E68 
+ 555      00
+ 556              	.LASF29:
+ 557 01c6 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS-Contrib\\demos\\ES3"
+ 557      30615F6C 
+ 557      69756879 
+ 557      5C74656D 
+ 557      70313236 
+ 558 01f4 325C4653 		.ascii	"2\\FS026\000"
+ 558      30323600 
+ 559              	.LASF43:
+ 560 01fc 68616C5F 		.ascii	"hal_st.h\000"
+ 560      73742E68 
+ 560      00
+ 561              	.LASF36:
+ 562 0205 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/src\000"
+ 562      30615F6C 
+ 562      69756879 
+ 562      5C74656D 
+ 562      70313236 
+ 563              	.LASF46:
+ 564 022d 68616C5F 		.ascii	"hal_pal_lld.h\000"
+ 564      70616C5F 
+ 564      6C6C642E 
+ 564      6800
+ 565              	.LASF45:
+ 566 023b 68616C5F 		.ascii	"hal_usb.h\000"
+ 566      7573622E 
+ 566      6800
+ 567              	.LASF44:
+ 568 0245 626F6172 		.ascii	"board.h\000"
+ 568      642E6800 
+ 569              	.LASF48:
+ 570 024d 68616C2E 		.ascii	"hal.c\000"
+ 570      6300
+ 571              	.LASF34:
+ 572 0253 443A5C30 		.ascii	"D:\\00a_liuhy\\temp126\\ChibiOS/os/hal/include\000"
+ 572      30615F6C 
+ 572      69756879 
+ 572      5C74656D 
+ 572      70313236 
+ 573              	.LASF38:
+ 574 027f 643A5C71 		.ascii	"d:\\qmk_msys\\mingw64\\arm-none-eabi\\include\\sys\000"
+ 574      6D6B5F6D 
+ 574      7379735C 
+ 574      6D696E67 
+ 574      7736345C 
+ 575              		.text
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 14
+
+
+ 576              		.section	.gnu.lto_.profile.840c289f,"e",%progbits
+ 577 0000 28B52FFD 		.ascii	"(\265/\375 \0061\000\000\002\000\000\000\000\000"
+ 577      20063100 
+ 577      00020000 
+ 577      000000
+ 578              		.text
+ 579              		.section	.gnu.lto_.icf.840c289f,"e",%progbits
+ 580 0000 28B52FFD 		.ascii	"(\265/\375 \025\215\000\000X\011\000\001\000\220\341"
+ 580      20158D00 
+ 580      00580900 
+ 580      010090E1 
+ 581 0010 A1C80300 		.ascii	"\241\310\003\000\000\001\000\033\300\002"
+ 581      0001001B 
+ 581      C002
+ 582              		.text
+ 583              		.section	.gnu.lto_.ipa_sra.840c289f,"e",%progbits
+ 584 0000 28B52FFD 		.ascii	"(\265/\375 \033u\000\0000\017\000\001\000\000\001\002"
+ 584      201B7500 
+ 584      00300F00 
+ 584      01000001 
+ 584      02
+ 585 0011 00394336 		.ascii	"\0009C6\200\005"
+ 585      8005
+ 586              		.text
+ 587              		.section	.gnu.lto_.inline.840c289f,"e",%progbits
+ 588 0000 28B52FFD 		.ascii	"(\265/\375 P\215\001\000d\002D\000\001\000\000\010\200"
+ 588      20508D01 
+ 588      00640244 
+ 588      00010000 
+ 588      0880
+ 589 0012 8080A003 		.ascii	"\200\200\240\003h\001\000\000\002\000\000\201\200\200"
+ 589      68010000 
+ 589      02000081 
+ 589      8080
+ 590 0020 807E0000 		.ascii	"\200~\000\000\006\200\200\200\200\002d\002\000\000\001"
+ 590      06808080 
+ 590      80026402 
+ 590      000001
+ 591 002f 0A000300 		.ascii	"\012\000\003\000)L\266\031\334\006\260"
+ 591      294CB619 
+ 591      DC06B0
+ 592              		.text
+ 593              		.section	.gnu.lto_.jmpfuncs.840c289f,"e",%progbits
+ 594 0000 28B52FFD 		.ascii	"(\265/\375 \026e\000\000 \012\000\001\000\002\000\200"
+ 594      20166500 
+ 594      00200A00 
+ 594      01000200 
+ 594      80
+ 595 0011 E00D6001 		.ascii	"\340\015`\001"
+ 596              		.text
+ 597              		.section	.gnu.lto_.pureconst.840c289f,"e",%progbits
+ 598 0000 28B52FFD 		.ascii	"(\265/\375 \010A\000\000\004\000\000\000\001\000\230"
+ 598      20084100 
+ 598      00040000 
+ 598      00010098 
+ 599 0010 04       		.ascii	"\004"
+ 600              		.text
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 15
+
+
+ 601              		.section	.gnu.lto_.ipa_modref.840c289f,"e",%progbits
+ 602 0000 28B52FFD 		.ascii	"(\265/\375 \030e\000\000 \014\000\001\000\002\000`\343"
+ 602      20186500 
+ 602      00200C00 
+ 602      01000200 
+ 602      60E3
+ 603 0012 0D6001   		.ascii	"\015`\001"
+ 604              		.text
+ 605              		.section	.gnu.lto_.lto.840c289f,"e",%progbits
+ 606 0000 0C000000 		.ascii	"\014\000\000\000\001\000\001\000"
+ 606      01000100 
+ 607              		.text
+ 608              		.section	.gnu.lto_halInit.2996.840c289f,"e",%progbits
+ 609 0000 28B52FFD 		.ascii	"(\265/\375`;\000U\007\000\364\013\334\000\000\0000\000"
+ 609      603B0055 
+ 609      0700F40B 
+ 609      DC000000 
+ 609      3000
+ 610 0012 00002300 		.ascii	"\000\000#\000\000\000\001\003\000\001\222\221\212\002"
+ 610      00000103 
+ 610      00019291 
+ 610      8A02
+ 611 0020 00808080 		.ascii	"\000\200\200\200@\007\002\001\201\221\212\011\001\267"
+ 611      40070201 
+ 611      81918A09 
+ 611      01B7
+ 612 002e 0101007F 		.ascii	"\001\001\000\177\002\001\177\001\246\003/\200\200\200"
+ 612      02017F01 
+ 612      A6032F80 
+ 612      8080
+ 613 003c F884BC86 		.ascii	"\370\204\274\206\200\005\030\352\000\000\177\000\013"
+ 613      800518EA 
+ 613      00007F00 
+ 613      0B
+ 614 0049 01000000 		.ascii	"\001\000\000\000\257\322\005\340\200\374\377\217\200"
+ 614      AFD205E0 
+ 614      80FCFF8F 
+ 614      80
+ 615 0056 80E5E201 		.ascii	"\200\345\342\001\276%\007\000\000\243\003\200\004\001"
+ 615      BE250700 
+ 615      00A30380 
+ 615      0401
+ 616 0064 0000A403 		.ascii	"\000\000\244\003\002\203\300\000\000\372\002\200\342"
+ 616      0283C000 
+ 616      00FA0280 
+ 616      E2
+ 617 0071 F70DFC01 		.ascii	"\367\015\374\001\000\200\003\203 \000\212\001\002}{"
+ 617      00800383 
+ 617      20008A01 
+ 617      027D7B
+ 618 0080 00000203 		.ascii	"\000\000\002\003\224\006w\366\007u\332\012s\370q\202"
+ 618      940677F6 
+ 618      0775DA0A 
+ 618      73F87182 
+ 619 0090 0382E0FD 		.ascii	"\003\202\340\375J\243\003\200\004\001\202\300.D:\\0"
+ 619      4AA30380 
+ 619      040182C0 
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 16
+
+
+ 619      2E443A5C 
+ 619      30
+ 620 00a1 30615F6C 		.ascii	"0a_liuhy\\temp126\\ChibiOS/os/hal/src/hal.c\000\022"
+ 620      69756879 
+ 620      5C74656D 
+ 620      70313236 
+ 620      5C436869 
+ 621 00cc 0033A1C1 		.ascii	"\0003\241\301\037\030g\256@;\020\031\320\002l\004\205"
+ 621      1F1867AE 
+ 621      403B1019 
+ 621      D0026C04 
+ 621      85
+ 622 00dd 81DD4011 		.ascii	"\201\335@\021`\361\234m\251\010\344\032\216\025\302"
+ 622      60F19C6D 
+ 622      A908E41A 
+ 622      8E15C2
+ 623 00ec 7819225C 		.ascii	"x\031\"\\\216E;\311"
+ 623      8E453BC9 
+ 624              		.text
+ 625              		.section	.gnu.lto_.symbol_nodes.840c289f,"e",%progbits
+ 626 0000 28B52FFD 		.ascii	"(\265/\375 \341=\003\0002\305\021\034\300%\215\001?"
+ 626      20E13D03 
+ 626      0032C511 
+ 626      1CC0258D 
+ 626      013F
+ 627 0012 78F334BB 		.ascii	"x\3634\273\204\020B\370_\370C*\337\373\377\253\276\353"
+ 627      841042F8 
+ 627      5FF8432A 
+ 627      DFFBFFAB 
+ 627      BEEB
+ 628 0024 DC7B4B29 		.ascii	"\334{K)S\243e#R7\332\302\321\224\031\2053\036\315\302"
+ 628      53A36523 
+ 628      5237DAC2 
+ 628      D1941985 
+ 628      331ECDC2 
+ 629 0038 681AA879 		.ascii	"h\032\250y\234&\262i?\010\230fb\377\015Iy\375%\231\331"
+ 629      9C26B269 
+ 629      3F089866 
+ 629      62FF0D49 
+ 629      79FD2599 
+ 630 004d DD5D93B8 		.ascii	"\335]\223\270\177@\014\000`h0\264\313\320\255ALf\030"
+ 630      7F400C00 
+ 630      606830B4 
+ 630      CBD0AD41 
+ 630      4C6618
+ 631 0060 A0260024 		.ascii	"\240&\000$\000$\000\220\237\242@]\306\014\220\001"
+ 631      00240090 
+ 631      9FA2405D 
+ 631      C60C9001 
+ 632              		.text
+ 633              		.section	.gnu.lto_.refs.840c289f,"e",%progbits
+ 634 0000 28B52FFD 		.ascii	"(\265/\375 \005)\000\000\001\000\000\000\000"
+ 634      20052900 
+ 634      00010000 
+ 634      0000
+ 635              		.text
+ 636              		.section	.gnu.lto_.decls.840c289f,"e",%progbits
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 17
+
+
+ 637 0000 28B52FFD 		.ascii	"(\265/\375`3\004\215\032\000\0261\257I\320TUc\350\370"
+ 637      6033048D 
+ 637      1A001631 
+ 637      AF49D054 
+ 637      5563E8F8 
+ 638 0014 E7DAA0D5 		.ascii	"\347\332\240\325\274I\004q^h\255\366[\267L!\370\000"
+ 638      BC490471 
+ 638      5E68ADF6 
+ 638      5BB74C21 
+ 638      F800
+ 639 0026 11006D56 		.ascii	"\021\000mV\005\305\345.@BN7\373\337\352!qv^@\374@\227"
+ 639      05C5E52E 
+ 639      40424E37 
+ 639      FBDFEA21 
+ 639      71765E40 
+ 640 003d 664EE161 		.ascii	"fN\341at\027J\255\375h:\317\252d\245\032\\\205\257$"
+ 640      74174AAD 
+ 640      FD683ACF 
+ 640      AA64A51A 
+ 640      5C85AF24 
+ 641 0051 8B2C2147 		.ascii	"\213,!G\312\024\210\000\215\000\245\000\250\201\023"
+ 641      CA148800 
+ 641      8D00A500 
+ 641      A88113
+ 642 0060 A1A6101D 		.ascii	"\241\246\020\035\212r \023?\236\377$\031\276\024\361"
+ 642      8A722013 
+ 642      3F9EFF24 
+ 642      19BE14F1 
+ 643 0070 B9DF8BBD 		.ascii	"\271\337\213\275\334\001\336\357#\325\373H\352\177\340"
+ 643      DC01DEEF 
+ 643      23D5FB48 
+ 643      EA7FE0
+ 644 007f C5DF7FB2 		.ascii	"\305\337\177\262h\325\342Ib\371[\342\337\013\361\037"
+ 644      68D5E249 
+ 644      62F95BE2 
+ 644      DF0BF11F 
+ 645 008f F57FC04B 		.ascii	"\365\177\300K\024;\035\013\364\024B\207\212\370\317"
+ 645      143B1D0B 
+ 645      F4144287 
+ 645      8AF8CF
+ 646 009e 0AFBFFA7 		.ascii	"\012\373\377\247\271\262@Y=\204\353\357:\225\264\346"
+ 646      B9B24059 
+ 646      3D84EBEF 
+ 646      3A95B4E6 
+ 647 00ae 0EFDEF46 		.ascii	"\016\375\357FR\236i%\325\017\377\333%\247\030C~\360"
+ 647      529E6925 
+ 647      D50FFFDB 
+ 647      25A71843 
+ 647      7EF0
+ 648 00c0 B8A3E050 		.ascii	"\270\243\340P\221\311\266 l\017m\013m\257\266\203\266"
+ 648      91C9B620 
+ 648      6C0F6D0B 
+ 648      6DAFB683 
+ 648      B6
+ 649 00d1 55DB40DB 		.ascii	"U\333@\333$\333>l\337\343\361x\264-c\337\024\373\022"
+ 649      24DB3E6C 
+ 649      DFE3F178 
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 18
+
+
+ 649      B42D63DF 
+ 649      14FB12
+ 650 00e4 05A72392 		.ascii	"\005\247#\222\"<w\204\262*\244k\011\220N4B\336\220\276"
+ 650      223C7784 
+ 650      B22AA46B 
+ 650      09904E34 
+ 650      42DE90BE 
+ 651 00f8 8117988C 		.ascii	"\201\027\230\214\300\204\262\252-\201\247b;\245\307"
+ 651      C084B2AA 
+ 651      2D81A762 
+ 651      3BA5C7
+ 652 0107 A43462ED 		.ascii	"\2444b\355QqG\366\022n\"\312T\321\3644\313\237\005\276"
+ 652      517147F6 
+ 652      126E22CA 
+ 652      54D1F434 
+ 652      CB9F05BE 
+ 653 011b A6A7B9A6 		.ascii	"\246\247\271\246\247%\313\2244\207?\355\313\363L5=\314"
+ 653      A725CB94 
+ 653      34873FED 
+ 653      CBF34C35 
+ 653      3DCC
+ 654 012d C93F3D53 		.ascii	"\311?=S\346\232\273\251\346~R<\177\224\264/Q\322\374"
+ 654      E69ABBA9 
+ 654      E67E523C 
+ 654      7F94B42F 
+ 654      51D2FC
+ 655 0140 7FBFA2E7 		.ascii	"\177\277\242\347\313\334\2312\313\334\231\372\232\036"
+ 655      CBDC9932 
+ 655      CBDC99FA 
+ 655      9A1E
+ 656 014e C553FEA6 		.ascii	"\305S\376\246\232\236\034\276\3764\313\224\2272\237"
+ 656      9A9E1CBE 
+ 656      FE34CB94 
+ 656      97329F
+ 657 015d FB5F9296 		.ascii	"\373_\222\226\324\021\271\370\232\333]\236y\337\377"
+ 657      D411B9F8 
+ 657      9ADB5D9E 
+ 657      79DFFF
+ 658 016c 1EAB96EF 		.ascii	"\036\253\226\357\375e\266\315a\213,p\024Do\374\325\324"
+ 658      FD65B6CD 
+ 658      618B2C70 
+ 658      14446FFC 
+ 658      D5D4
+ 659 017e 49931237 		.ascii	"I\223\0227\206\356H\201U!\215,\001\322\005\016\207\226"
+ 659      86EE4881 
+ 659      55218D2C 
+ 659      01D2050E 
+ 659      8796
+ 660 0190 A8E72364 		.ascii	"\250\347#d,5\361Q\024tG\006\240\232\356\014\241\320"
+ 660      2C35F151 
+ 660      14744706 
+ 660      A09AEE0C 
+ 660      A1D0
+ 661 01a2 0257D0D2 		.ascii	"\002W\320\322\216 *\200W(\211\217\216\210\351\306XW"
+ 661      8E202A80 
+ 661      5728898F 
+ 661      8E88E9C6 
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 19
+
+
+ 661      5857
+ 662 01b4 0643297E 		.ascii	"\006C)~Pv=B\202\334\221oj\272-\202\301\010HN\360\200"
+ 662      50763D42 
+ 662      82DC916F 
+ 662      6ABA2D82 
+ 662      C108484E 
+ 663 01ca 96B8209A 		.ascii	"\226\270 \232@L\327\207FU-\360\006\357C\322\231 \301"
+ 663      404CD787 
+ 663      46552DF0 
+ 663      06EF43D2 
+ 663      9920C1
+ 664 01dd 33FEBD15 		.ascii	"3\376\275\025\022\017\214&\276;\262\3551]!\215\245a"
+ 664      120F8C26 
+ 664      BE3BB2ED 
+ 664      315D218D 
+ 664      A561
+ 665 01ef 816C836A 		.ascii	"\201l\203j\330 \013\264/^\322a\024\361c|\257\267r\322"
+ 665      D8200BB4 
+ 665      2F5ED261 
+ 665      14F1637C 
+ 665      AFB772D2 
+ 666 0203 03DAE1B8 		.ascii	"\003\332\341\270#\333Jl\201\266\265a\207|$\345g\362"
+ 666      23DB4A6C 
+ 666      81B6B561 
+ 666      877C24E5 
+ 666      67F2
+ 667 0215 3F41B218 		.ascii	"?A\262\030\331\3112\025\253\003\006\013\031bV022+\027"
+ 667      D9C93215 
+ 667      AB03060B 
+ 667      19625630 
+ 667      32322B17 
+ 668 0229 06331456 		.ascii	"\0063\024V7\234\255\246\223\0017\313\231\271lh4\027"
+ 668      379CADA6 
+ 668      930137CB 
+ 668      99B96C68 
+ 668      3417
+ 669 023b EDA5E31A 		.ascii	"\355\245\343\032`\231\012v\333i\301n;%\313T-\227\226"
+ 669      60990A76 
+ 669      DB69C16E 
+ 669      3B25CB54 
+ 669      2D9796
+ 670 024e 990AAB1B 		.ascii	"\231\012\253\033lf\303\345\324^X&\330\330^5X\000\313"
+ 670      6C66C3E5 
+ 670      D45E5826 
+ 670      D8D85E35 
+ 670      5800CB
+ 671 0261 54B89BEB 		.ascii	"T\270\233\353\306f\207\026\313\2315\300\335HV9f\023"
+ 671      C6668716 
+ 671      CB9935C0 
+ 671      DD485639 
+ 671      6613
+ 672 0273 6BC56E5E 		.ascii	"k\305n^\017T(v\300zQ\240\341B\214)\246\212\331n+\332"
+ 672      0F542876 
+ 672      C07A51A0 
+ 672      E1428C29 
+ 672      A68AD96E 
+ 673 0289 4BB6BAD5 		.ascii	"K\266\272\325V3\030f\260\231\354\245\246\345\302\322"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 20
+
+
+ 673      56331866 
+ 673      B099ECA5 
+ 673      A6E5C2D2 
+ 674 0299 C1B9C1D5 		.ascii	"\301\271\301\325|\220\355\314h\256WKK\015\004\030\026"
+ 674      7C90EDCC 
+ 674      68AE574B 
+ 674      4B0D0418 
+ 674      16
+ 675 02aa DC2CC702 		.ascii	"\334,\307\002\355%+\271\005\207\305\303\015\316V\213"
+ 675      ED252BB9 
+ 675      0587C5C3 
+ 675      0DCE568B 
+ 676 02ba 09300ECB 		.ascii	"\0110\016\313\255\325\001\307\366\012\340\026\013\200"
+ 676      ADD501C7 
+ 676      F60AE016 
+ 676      0B80
+ 677 02c8 8E40A881 		.ascii	"\216@\250\201T!s\206$\030\231\211\241 -\360\200\002"
+ 677      54217386 
+ 677      24189989 
+ 677      A1202DF0 
+ 677      8002
+ 678 02da 99B2EC12 		.ascii	"\231\262\354\022 \2265UM0\023N\376.\273\\\014\3308:"
+ 678      20963555 
+ 678      4D30134E 
+ 678      FE2EBB5C 
+ 678      0CD8383A 
+ 679 02ee 43AA39AC 		.ascii	"C\2529\254g\311\020=\341\222M+\202\2524\034.\03625\370"
+ 679      67C9103D 
+ 679      E1924D2B 
+ 679      82AA341C 
+ 679      2E1E3235 
+ 680 0303 80C1594C 		.ascii	"\200\301YL@\262\231\017\011\010\232$\006,HT\206\026"
+ 680      40B2990F 
+ 680      09089A24 
+ 680      062C4854 
+ 680      8616
+ 681 0315 AB247B1D 		.ascii	"\253${\035\327f\331vQ\250\217\373\332\021-beZa\032."
+ 681      D766D976 
+ 681      51A88FFB 
+ 681      DA112D62 
+ 681      655A611A 
+ 682 032a 060B79E5 		.ascii	"\006\013y\345.\271\244\241!\007b\231\210\201\260\022"
+ 682      2EB9A4A1 
+ 682      21076299 
+ 682      8881B012 
+ 683 033a 109BE485 		.ascii	"\020\233\344\205\006%t!\003\353>P\371bF\224\2534I\217"
+ 683      06257421 
+ 683      03EB3E50 
+ 683      F9624694 
+ 683      AB34498F 
+ 684 034e EF8F926D 		.ascii	"\357\217\222m\271\360\361z\302r\004|\032"
+ 684      B9F0F17A 
+ 684      C272047C 
+ 684      1A
+ 685              		.text
+ 686              		.section	.gnu.lto_.symtab.840c289f,"e",%progbits
+ 687 0000 68616C49 		.ascii	"halInit\000"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 21
+
+
+ 687      6E697400 
+ 688 0008 00       		.ascii	"\000"
+ 689 0009 00       		.ascii	"\000"
+ 690 000a 00       		.ascii	"\000"
+ 691 000b 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 691      00000000 
+ 692 0013 BE000000 		.ascii	"\276\000\000\000"
+ 693 0017 7374496E 		.ascii	"stInit\000"
+ 693      697400
+ 694 001e 00       		.ascii	"\000"
+ 695 001f 02       		.ascii	"\002"
+ 696 0020 00       		.ascii	"\000"
+ 697 0021 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 697      00000000 
+ 698 0029 C0000000 		.ascii	"\300\000\000\000"
+ 699 002d 626F6172 		.ascii	"boardInit\000"
+ 699      64496E69 
+ 699      7400
+ 700 0037 00       		.ascii	"\000"
+ 701 0038 02       		.ascii	"\002"
+ 702 0039 00       		.ascii	"\000"
+ 703 003a 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 703      00000000 
+ 704 0042 C2000000 		.ascii	"\302\000\000\000"
+ 705 0046 75736249 		.ascii	"usbInit\000"
+ 705      6E697400 
+ 706 004e 00       		.ascii	"\000"
+ 707 004f 02       		.ascii	"\002"
+ 708 0050 00       		.ascii	"\000"
+ 709 0051 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 709      00000000 
+ 710 0059 C4000000 		.ascii	"\304\000\000\000"
+ 711 005d 5F70616C 		.ascii	"_pal_lld_init\000"
+ 711      5F6C6C64 
+ 711      5F696E69 
+ 711      7400
+ 712 006b 00       		.ascii	"\000"
+ 713 006c 02       		.ascii	"\002"
+ 714 006d 00       		.ascii	"\000"
+ 715 006e 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 715      00000000 
+ 716 0076 C6000000 		.ascii	"\306\000\000\000"
+ 717 007a 68616C5F 		.ascii	"hal_lld_init\000"
+ 717      6C6C645F 
+ 717      696E6974 
+ 717      00
+ 718 0087 00       		.ascii	"\000"
+ 719 0088 02       		.ascii	"\002"
+ 720 0089 00       		.ascii	"\000"
+ 721 008a 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 721      00000000 
+ 722 0092 C8000000 		.ascii	"\310\000\000\000"
+ 723              		.text
+ 724              		.section	.gnu.lto_.ext_symtab.840c289f,"e",%progbits
+ 725 0000 01       		.ascii	"\001"
+ 726 0001 01       		.ascii	"\001"
+ 727 0002 00       		.ascii	"\000"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 22
+
+
+ 728 0003 01       		.ascii	"\001"
+ 729 0004 00       		.ascii	"\000"
+ 730 0005 01       		.ascii	"\001"
+ 731 0006 00       		.ascii	"\000"
+ 732 0007 01       		.ascii	"\001"
+ 733 0008 00       		.ascii	"\000"
+ 734 0009 01       		.ascii	"\001"
+ 735 000a 00       		.ascii	"\000"
+ 736 000b 01       		.ascii	"\001"
+ 737 000c 00       		.ascii	"\000"
+ 738              		.text
+ 739              		.section	.gnu.lto_.opts,"e",%progbits
+ 740 0000 272D666E 		.ascii	"'-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-prote"
+ 740      6F2D6F70 
+ 740      656E6D70 
+ 740      2720272D 
+ 740      666E6F2D 
+ 741 0033 6374696F 		.ascii	"ction=none' '-g' '-mcpu=cortex-m0' '-mthumb' '-mflo"
+ 741      6E3D6E6F 
+ 741      6E652720 
+ 741      272D6727 
+ 741      20272D6D 
+ 742 0066 61742D61 		.ascii	"at-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m'"
+ 742      62693D73 
+ 742      6F667427 
+ 742      20272D6D 
+ 742      6C696261 
+ 743 0099 20272D4F 		.ascii	" '-Os' '-fomit-frame-pointer' '-falign-functions=16"
+ 743      73272027 
+ 743      2D666F6D 
+ 743      69742D66 
+ 743      72616D65 
+ 744 00cc 2720272D 		.ascii	"' '-ffunction-sections' '-fdata-sections' '-fno-com"
+ 744      6666756E 
+ 744      6374696F 
+ 744      6E2D7365 
+ 744      6374696F 
+ 745 00ff 6D6F6E27 		.ascii	"mon' '-flto' '-Xassembler' '-alms=./build/lst/hal.l"
+ 745      20272D66 
+ 745      6C746F27 
+ 745      20272D58 
+ 745      61737365 
+ 746 0132 73742700 		.ascii	"st'\000"
+ 747              		.text
+ 748              		.comm	__gnu_lto_slim,1,1
+ 749              		.ident	"GCC: (GNU) 12.2.0"
+ARM GAS  C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hal.c
+C:\Users\PUBLIC~1.LAP\AppData\Local\Temp\ccmLA3Ky.s:28     .gnu.debuglto_.debug_info:00000000 hal.c.9aec6cdc
+                            *COM*:00000001 __gnu_lto_slim
+
+NO UNDEFINED SYMBOLS

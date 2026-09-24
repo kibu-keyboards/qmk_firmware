@@ -1,0 +1,102 @@
+name: P75 JIS 0812 reproducible build
+
+on:
+  push:
+    branches: [p75-jis-0812]
+    tags: [p75-jis-0812-r1]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out fixed source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          submodules: false
+
+      - name: Restore exact archive bytes in this fresh CI checkout
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force .git/info | Out-Null
+          Set-Content -LiteralPath .git/info/attributes -Value '* -text -eol -filter -ident' -Encoding ascii
+          git checkout-index --all --force
+          if ($LASTEXITCODE -ne 0) { throw 'Failed to restore exact Git blob bytes.' }
+
+      - name: Set up Windows Python 3.12
+        id: python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify every release manifest entry
+        env:
+          P75_WINDOWS_PYTHON: ${{ steps.python.outputs.python-path }}
+        run: |
+          @'
+          import csv
+          import hashlib
+          import re
+          from pathlib import Path
+
+          root = Path.cwd().resolve()
+          manifest_name = "metadata/release-manifest.csv"
+          seen = set()
+          with (root / manifest_name).open(encoding="utf-8-sig", newline="") as stream:
+              rows = csv.DictReader(stream)
+              if rows.fieldnames != ["path", "bytes", "sha256"]:
+                  raise ValueError("Unexpected release manifest columns")
+              for line, row in enumerate(rows, start=2):
+                  name = row["path"]
+                  if (not name or "\\" in name or ":" in name
+                          or any(part in ("", ".", "..") for part in name.split("/"))
+                          or any(part.endswith((" ", ".")) for part in name.split("/"))):
+                      raise ValueError(f"Unsafe manifest path at line {line}: {name!r}")
+                  key = name.casefold()
+                  if key == manifest_name.casefold() or key == ".git" or key.startswith(".git/"):
+                      raise ValueError(f"Excluded manifest path at line {line}: {name}")
+                  if key in seen:
+                      raise ValueError(f"Duplicate manifest path at line {line}: {name}")
+                  seen.add(key)
+                  target = (root / name).resolve()
+                  if not target.is_relative_to(root) or not target.is_file():
+                      raise ValueError(f"Missing or out-of-package file: {name}")
+                  if not re.fullmatch(r"[0-9]+", row["bytes"] or ""):
+                      raise ValueError(f"Invalid byte count: {name}")
+                  if not re.fullmatch(r"[0-9a-fA-F]{64}", row["sha256"] or ""):
+                      raise ValueError(f"Invalid SHA256: {name}")
+                  if target.stat().st_size != int(row["bytes"]):
+                      raise ValueError(f"Size mismatch: {name}")
+                  with target.open("rb") as data:
+                      actual = hashlib.file_digest(data, "sha256").hexdigest()
+                  if actual != row["sha256"].lower():
+                      raise ValueError(f"SHA256 mismatch: {name}")
+          if not seen:
+              raise ValueError("Release manifest contains no files")
+          print(f"PASS: {len(seen)} release manifest files verified; manifest itself excluded")
+          '@ | & $env:P75_WINDOWS_PYTHON -
+          if ($LASTEXITCODE -ne 0) { throw 'Release manifest validation failed.' }
+
+      - name: Set up MSYS tools
+        id: msys2
+        uses: msys2/setup-msys2@66cd2cce69caa17b53920067426061ca1de3a884 # v2
+        with:
+          msystem: MSYS
+          update: true
+          cache: false
+          install: make diffutils
+
+      - name: Download dependencies and compare rebuilt BIN
+        env:
+          P75_WINDOWS_PYTHON: ${{ steps.python.outputs.python-path }}
+          P75_MSYS2_ROOT: ${{ steps.msys2.outputs.msys2-location }}
+        run: |
+          ./tools/ci-build.ps1 -PythonPath $env:P75_WINDOWS_PYTHON -BashPath (Join-Path $env:P75_MSYS2_ROOT 'usr/bin/bash.exe') -WorkDirectory (Join-Path $env:RUNNER_TEMP 'p75-0812-build')
